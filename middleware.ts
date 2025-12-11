@@ -6,6 +6,8 @@ import { UserTypeENUM } from './lib/types';
 const publicRoutes = [
   '/',
   '/login',
+  '/forget-password',
+  '/reset-password',
   '/admin/login',
   '/agent/register',
   '/agent/onboard',

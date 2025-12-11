@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -14,99 +15,115 @@ import Link from 'next/link';
 import { Loader } from 'lucide-react';
 
 // ---------------- Schema ----------------
-const formSchema = z.object({
-  newPassword: z.string(),
-  code: z.string(),
-});
+const formSchema = z
+  .object({
+    code: z.string().min(4, 'OTP must be 4 digits'),
+    newPassword: z.string().min(6, 'Password must be at least 6 characters'),
+    confirmPassword: z.string().min(6),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
+
+// ---------------- Helper ----------------
+async function apiRequest(url: string, data: any) {
+  const res = await fetch(process.env.NEXT_PUBLIC_QUARTUS_API_URL + url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.message || 'Something went wrong');
+  }
+
+  return res.json();
+}
 
 // ---------------- Component ----------------
 const ResetPasswordForm = () => {
-  const route = useRouter();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const userId = searchParams.get('userId') || '';
+
   const [userStatusModalOpen, setUserStatusModalOpen] = useState<UserStatus>(null);
   const [resendLoading, setResendLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      confirmPassword: '',
       newPassword: '',
       code: '',
     },
   });
 
+  // ------------ Submit Handler ------------
   const onSubmit = handleAsync(async (values: z.infer<typeof formSchema>) => {
-    try {
-      setUserStatusModalOpen(null);
-      const preparedValues = { ...values, userId };
+    setUserStatusModalOpen(null);
 
-      const res = await fetch(process.env.NEXT_PUBLIC_QUARTUS_API_URL + '/auth/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(preparedValues),
-      });
+    await apiRequest('/auth/reset-password', { ...values, userId });
 
-      if (!res.ok) {
-        const response = await res.json();
-        throw new Error(response.message || 'Invalid credentials');
-      }
-      await res.json();
-      toast.success('Password has been reset successfully');
-      route.push('/login');
-    } finally {
-      console.log('done');
-    }
+    toast.success('Password has been reset successfully');
+    router.push('/login');
   });
 
+  // ------------ Resend OTP Handler ------------
   const handleResendOtp = handleAsync(async () => {
-    try {
-      setResendLoading(true);
-      setUserStatusModalOpen(null);
+    setResendLoading(true);
+    setUserStatusModalOpen(null);
 
-      const res = await fetch(process.env.NEXT_PUBLIC_QUARTUS_API_URL + '/auth/resend-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId }),
-      });
+    await apiRequest('/auth/resend-otp', { userId });
 
-      if (!res.ok) {
-        const response = await res.json();
-        throw new Error(response.message || 'Invalid data');
-      }
-      await res.json();
-      toast.success('Password reset code resent successfully');
-    } finally {
-      setResendLoading(false);
-    }
+    toast.success('Password reset code resent successfully');
+    setResendLoading(false);
   });
 
+  // ---------------- JSX ----------------
   return (
     <>
       {userStatusModalOpen && <UserStatusModal status={userStatusModalOpen} />}
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col py-6 gap-4 mt-3">
+          {/* OTP Field */}
           <FormWrapper
             control={form.control}
             name="code"
-            type="text"
-            placeholder="Code"
-            require={true}
+            type="number"
+            placeholder="Enter Code"
+            require
             cssStyles="mb-4"
           />
+
+          {/* Password Field */}
           <FormWrapper
             control={form.control}
             name="newPassword"
-            type="text"
+            type="password"
             placeholder="New Password"
-            require={true}
+            require
+            cssStyles="mb-4"
+          />
+
+          {/* Confirm Password Field */}
+          <FormWrapper
+            control={form.control}
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            require
             cssStyles="mb-4"
           />
 
           {/* Resend */}
           <button
             type="button"
-            className="w-fit flex items-center gap-2 text-sm text-primary font-medium"
-            disabled={resendLoading || form.formState.isSubmitting}
             onClick={handleResendOtp}
+            disabled={resendLoading || form.formState.isSubmitting}
+            className="w-fit flex items-center gap-2 text-sm text-primary font-medium"
           >
             Resend code
             {resendLoading && <Loader className="animate-spin size-4" />}
@@ -117,6 +134,7 @@ const ResetPasswordForm = () => {
             <Button type="button" variant="outline" disabled={form.formState.isSubmitting}>
               <Link href="/forget-password">Back</Link>
             </Button>
+
             <Button type="submit" disabled={form.formState.isSubmitting}>
               Continue
             </Button>
