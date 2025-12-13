@@ -111,6 +111,12 @@ const AdminSidebar = () => {
       icon: MessageCircle,
       isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.chat }),
     },
+    {
+      name: 'Tax Bureau',
+      href: '/admin/tax-bureau',
+      icon: CreditCard,
+      isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.chat }),
+    },
   ];
   const visibleItems = navigationItems.filter((item) => item.isVisible);
 

@@ -15,4 +15,5 @@ export enum PERMISSIONS_LIST_ENUM {
   support = 'support',
   chat = 'chat',
   receipts = 'receipts',
+  tax_bureau = 'tax_bureau',
 }
