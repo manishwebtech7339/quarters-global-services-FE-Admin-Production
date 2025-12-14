@@ -75,6 +75,18 @@ export function FormCombobox<T extends FieldValues>({
     return () => clearTimeout(timer);
   }, [search]);
 
+  // Set default options
+  React.useEffect(() => {
+    if (initialOptions) {
+      const mappedOptions: ComboboxOption[] = initialOptions.map((item) => ({
+        value: item._id ?? item.value ?? '',
+        label: formatLabel ? formatLabel(item) : (item.name ?? item.label ?? ''),
+        ...item,
+      }));
+      setOptions(mappedOptions);
+    }
+  });
+
   // Helper to get label from item
   const getItemLabel = React.useCallback(
     (item: any): string => {
