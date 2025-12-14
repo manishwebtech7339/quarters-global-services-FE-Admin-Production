@@ -28,7 +28,7 @@ import { Button } from '@/components/ui/button';
 import { FileInput } from '@/components/ui/file-input';
 import { useRouter } from 'next/navigation';
 import { CustomerDataType } from '@/services/customerService';
-import { UserDataType } from '@/lib/types';
+import { UserDataType, UserTypeENUM } from '@/lib/types';
 import { uploadFile } from '@/lib/uploadUtils';
 import { fetcher } from '@/lib/fetcher';
 import { commonFieldSchema } from '@/lib/formSchemaFunctions';
@@ -49,8 +49,6 @@ const ticketFormSchema = z.object({
   serviceForm: z.any().optional(),
   signature: z.any().optional(),
 });
-
-type TicketFormData = z.infer<typeof ticketFormSchema>;
 
 interface TicketFormProps {
   isView?: boolean;
@@ -314,30 +312,16 @@ const TicketForm = ({
               </FormItem>
             )}
           />
-          <FormField
+
+          <FormCombobox
             control={form.control}
             name="assignedStaff"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Assigned Staff</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select staff..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {staff.map((staffMember) => (
-                        <SelectItem key={staffMember._id} value={staffMember._id}>
-                          {staffMember.firstName} {staffMember.lastName} ({staffMember.email})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Select Staff"
+            apiUrl={`/user/get-all-user?roles=${UserTypeENUM.AGENT}`}
+            initialOptions={staff}
+            formatLabel={(item) => `${item.firstName ?? ''} ${item.lastName ?? ''} (${item.email})`}
           />
+
           <FormField
             control={form.control}
             name="subject"

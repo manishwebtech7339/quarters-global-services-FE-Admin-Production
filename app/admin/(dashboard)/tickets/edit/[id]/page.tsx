@@ -18,15 +18,16 @@ const EditTicketPage = async ({ params }: { params: Promise<{ id: string }> }) =
   }
 
   // Fetch ticket data and dropdown data in parallel
-  const [ticketData, customersResponse, staffResponse] = await Promise.all([
-    getTicketById(id),
-    getAllCustomers({ page: '1' }),
-    getAgents({ page: '1' }),
-  ]);
+  const [ticketData] = await Promise.all([getTicketById(id)]);
 
   if (!ticketData) {
     return redirect('/admin/tickets');
   }
+
+  const [customersResponse, staffResponse] = await Promise.all([
+    getAllCustomers({ search: ticketData.customer || '', page: '1' }),
+    getAgents({ search: ticketData.assignedStaff || '', page: '1' }),
+  ]);
 
   // Filter customers to only include users with role 'user'
   const customers = customersResponse.data?.data?.filter((user) => user.role === 'user') || [];
