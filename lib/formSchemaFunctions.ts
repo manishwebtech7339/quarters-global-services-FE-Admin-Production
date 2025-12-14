@@ -126,7 +126,7 @@ export const documentFileSchema = (MAX_FILE_SIZE: number, ALLOWED_EXTENSIONS: st
 
   return z
     .any()
-    .refine((val) => val !== null || val !== undefined || val !== '', {
+    .refine((val) => val !== null && val !== undefined && val !== '', {
       message: 'This field is required',
     })
     .refine(

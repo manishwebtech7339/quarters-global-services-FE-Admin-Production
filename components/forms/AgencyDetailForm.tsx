@@ -17,10 +17,8 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { parsePhoneNumber } from 'react-phone-number-input';
 import { Country, State, City } from 'country-state-city';
 import { Input } from '../ui/input';
-import { PhoneInput } from '../ui/phone-input';
 import { Button } from '../ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
@@ -33,6 +31,7 @@ import { RootState } from '@/store/Store';
 import { safeUpload } from '@/lib/uploadUtils';
 import { toast } from 'sonner';
 import { AgencyDataType } from '@/lib/types';
+import { PhoneInput2 } from '../ui/PhoneInput2';
 
 const formSchema = z.object({
   // Step 1: Agency Details
@@ -513,15 +512,11 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                       Contact Phone <sup className="text-red-500">*</sup>
                     </FormLabel>
                     <FormControl>
-                      <PhoneInput
-                        placeholder=""
-                        {...field}
-                        onChange={(value) => {
-                          if (!value) return;
-                          const phoneNumber = parsePhoneNumber(value);
-                          if (phoneNumber)
-                            form.setValue('countryCode', phoneNumber.countryCallingCode);
-                          field.onChange(value);
+                      <PhoneInput2
+                        value={field.value}
+                        onChange={(val, df) => {
+                          field.onChange(val ? `+${val}` : '');
+                          form.setValue('countryCode', `+${df.dialCode || ''}`);
                         }}
                       />
                     </FormControl>

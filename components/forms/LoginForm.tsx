@@ -37,52 +37,49 @@ const LoginForm = () => {
   });
 
   const onSubmit = handleAsync(async (values: z.infer<typeof formSchema>) => {
-    try {
-      setUserStatusModalOpen(null);
-      // 🔑 Call your backend login route
-      const res = await fetch(process.env.NEXT_PUBLIC_QUARTUS_API_URL + '/auth/sign-in', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
+    setUserStatusModalOpen(null);
+    // 🔑 Call your backend login route
+    const res = await fetch(process.env.NEXT_PUBLIC_QUARTUS_API_URL + '/auth/sign-in', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    });
 
-      // For onboarding use
-      sessionStorage.setItem('email', values.email);
-      sessionStorage.setItem('isNewUser', 'false');
+    // For onboarding use
+    sessionStorage.setItem('email', values.email);
+    sessionStorage.setItem('isNewUser', 'false');
 
-      if (!res.ok) {
-        const response = await res.json();
+    if (!res.ok) {
+      const response = await res.json();
 
-        if (response.data === 'agency:not-found') {
-          setUserStatusModalOpen('NOT_ASSIGNED');
-          return;
-        }
-        if (response.data === 'agency:pending') {
-          setUserStatusModalOpen('PENDING');
-          return;
-        }
-        if (response.data === 'agency:rejected') {
-          setUserStatusModalOpen('REJECTED');
-          return;
-        }
-        throw new Error(response.message || 'Invalid credentials');
+      if (response.data === 'agency:not-found') {
+        setUserStatusModalOpen('NOT_ASSIGNED');
+        sessionStorage.setItem('isNewUser', 'true');
+        return;
       }
-
-      const data = await res.json();
-      const userDataId = data?.data?._id;
-      const userDataToken = data?.data?.token?.split(' ')?.[1];
-      const userDataRole = data?.data?.role || UserTypeENUM.ADMIN;
-
-      if (!userDataToken || !userDataId) {
-        throw new Error('User data not found');
+      if (response.data === 'agency:pending') {
+        setUserStatusModalOpen('PENDING');
+        return;
       }
-      // Save user token
-      saveSession({ id: userDataId, token: userDataToken }, userDataRole);
-      toast.success('Login successfully');
-      route.push('/admin/home');
-    } finally {
-      console.log('done');
+      if (response.data === 'agency:rejected') {
+        setUserStatusModalOpen('REJECTED');
+        return;
+      }
+      throw new Error(response.message || 'Invalid credentials');
     }
+
+    const data = await res.json();
+    const userDataId = data?.data?._id;
+    const userDataToken = data?.data?.token?.split(' ')?.[1];
+    const userDataRole = data?.data?.role || UserTypeENUM.ADMIN;
+
+    if (!userDataToken || !userDataId) {
+      throw new Error('User data not found');
+    }
+    // Save user token
+    saveSession({ id: userDataId, token: userDataToken }, userDataRole);
+    toast.success('Login successfully');
+    route.push('/admin/home');
   });
 
   return (
