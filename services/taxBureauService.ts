@@ -3,53 +3,43 @@ import { fetcher } from '@/lib/fetcher';
 import { TaxBureauDataType } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
-export interface TicketDataType {
-  _id: string;
-  status: 'Open' | 'Closed' | 'Resolved' | 'Waiting on Customer' | 'Urgent';
-  priority: 'Low' | 'Normal' | 'High' | 'Urgent';
-  customer: string;
-  applicationId: string;
-  category: string;
-  subCategory?: string;
-  assignedStaff?: string;
-  subject: string;
-  description?: string;
-  // attachments: TicketAttachments;
-  passportScan?: {
-    file: string;
-    filename: string;
-    mimeType: string;
+export interface TaxBureauListResponse {
+  status: boolean;
+  message: string;
+  data: {
+    data: TaxBureauDataType[];
+    count: number;
+    currentPage: number;
+    totalPages: number;
   };
-  serviceForm?: {
-    file: string;
-    filename: string;
-    mimeType: string;
-  };
-  signature?: {
-    file: string;
-    filename: string;
-    mimeType: string;
-  };
-
-  isDeleted: boolean;
-  deletedBy?: string | null;
-  deletedAt?: string | null;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
 }
 
-export const getTaxBureau = async (): Promise<TaxBureauDataType[]> => {
+export const getTaxBureau = async ({
+  page = '1',
+  search = '',
+  from = '',
+  to = '',
+  status = '',
+  createdBy = '',
+}: {
+  page: string;
+  search?: string;
+  from?: string;
+  to?: string;
+  status?: string;
+  createdBy?: string;
+}): Promise<TaxBureauListResponse> => {
   try {
-    const response = await fetcher(`/tax-bureau`, {
-      cache: 'no-cache',
-      revalidate: 60,
-    });
-
-    return response?.data || [];
+    const response = await fetcher(
+      `/tax-bureau?page=${page}&search=${search}&from=${from}&to=${to}&status=${status}&createdBy=${createdBy}`,
+      {
+        method: 'GET',
+      },
+    );
+    return response;
   } catch (error) {
-    console.log(error, 'Tax fetch error');
-    return [];
+    console.error('Error fetching customers:', error);
+    throw error;
   }
 };
 

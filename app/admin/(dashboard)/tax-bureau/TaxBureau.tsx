@@ -3,10 +3,11 @@ import Icon from '@/components/common/Icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { TaxBureauDataType } from '@/lib/types';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import DeleteTaxBureau from './DeleteTaxBureau';
+import { TaxBureauListResponse } from '@/services/taxBureauService';
+import Paginator from '@/components/shared/paginator';
 
 const columns = [
   {
@@ -80,7 +81,8 @@ const columns = [
   },
 ];
 
-const TaxBureau = ({ data }: { data: TaxBureauDataType[] }) => {
+const TaxBureau = ({ data }: { data: TaxBureauListResponse }) => {
+  const prepareData = data || [];
   return (
     <div className="space-y-2">
       {/* Filters */}
@@ -108,8 +110,11 @@ const TaxBureau = ({ data }: { data: TaxBureauDataType[] }) => {
       </div>
       {/* Tickets Data */}
       <div className="space-y-4 min-h-[60svh] flex flex-col justify-between">
-        <CommonTable columns={columns} data={data} />
+        <CommonTable columns={columns} data={data.data.data || []} />
       </div>
+
+      {/* Pagination */}
+      <Paginator totalItems={data?.data?.totalPages || 0} />
     </div>
   );
 };
