@@ -29,7 +29,7 @@ export const ChatSidebar = ({ chats }: ChatSidebarProps) => {
         ) : (
           chats.map((chat) => {
             const isActive = pathname === `/admin/chat/${chat._id}`;
-            const partnerName = `${chat.user.firstName} ${chat.user.lastName}`;
+            const partnerName = `${chat?.user?.firstName ?? 'N/A'} ${chat?.user?.lastName}`;
 
             return (
               <Link

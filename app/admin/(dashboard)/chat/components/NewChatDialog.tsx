@@ -43,7 +43,6 @@ export const NewChatDialog = ({
 
   // Data State
   const [users, setUsers] = useState<UserDataType[]>([]);
-  console.log(users, 'users');
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);

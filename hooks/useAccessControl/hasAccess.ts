@@ -40,12 +40,12 @@ const hasAccess = async ({ permission }: IProps): Promise<boolean> => {
 
   const hasPermission = permissions.includes(permission);
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log(
-      `Access check for role and permission [${PERMISSIONS_LIST_ENUM[permission]}]:`,
-      hasPermission ? '✅ ALLOWED' : '❌ DENIED',
-    );
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   console.log(
+  //     `Access check for role and permission [${PERMISSIONS_LIST_ENUM[permission]}]:`,
+  //     hasPermission ? '✅ ALLOWED' : '❌ DENIED',
+  //   );
+  // }
 
   return hasPermission;
 };

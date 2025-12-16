@@ -120,8 +120,6 @@ const AdminSidebar = () => {
   ];
   const visibleItems = navigationItems.filter((item) => item.isVisible);
 
-  console.log(visibleItems, 'visibleItems');
-
   return <Sidebar navigationItems={visibleItems} isLoading={isLoading} />;
 };
 

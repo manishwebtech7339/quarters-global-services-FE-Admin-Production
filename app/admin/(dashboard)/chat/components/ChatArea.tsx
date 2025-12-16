@@ -138,14 +138,14 @@ const ChatArea = ({ initialMessages, chatDetails, currentUserId, role }: ChatAre
       {/* Header */}
       <div className="p-4 border-b flex items-center gap-3">
         <Avatar>
-          <AvatarImage src={chatDetails.user.avatar} />
-          <AvatarFallback>{chatDetails.user.firstName?.[0]}</AvatarFallback>
+          <AvatarImage src={chatDetails?.user?.avatar ?? '-'} />
+          <AvatarFallback>{chatDetails?.user?.firstName?.[0] ?? '-'}</AvatarFallback>
         </Avatar>
         <div>
           <h3 className="font-semibold">
-            {chatDetails.user.firstName} {chatDetails.user.lastName}
+            {chatDetails?.user?.firstName || 'N/A'} {chatDetails?.user?.lastName}
           </h3>
-          <p className="text-xs text-muted-foreground capitalize">{chatDetails.user.role}</p>
+          <p className="text-xs text-muted-foreground capitalize">{chatDetails?.user?.role}</p>
         </div>
       </div>
 

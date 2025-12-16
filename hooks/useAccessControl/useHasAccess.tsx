@@ -46,12 +46,12 @@ const useHasAccess = () => {
     }
 
     if (userData.role === UserTypeENUM.ADMIN) {
-      console.log(`Access: Admin can access all`);
+      // console.log(`Access: Admin can access all`);
       return true;
     }
 
     if (userData.role === UserTypeENUM.AGENT) {
-      console.log(`Access: Agent can access all`);
+      // console.log(`Access: Agent can access all`);
       return true;
     }
 
@@ -59,12 +59,12 @@ const useHasAccess = () => {
 
     const hasPermission = permissions.includes(permission);
 
-    if (process.env.NODE_ENV === 'development') {
-      console.log(
-        `Access check for role  and permission [${PERMISSIONS_LIST_ENUM[permission]}]:`,
-        hasPermission ? '✅ ALLOWED' : '❌ DENIED',
-      );
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    //   console.log(
+    //     `Access check for role  and permission [${PERMISSIONS_LIST_ENUM[permission]}]:`,
+    //     hasPermission ? '✅ ALLOWED' : '❌ DENIED',
+    //   );
+    // }
 
     return hasPermission;
   };
