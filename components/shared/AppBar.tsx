@@ -3,14 +3,20 @@ import { Bell, Menu, Search, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Input } from '../ui/input';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
-import { SideBarContent } from '../ui/sidebar';
+import { NavItem, SideBarContent } from '../ui/sidebar';
 import { Button } from '../ui/button';
 import { usePathname } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import useHasAccess from '@/hooks/useAccessControl/useHasAccess';
 import Link from 'next/link';
 
-const AppBar = () => {
+const AppBar = ({
+  navigationItems = [],
+  sidebarLoading = false,
+}: {
+  navigationItems: NavItem[];
+  sidebarLoading?: boolean;
+}) => {
   const { isLoading, userData } = useHasAccess();
 
   const pathname = usePathname();
@@ -44,7 +50,7 @@ const AppBar = () => {
             </SheetTrigger>
             <SheetContent side="left">
               <SheetHeader className="hidden"></SheetHeader>
-              <SideBarContent navigationItems={[]} />
+              <SideBarContent navigationItems={navigationItems} isLoading={sidebarLoading} />
             </SheetContent>
           </Sheet>
 
