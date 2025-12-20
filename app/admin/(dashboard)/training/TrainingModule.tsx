@@ -106,7 +106,6 @@ interface IProps {
   data: ApiPagination & { data: TrainingDataType[] };
 }
 const Training = ({ data }: IProps) => {
-  console.log(data?.data, 'data?.data');
   return (
     <div className="space-y-2">
       <div className="flex justify-end">

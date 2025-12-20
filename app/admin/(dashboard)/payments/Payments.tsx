@@ -107,7 +107,7 @@ const Payments = ({
       {/* Filters */}
       <div className="flex items-center justify-end gap-2">
         <ExcelExportButton rows={transactionsData?.data || []} filename="payments.xlsx" />
-        <CommonFilters />
+        <CommonFilters showDateFilters={false} />
       </div>
 
       {/* Table */}

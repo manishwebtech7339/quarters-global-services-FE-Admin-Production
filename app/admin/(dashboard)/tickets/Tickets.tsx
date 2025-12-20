@@ -118,7 +118,7 @@ const Tickets = ({ ticketsData }: TicketsProps) => {
       <div className="flex justify-between  ">
         <div></div>
         <div className="flex items-center gap-2">
-          <CommonFilters />
+          <CommonFilters showDateFilters={false} />
 
           <Button asChild className="bg-primary-100 text-white">
             <Link href="/admin/tickets/create-ticket">
