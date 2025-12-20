@@ -6,7 +6,7 @@ import Icon from '@/components/common/Icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { ExternalLink, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import TabButton from '../TabButton';
 import { ApiPagination, BookingDataType } from '@/lib/types';
@@ -14,6 +14,7 @@ import { deleteBooking } from '@/services/vehicleservice';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Paginator from '@/components/shared/paginator';
+import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 
 const VehiclesBookings = ({
   bookingData,
@@ -137,17 +138,14 @@ const VehiclesBookings = ({
       ),
     },
   ];
-  console.log(bookingData, 'bookingData');
   return (
     <div className="space-y-2">
       {/* Filters and Actions */}
       <div className="flex items-center justify-between flex-wrap gap-2">
         <TabButton />
         <div className="flex items-center gap-2">
-          <Button>
-            <ExternalLink />
-            Export
-          </Button>
+          <ExcelExportButton rows={bookingData?.data || []} filename="vehicles-bookings.xlsx" />
+
           <Popover>
             <PopoverTrigger>
               <Button variant="outline">Filter</Button>

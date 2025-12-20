@@ -3,7 +3,7 @@ import CommonTable from '@/components/common/CommonTable';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ExternalLink, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import Icon from '@/components/common/Icon';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { vehicleBooking_platformServiceCategoryPackageId } from '@/lib/staticIds';
 import CommonFilters from '@/components/common/CommonFilters';
+import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 
 // Component
 const ServicesPage = ({
@@ -182,10 +183,11 @@ const ServicesPage = ({
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Button>
-            <ExternalLink />
-            Export
-          </Button>
+          <ExcelExportButton
+            rows={applicationsData?.data || []}
+            filename="services-applications.xlsx"
+          />
+
           <CommonFilters
             selects={[
               {

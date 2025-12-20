@@ -6,12 +6,13 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { RoleDataType, UserDataType, ApiPagination } from '@/lib/types';
-import { ExternalLink, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import UserDeleteButton from './UserDeleteButton';
 import RoleDeleteButton from './RoleDeleteButton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Eye } from 'lucide-react';
+import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 
 const formatPermission = (perm: string) => {
   return perm
@@ -189,10 +190,11 @@ const UsersAndRolesPage = ({
 
           {/* Buttons */}
           <div className="flex items-center gap-2">
-            <Button>
-              <ExternalLink />
-              Export
-            </Button>
+            <ExcelExportButton
+              rows={(activeTab === 'users' ? preparedUsers : preparedRoles) as any}
+              filename={activeTab === 'users' ? 'users.xlsx' : 'roles.xlsx'}
+            />
+
             {activeTab === 'users' ? (
               <>
                 {accessUsers && (

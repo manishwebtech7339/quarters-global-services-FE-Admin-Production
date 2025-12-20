@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
-import { ExternalLink, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import Icon from '@/components/common/Icon';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
@@ -15,6 +15,7 @@ import { deleteApplication } from '@/services/applicatonService';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 
 // Status color mapping
 // const statusColorMap: Record<string, 'default' | 'secondary' | 'success' | 'warning'> = {
@@ -186,7 +187,7 @@ const ApplicationsPage = ({
               className="data-[state=active]:bg-primary-100 data-[state=active]:text-white"
             >
               <Link href={`/admin/applications?applicationSources=${applicationSources[2]}`}>
-                Onlinesss
+                Online
               </Link>
             </TabsTrigger>
           </TabsList>
@@ -194,10 +195,7 @@ const ApplicationsPage = ({
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Button>
-            <ExternalLink />
-            Export
-          </Button>
+          <ExcelExportButton rows={applications} filename="applications.xlsx" />
 
           <Popover>
             <PopoverTrigger asChild>

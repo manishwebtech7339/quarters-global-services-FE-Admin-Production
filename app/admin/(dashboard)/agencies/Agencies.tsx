@@ -122,7 +122,7 @@ const Agencies = ({
     <div className="space-y-2">
       {/* Filters */}
       <div className="flex items-center justify-end gap-2">
-        <ExcelExportButton rows={agencyData} filename="users.xlsx" />
+        <ExcelExportButton rows={agencyData} filename="agencies.xlsx" />
         <CommonFilters
           selects={[
             {

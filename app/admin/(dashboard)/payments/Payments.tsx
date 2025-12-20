@@ -7,6 +7,7 @@ import { TransactionDataType } from '@/services/transactionService';
 import { Eye } from 'lucide-react';
 import PaymentDetailsModal from './PaymentDetailsModal';
 import CommonFilters from '@/components/common/CommonFilters';
+import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 
 // Dummy Data
 
@@ -105,6 +106,7 @@ const Payments = ({
     <div className="space-y-2">
       {/* Filters */}
       <div className="flex items-center justify-end gap-2">
+        <ExcelExportButton rows={transactionsData?.data || []} filename="payments.xlsx" />
         <CommonFilters />
       </div>
 
