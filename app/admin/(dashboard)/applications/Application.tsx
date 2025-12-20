@@ -4,18 +4,23 @@ import CommonTable from '@/components/common/CommonTable';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import Icon from '@/components/common/Icon';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
-import { ApiPagination, ApplicationSource, applicationSources } from '@/lib/types';
+import {
+  ApiPagination,
+  ApplicationSource,
+  applicationSources,
+  applicationStatuses,
+} from '@/lib/types';
 import Paginator from '@/components/shared/paginator';
 import { deleteApplication } from '@/services/applicatonService';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
+import CommonFilters from '@/components/common/CommonFilters';
 
 // Status color mapping
 // const statusColorMap: Record<string, 'default' | 'secondary' | 'success' | 'warning'> = {
@@ -197,12 +202,15 @@ const ApplicationsPage = ({
         <div className="flex items-center gap-2">
           <ExcelExportButton rows={applications} filename="applications.xlsx" />
 
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline">Filter</Button>
-            </PopoverTrigger>
-            <PopoverContent className="max-w-sm">Filter options here</PopoverContent>
-          </Popover>
+          <CommonFilters
+            selects={[
+              {
+                name: 'status',
+                label: 'Status',
+                options: applicationStatuses.map((status) => ({ label: status, value: status })),
+              },
+            ]}
+          />
 
           <Button asChild>
             <Link href="/admin/applications/create">

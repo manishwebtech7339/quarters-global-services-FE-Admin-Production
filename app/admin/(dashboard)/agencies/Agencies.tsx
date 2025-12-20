@@ -123,18 +123,7 @@ const Agencies = ({
       {/* Filters */}
       <div className="flex items-center justify-end gap-2">
         <ExcelExportButton rows={agencyData} filename="agencies.xlsx" />
-        <CommonFilters
-          selects={[
-            {
-              name: 'status',
-              label: 'Status',
-              options: [
-                { label: 'Active', value: 'ACTIVE' },
-                { label: 'In Active', value: 'INACTIVE' },
-              ],
-            },
-          ]}
-        />
+        <CommonFilters />
         <Button asChild className="bg-primary-100 text-white">
           <Link href="/admin/agencies/create">
             <Plus />

@@ -5,7 +5,6 @@ import DeleteConfirm from '@/components/common/DeleteConfirm';
 import Icon from '@/components/common/Icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import TabButton from '../TabButton';
@@ -15,6 +14,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Paginator from '@/components/shared/paginator';
 import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
+import CommonFilters from '@/components/common/CommonFilters';
 
 const VehiclesBookings = ({
   bookingData,
@@ -146,14 +146,8 @@ const VehiclesBookings = ({
         <div className="flex items-center gap-2">
           <ExcelExportButton rows={bookingData?.data || []} filename="vehicles-bookings.xlsx" />
 
-          <Popover>
-            <PopoverTrigger>
-              <Button variant="outline">Filter</Button>
-            </PopoverTrigger>
-            <PopoverContent className="max-w-fit" align="end">
-              <div className="flex items-center gap-2">Filter Options...</div>
-            </PopoverContent>
-          </Popover>
+          <CommonFilters />
+
           <Button asChild>
             <Link href="/admin/vehicles/vehicles-bookings/add-booking">
               <Plus />

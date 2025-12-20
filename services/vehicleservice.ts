@@ -4,14 +4,23 @@ import { commonEmptyResponse } from './helper';
 
 export const getVehicleBookings = async ({
   page,
+  search,
+  from,
+  to,
 }: {
   page: string;
+  search?: string;
+  from?: string;
+  to?: string;
 }): Promise<ApiPagination & { data: BookingDataType[] }> => {
   try {
-    const response = await fetcher(`/vehicle/booking/list?page=${page}&limit=20`, {
-      cache: 'no-cache',
-      revalidate: 60,
-    });
+    const response = await fetcher(
+      `/vehicle/booking/list?page=${page}&limit=20&search=${search || ''}&from=${from || ''}&to=${to || ''}`,
+      {
+        cache: 'no-cache',
+        revalidate: 60,
+      },
+    );
 
     // Transform the API response to match our expected structure
     if (response?.data) {
@@ -63,11 +72,13 @@ export const getDriverList = async ({
 };
 export const getVehicleList = async ({
   page,
+  search,
 }: {
   page: string;
+  search?: string;
 }): Promise<ApiPagination & { data: VehicleDataType[] }> => {
   try {
-    const response = await fetcher(`/vehicle/list?page=${page}&limit=20`, {
+    const response = await fetcher(`/vehicle/list?page=${page}&limit=20&search=${search || ''}`, {
       cache: 'no-cache',
       revalidate: 60,
     });

@@ -4,7 +4,6 @@ import CommonTable from '@/components/common/CommonTable';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
 import Icon from '@/components/common/Icon';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import TabButton from '../TabButton';
@@ -13,6 +12,7 @@ import { deleteDriver } from '@/services/vehicleservice';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Paginator from '@/components/shared/paginator';
+import CommonFilters from '@/components/common/CommonFilters';
 
 // ============================
 // Main Component
@@ -101,14 +101,7 @@ const DriverManagement = ({
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <TabButton />
         <div className="flex items-center gap-2">
-          <Popover>
-            <PopoverTrigger>
-              <Button variant="outline">Filter</Button>
-            </PopoverTrigger>
-            <PopoverContent className="max-w-fit" align="end">
-              <div className="flex items-center gap-2">Filter Options...</div>
-            </PopoverContent>
-          </Popover>
+          <CommonFilters showDateFilters={false} />
 
           <Button asChild>
             <Link href="/admin/vehicles/driver-management/add-driver">

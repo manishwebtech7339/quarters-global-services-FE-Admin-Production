@@ -7,7 +7,12 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import Icon from '@/components/common/Icon';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
-import { ApiPagination, ApplicationSource, applicationSources } from '@/lib/types';
+import {
+  ApiPagination,
+  ApplicationSource,
+  applicationSources,
+  applicationStatuses,
+} from '@/lib/types';
 import Paginator from '@/components/shared/paginator';
 import { deleteApplication } from '@/services/applicatonService';
 import { toast } from 'sonner';
@@ -193,10 +198,7 @@ const ServicesPage = ({
               {
                 name: 'status',
                 label: 'Status',
-                options: [
-                  { label: 'Active', value: 'ACTIVE' },
-                  { label: 'In Active', value: 'INACTIVE' },
-                ],
+                options: applicationStatuses.map((status) => ({ label: status, value: status })),
               },
             ]}
           />
