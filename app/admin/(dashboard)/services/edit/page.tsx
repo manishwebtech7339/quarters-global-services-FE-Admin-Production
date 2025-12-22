@@ -17,7 +17,7 @@ const page = async ({
   }>;
 }) => {
   const application = (await searchParams).application || '';
-  const isView = (await searchParams).isView === 'true';
+  const isView = (await searchParams).isView === '1';
 
   const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.applications });
   if (!access) {

@@ -31,7 +31,6 @@ const ServicesPage = ({
   selectedApplicationSources: ApplicationSource;
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
-  console.log(isDeleting);
   const router = useRouter();
 
   // Delete handler function

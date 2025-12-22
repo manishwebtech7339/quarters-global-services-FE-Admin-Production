@@ -108,7 +108,27 @@ const UsersPage = ({ customersData }: UsersProps) => {
       {/* Top Bar */}
       <div className="flex items-center justify-end flex-wrap gap-2">
         <div className="flex items-center gap-2">
-          <ExcelExportButton rows={customers} filename="users.xlsx" />
+          <ExcelExportButton
+            columns={[
+              { key: '_id', header: 'Customer ID' },
+              { key: 'firstName', header: 'First Name' },
+              { key: 'lastName', header: 'Last Name' },
+              { key: 'email', header: 'Email' },
+              { key: 'countryCode', header: 'Country Code' },
+              { key: 'phone', header: 'Phone Number' },
+              {
+                key: 'isVerified',
+                header: 'Verified',
+              },
+              { key: 'status', header: 'Status' },
+              {
+                key: 'createdAt',
+                header: 'Created At',
+              },
+            ]}
+            rows={customers}
+            filename="users.xlsx"
+          />
 
           <CommonFilters
             selects={[
