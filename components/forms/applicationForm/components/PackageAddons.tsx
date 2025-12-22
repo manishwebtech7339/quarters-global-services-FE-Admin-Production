@@ -137,8 +137,8 @@ const PackageAddons = ({ packageId, enable = true, isEdit = false }: PackageAddo
       name="platformServiceCategoryPackageAddonsId"
       render={({ field }) => {
         return (
-          <FormItem className="space-y-3">
-            <FormLabel className="text-base font-semibold">Additional Documents</FormLabel>
+          <FormItem>
+            <FormLabel className="text-base font-semibold">Additional Addons</FormLabel>
             <div className="flex flex-wrap gap-3">
               {addons.map((addon) => (
                 <Card
