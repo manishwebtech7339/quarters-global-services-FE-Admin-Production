@@ -77,14 +77,26 @@ export default function PersonalInfo({
           </FormItem>
         )}
       />
-
+      <FormField
+        name="email"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input type="email" readOnly={isView} disabled={!!isEdit} {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       {/* Sex */}
       <FormField
         name="sex"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="col-span-2">
-            <FormLabel>Sex</FormLabel>
+          <FormItem>
+            <FormLabel>Gender</FormLabel>
             <FormControl>
               <RadioGroup
                 value={field.value ?? ''}
@@ -448,19 +460,6 @@ export default function PersonalInfo({
             <FormLabel>Phone</FormLabel>
             <FormControl>
               <Input readOnly={isView} {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        name="email"
-        control={form.control}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Email</FormLabel>
-            <FormControl>
-              <Input type="email" readOnly={isView} disabled={!!isEdit} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

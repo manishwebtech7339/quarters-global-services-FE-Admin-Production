@@ -24,6 +24,7 @@ interface ComboSelectOption {
 
 interface ComboSelectProps {
   name?: keyof CreateApplicationType;
+  fieldLabel?: string;
   placeholder?: string;
   searchPlaceholder?: string;
   emptyMessage?: string;
@@ -39,6 +40,7 @@ interface ComboSelectProps {
 
 const ComboSelect = ({
   name = 'firstName',
+  fieldLabel = '',
   placeholder = 'Select option',
   searchPlaceholder = 'Search...',
   emptyMessage = 'No options found.',
@@ -123,7 +125,7 @@ const ComboSelect = ({
       name={name as keyof CreateApplicationType}
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>{placeholder}</FormLabel>
+          <FormLabel>{fieldLabel || placeholder}</FormLabel>
           <Popover>
             <PopoverTrigger disabled={!enable} className="h-12 !w-full" asChild>
               <FormControl>

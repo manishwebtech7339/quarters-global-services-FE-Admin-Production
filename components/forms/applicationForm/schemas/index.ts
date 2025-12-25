@@ -128,6 +128,7 @@ export const serviceDocumentsSchemas = z.discriminatedUnion('serviceType', [
 // Base schema for application form
 const baseSchema = z.object({
   // Service
+  fromCountryId: z.string().min(1, 'This field is required'),
   toCountryId: z.string().min(1, 'This field is required'),
   platformServiceId: z.string().min(1, 'This field is required'),
   platformServiceCategoryId: z.string().min(1, 'This field is required'),

@@ -46,6 +46,7 @@ import ReferenceIndia from './ReferenceIndia';
 import ReferenceUSA from './ReferenceUsa';
 import AdditionalQuestions from './AdditionalQuestion';
 import USPassportForm from './USPassportForm';
+import { useRouter } from 'next/navigation';
 
 const ApplicationForm = ({
   isView = false,
@@ -56,6 +57,7 @@ const ApplicationForm = ({
   isEdit?: boolean;
   applicationData?: any;
 }) => {
+  const router = useRouter();
   // Helper function to extract addon IDs from application data
 
   const [isSubCategoriesAvailable, setIsSubCategoriesAvailable] = useState(
@@ -70,6 +72,7 @@ const ApplicationForm = ({
   const form = useForm<CreateApplicationType>({
     resolver: zodResolver(createApplicationValidator),
     defaultValues: {
+      fromCountryId: applicationData?.fromCountryId || '',
       toCountryId: applicationData?.toCountryId || '',
       platformServiceId: applicationData?.platformServiceId || '',
       platformServiceCategoryId: applicationData?.platformServiceCategoryId || '',
@@ -289,6 +292,7 @@ const ApplicationForm = ({
           status: 'Submitted',
           applicationSource: applicationSources?.[0],
 
+          fromCountryId: values.fromCountryId,
           toCountryId: values.toCountryId,
           platformServices: [
             {
@@ -437,6 +441,7 @@ const ApplicationForm = ({
     };
     await createApplication(backendPayload);
     toast.success('Application submitted successfully!');
+    router.push('/admin/applications?revalidate=' + Date.now());
   });
 
   const onEditSubmit = handleAsync(async (values: CreateApplicationType) => {
@@ -483,6 +488,7 @@ const ApplicationForm = ({
         country: values.country,
       },
       status: 'Submitted',
+      fromCountryId: values.fromCountryId,
       toCountryId: values.toCountryId,
       platformServices: [
         {
@@ -663,6 +669,7 @@ const ApplicationForm = ({
   useEffect(() => {
     if (Object.keys(applicationData || {}).length) {
       form.reset({
+        fromCountryId: applicationData?.fromCountryId || '',
         toCountryId: applicationData?.toCountryId || '',
         platformServiceId: applicationData?.platformServiceId || '',
         platformServiceCategoryId: applicationData?.platformServiceCategoryId || '',
@@ -794,7 +801,17 @@ const ApplicationForm = ({
             <p className="col-span-2 font-semibold">Service Details</p>
 
             <ComboSelect
+              name="fromCountryId"
+              fieldLabel="From"
+              placeholder="Select country"
+              apiPath="/country/get-country?page=1&pageSize=256"
+              enable={isEdit ? false : true}
+              onSlugSelect={(slug) => setCountrySlug(slug)}
+            />
+
+            <ComboSelect
               name="toCountryId"
+              fieldLabel="To"
               placeholder="Select country"
               apiPath="/country/get-country?page=1&pageSize=256"
               enable={isEdit ? false : true}
@@ -804,10 +821,16 @@ const ApplicationForm = ({
             <ComboSelect
               name="platformServiceId"
               placeholder="Select  service"
-              enable={isEdit ? false : form.watch('toCountryId') ? true : false}
+              enable={
+                isEdit
+                  ? false
+                  : form.watch('toCountryId') && form.watch('fromCountryId')
+                    ? true
+                    : false
+              }
               apiPath={
-                form.watch('toCountryId')
-                  ? `/platform-service/get-platform-service?toCountryId=${form.watch('toCountryId')}`
+                form.watch('toCountryId') && form.watch('fromCountryId')
+                  ? `/platform-service/get-platform-service?toCountryId=${form.watch('toCountryId')}&fromCountryId=${form.watch('fromCountryId')}`
                   : ''
               }
               onSlugSelect={(slug) => setServiceSlug(slug)}
@@ -819,7 +842,7 @@ const ApplicationForm = ({
               enable={isEdit ? false : form.watch('platformServiceId') ? true : false}
               apiPath={
                 form.watch('platformServiceId')
-                  ? `/platform-service-category/get-platform-service-category?platformServiceId=${form.watch('platformServiceId')}&toCountryId=${form.watch('toCountryId')}`
+                  ? `/platform-service-category/get-platform-service-category?platformServiceId=${form.watch('platformServiceId')}&toCountryId=${form.watch('toCountryId')}&fromCountryId=${form.watch('fromCountryId')}`
                   : ''
               }
               onSelectIsHaveSubCategory={setIsSubCategoriesAvailable}
@@ -840,7 +863,7 @@ const ApplicationForm = ({
                 enable={isEdit ? false : form.watch('platformServiceCategoryId') ? true : false}
                 apiPath={
                   form.watch('platformServiceCategoryId')
-                    ? `/platform-service-category/get-platform-service-category?platformServiceCategoryId=${form.watch('platformServiceCategoryId')}&platformServiceId=${form.watch('platformServiceId')}&toCountryId=${form.watch('toCountryId')}`
+                    ? `/platform-service-category/get-platform-service-category?platformServiceCategoryId=${form.watch('platformServiceCategoryId')}&platformServiceId=${form.watch('platformServiceId')}&toCountryId=${form.watch('toCountryId')}&fromCountryId=${form.watch('fromCountryId')}`
                     : ''
                 }
                 onSlugSelect={(e) => {
@@ -863,7 +886,7 @@ const ApplicationForm = ({
                   enable={isEdit ? false : !!categoryValue}
                   apiPath={
                     categoryValue
-                      ? `/platform-service-category-package/get-platform-service-category-package?toCountryId=${form.watch('toCountryId')}&platformServiceCategoryId=${categoryValue}`
+                      ? `/platform-service-category-package/get-platform-service-category-package?toCountryId=${form.watch('toCountryId')}&fromCountryId=${form.watch('fromCountryId')}&platformServiceCategoryId=${categoryValue}`
                       : ''
                   }
                 />
