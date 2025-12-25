@@ -117,7 +117,6 @@ const Agencies = ({
   agencyData: AgencyDataType[];
   totalPages: number;
 }) => {
-  console.log(agencyData, 'agencyData');
   return (
     <div className="space-y-2">
       {/* Filters */}

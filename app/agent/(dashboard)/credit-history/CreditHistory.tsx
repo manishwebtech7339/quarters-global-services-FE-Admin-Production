@@ -55,8 +55,6 @@ const columns = [
 ];
 
 const CreditHistory = ({ data, totalPages }: { data: any[]; totalPages: number }) => {
-  console.log(data, 'data');
-
   return (
     <div className="space-y-2">
       <Button>Credit History</Button>

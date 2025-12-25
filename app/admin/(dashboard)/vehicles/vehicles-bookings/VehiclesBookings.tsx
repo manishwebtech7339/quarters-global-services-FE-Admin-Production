@@ -22,14 +22,12 @@ const VehiclesBookings = ({
   bookingData: ApiPagination & { data: BookingDataType[] };
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
-  console.log(isDeleting);
   const router = useRouter();
 
   const handleDelete = async (id: string) => {
     setIsDeleting(true);
     try {
       const success = await deleteBooking(id);
-      console.log(success, 'succes');
       if (success) {
         // Refresh the page to show updated data
         router.refresh();

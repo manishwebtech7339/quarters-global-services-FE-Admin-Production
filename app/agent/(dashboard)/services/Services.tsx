@@ -29,7 +29,6 @@ const ServicesPage = ({
 
   // Delete handler function
   const handleDeleteApplication = async (id: string) => {
-    console.log('Deleting application:', id);
     setIsDeleting(true);
     try {
       await deleteApplication(id);

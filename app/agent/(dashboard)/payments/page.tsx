@@ -26,11 +26,7 @@ const page = async ({
     from,
     to,
   });
-  console.log(
-    agencyAddCreditsTransitions,
-    agencyUsedCreditsTransitions,
-    'agencyAddCreditsTransitions',
-  );
+
   return <Payments />;
 };
 

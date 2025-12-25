@@ -8,7 +8,6 @@ const page = async () => {
   const session = await getSession();
 
   const userData = await getUserById(session?.id || '');
-  console.log(userData, 'userData');
   if (!userData) {
     return redirect('/admin/profile');
   }

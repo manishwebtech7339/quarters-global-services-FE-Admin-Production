@@ -110,7 +110,6 @@ export const NewChatDialog = ({
   // 3. Effect: Infinite Scroll
   useEffect(() => {
     if (inView && hasMore && !isLoading && open) {
-      console.log('Scrolled to bottom, loading more...'); // DEBUG
       loadUsers(false);
     }
   }, [inView, hasMore, isLoading, loadUsers, open]);
@@ -130,7 +129,6 @@ export const NewChatDialog = ({
       };
 
       const res = await sendMessage(payload);
-      console.log('Create Chat Response:', res); // DEBUG - Check console to see structure
 
       // ROBUST ID CHECK:
       // Your backend returns the MESSAGE object. The message object has a 'chatId' field.

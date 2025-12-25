@@ -27,7 +27,6 @@ export async function middleware(req: NextRequest) {
   const cookieUserRoleName = process.env.NEXT_PUBLIC_SESSION_COOKIE_USER_ROLE!;
   const token = req.cookies.get(cookieName)?.value;
   const userRole = req.cookies.get(cookieUserRoleName)?.value;
-  console.log(userRole, 'token');
 
   // 🔒 Redirect too login mif nso session
   if (!token) {

@@ -35,7 +35,6 @@ const ServicesPage = ({
 
   // Delete handler function
   const handleDeleteApplication = async (id: string) => {
-    console.log('Deleting application:', id);
     setIsDeleting(true);
     try {
       await deleteApplication(id);
@@ -124,7 +123,6 @@ const ServicesPage = ({
       ),
     },
   ];
-  console.log(applicationsData, 'applicationsData');
   // Dummy data
   const applications = (applicationsData.data || []).map((data) => ({
     id: data._id,

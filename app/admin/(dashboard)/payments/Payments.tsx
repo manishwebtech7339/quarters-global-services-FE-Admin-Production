@@ -101,7 +101,6 @@ const Payments = ({
     avatar: '',
     transaction: e,
   }));
-  console.log(payments, 'payments');
   return (
     <div className="space-y-2">
       {/* Filters */}

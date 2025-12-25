@@ -14,7 +14,6 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   const document = await getDocumentById(id);
-  console.log(document, 'Document data for ID:', id);
 
   return (
     <div className="space-y-6">

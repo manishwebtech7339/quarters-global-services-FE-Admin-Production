@@ -22,7 +22,6 @@ const page = async () => {
   if (!userData) {
     return redirect('/admin/home');
   }
-  console.log(userData, 'userData');
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2 justify-between">

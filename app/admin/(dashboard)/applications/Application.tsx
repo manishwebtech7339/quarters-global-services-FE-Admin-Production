@@ -38,12 +38,10 @@ const ApplicationsPage = ({
   selectedApplicationSources: ApplicationSource;
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
-  console.log(applicationsData, 'applicationsData');
   const router = useRouter();
 
   // Delete handler function
   const handleDeleteApplication = async (id: string) => {
-    console.log('Deleting application:', id);
     setIsDeleting(true);
     try {
       await deleteApplication(id);
@@ -149,7 +147,6 @@ const ApplicationsPage = ({
   ];
 
   // Dummy data
-  console.log(applicationsData.data, 'applicationsData.data');
   const applications = (applicationsData.data || []).map((data) => ({
     id: data._id,
     name: data.firstName,

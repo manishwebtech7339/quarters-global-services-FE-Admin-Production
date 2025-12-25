@@ -27,7 +27,6 @@ const page = async ({
     status,
     documentType,
   });
-  console.log(documents, 'documents');
   return <Documents documentsData={documents} selectedTab={selectedTab} />;
 };
 

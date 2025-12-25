@@ -6,7 +6,6 @@ import hasAccess from '@/hooks/useAccessControl/hasAccess';
 import { PERMISSIONS_LIST_ENUM } from '@/hooks/useAccessControl/permissions';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import console from 'console';
 
 const ViewBookingPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -23,7 +22,6 @@ const ViewBookingPage = async ({ params }: { params: Promise<{ id: string }> }) 
     getDriverList({ page: '1' }),
   ]);
 
-  console.log(bookingData, 'bookingData');
   if (!bookingData) {
     return redirect('/admin/vehicles/vehicles-bookings');
   }

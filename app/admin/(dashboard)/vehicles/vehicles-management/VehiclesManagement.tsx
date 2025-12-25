@@ -23,7 +23,6 @@ const VehiclesManagement = ({
   vehicleList: ApiPagination & { data: VehicleDataType[] };
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
-  console.log(isDeleting);
   const router = useRouter();
 
   const handleDelete = async (id: string) => {

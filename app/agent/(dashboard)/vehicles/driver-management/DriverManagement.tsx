@@ -23,7 +23,6 @@ const DriverManagement = ({
   driverData: ApiPagination & { data: DriverDataType[] };
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
-  console.log(isDeleting);
   const router = useRouter();
 
   const handleDelete = async (id: string) => {
