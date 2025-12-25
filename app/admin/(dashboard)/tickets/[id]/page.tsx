@@ -25,7 +25,7 @@ const EditTicketPage = async ({ params }: { params: Promise<{ id: string }> }) =
   }
 
   const [customersResponse, staffResponse] = await Promise.all([
-    getAllCustomers({ search: ticketData.customer || '', page: '1' }),
+    getAllCustomers({ search: ticketData.customer?._id || '', page: '1' }),
     getAgents({ search: ticketData.assignedStaff || '', page: '1' }),
   ]);
 
