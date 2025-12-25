@@ -2,13 +2,13 @@
 
 import CommonTable from '@/components/common/CommonTable';
 import Paginator from '@/components/shared/paginator';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Eye } from 'lucide-react';
 import { SupportDataType } from '@/services/supportsService';
 import { ApiPagination } from '@/lib/types';
 import Link from 'next/link';
 import CommonFilters from '@/components/common/CommonFilters';
+import { format } from 'date-fns';
 
 interface SupportProps {
   supportsData: ApiPagination & { data: SupportDataType[] };
@@ -19,15 +19,7 @@ const columns = [
   {
     header: 'Name',
     accessor: 'name',
-    render: (row: any) => (
-      <div className="flex items-center gap-2 font-medium">
-        <Avatar>
-          <AvatarImage src={row.avatar || 'https://github.com/shadcn.png'} />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <span>{row.name}</span>
-      </div>
-    ),
+    render: (row: any) => <span className="capitalize">{row.name}</span>,
   },
   {
     header: 'Phone',
@@ -44,14 +36,7 @@ const columns = [
   {
     header: 'Date',
     accessor: 'date',
-    render: (row: SupportDataType) => {
-      const date = new Date(row.createdAt);
-      return date.toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: '2-digit',
-      });
-    },
+    render: (row: SupportDataType) => format(new Date(row.createdAt), 'dd-MM-yyyy'),
   },
   {
     header: 'Action',

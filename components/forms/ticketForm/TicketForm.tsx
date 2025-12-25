@@ -34,6 +34,7 @@ import { fetcher } from '@/lib/fetcher';
 import { commonFieldSchema } from '@/lib/formSchemaFunctions';
 import { TicketDataType } from '@/services/ticketsService';
 import { FormCombobox } from '@/components/common/FormComboBox';
+import Link from 'next/link';
 
 const ticketFormSchema = z.object({
   status: z.enum(['Open', 'Closed', 'Resolved', 'Waiting on Customer', 'Urgent']),
@@ -65,7 +66,6 @@ const TicketForm = ({
   customers = [],
   staff = [],
 }: TicketFormProps) => {
-  console.log(ticketData, 'ticketData');
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -74,7 +74,7 @@ const TicketForm = ({
     defaultValues: {
       status: ticketData?.status || 'Open',
       priority: ticketData?.priority || 'Normal',
-      customer: ticketData?.customer || '',
+      customer: ticketData?.customer?._id || '',
       applicationId: ticketData?.applicationId || '',
       category: ticketData?.category || '',
       subCategory: ticketData?.subCategory || '',
@@ -201,10 +201,6 @@ const TicketForm = ({
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleBackToTickets = () => {
-    router.push('/admin/tickets');
   };
 
   return (
@@ -409,13 +405,8 @@ const TicketForm = ({
         {/* Buttons */}
         {!isView && (
           <div className="flex justify-end gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              disabled={isLoading}
-              onClick={handleBackToTickets}
-            >
-              Cancel
+            <Button asChild type="button" variant="outline" disabled={isLoading}>
+              <Link href="/admin/tickets">Cancel</Link>
             </Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading

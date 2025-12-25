@@ -9,103 +9,84 @@ import {
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { JSX } from 'react';
-import { buttonVariants } from '../ui/button';
+import { buttonVariants } from '@/components/ui/button';
 
 type PaginatorProps = {
-  totalItems: number;
-  itemsPerPage?: number;
+  totalItems: number; // In your case, this is actually totalPages
   showPreviousNext?: boolean;
 };
 
-export default function Paginator({ totalItems, showPreviousNext = true }: PaginatorProps) {
+export default function Paginator({
+  totalItems: totalPages, // Renaming for clarity inside the component
+  showPreviousNext = true,
+}: PaginatorProps) {
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get('page') || 1);
+  const currentPage = Math.max(1, Number(searchParams.get('page') || 1));
 
-  // 👇 calculate total pages from total items
-  const totalPages = Math.ceil(totalItems);
-
+  // Helper to maintain existing URL filters (like ?search=abc)
   const buildHref = (page: number) => {
-    const params = new URLSearchParams(Array.from(searchParams.entries()));
+    const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
     return `?${params.toString()}`;
   };
 
-  const PageLink = ({ page }: { page: number }) => (
-    <Link
-      href={buildHref(page)}
-      scroll={false}
-      className={cn(
-        buttonVariants({
-          variant: currentPage === page ? 'default' : 'outline',
-        }),
-        'focus:border-primary hover:border-primary min-w-[2.25rem] text-center',
-      )}
-    >
-      {page}
-    </Link>
-  );
+  // Hide component if there's only one page
+  if (totalPages <= 1) return null;
 
-  const generatePaginationLinks = (currentPage: number, totalPages: number): JSX.Element[] => {
-    const pages: JSX.Element[] = [];
+  const renderPages = () => {
+    const pages = [];
+    const siblings = 1; // Number of pages to show on each side of current page
 
-    if (totalPages <= 6) {
-      for (let i = 1; i <= totalPages; i++) {
+    for (let i = 1; i <= totalPages; i++) {
+      // Logic: Always show first, last, and pages immediately around current
+      const isFirstPage = i === 1;
+      const isLastPage = i === totalPages;
+      const isWithinRange = i >= currentPage - siblings && i <= currentPage + siblings;
+
+      if (isFirstPage || isLastPage || isWithinRange) {
         pages.push(
-          <PaginationItem key={`page-${i}`}>
-            <PageLink page={i} />
+          <PaginationItem key={i}>
+            <Link
+              href={buildHref(i)}
+              scroll={false}
+              className={cn(
+                buttonVariants({
+                  variant: currentPage === i ? 'default' : 'outline',
+                  size: 'icon',
+                }),
+                'h-9 w-9',
+                currentPage === i && 'pointer-events-none',
+              )}
+            >
+              {i}
+            </Link>
           </PaginationItem>,
         );
       }
-    } else {
-      // First two
-      for (let i = 1; i <= 2; i++) {
+      // Add Ellipsis if there is a gap between 1 and the range, or range and last
+      else if (i === currentPage - siblings - 1 || i === currentPage + siblings + 1) {
         pages.push(
-          <PaginationItem key={`page-${i}`}>
-            <PageLink page={i} />
-          </PaginationItem>,
-        );
-      }
-
-      // Middle
-      if (2 < currentPage && currentPage < totalPages - 1) {
-        pages.push(<PaginationEllipsis key="ellipsis-left" />);
-        pages.push(
-          <PaginationItem key={`page-${currentPage}`}>
-            <PageLink page={currentPage} />
-          </PaginationItem>,
-        );
-      }
-
-      // Right ellipsis
-      pages.push(<PaginationEllipsis key="ellipsis-right" />);
-
-      // Last two
-      for (let i = totalPages - 1; i <= totalPages; i++) {
-        pages.push(
-          <PaginationItem key={`page-${i}`}>
-            <PageLink page={i} />
+          <PaginationItem key={`ellipsis-${i}`}>
+            <PaginationEllipsis />
           </PaginationItem>,
         );
       }
     }
-
     return pages;
   };
 
-  if (totalPages <= 1) {
-    return <></>;
-  }
   return (
     <Pagination>
-      <PaginationContent className="flex flex-wrap justify-center gap-2">
-        {showPreviousNext && totalPages > 0 && (
+      <PaginationContent className="gap-2">
+        {/* Previous Button */}
+        {showPreviousNext && (
           <PaginationItem>
             <Link
-              href={buildHref(Math.max(1, currentPage - 1))}
+              href={buildHref(currentPage - 1)}
               className={cn(
-                buttonVariants({ variant: 'outline' }),
-                currentPage <= 1 && 'pointer-events-none opacity-45',
+                buttonVariants({ variant: 'ghost' }),
+                'px-3',
+                currentPage <= 1 && 'pointer-events-none opacity-40',
               )}
             >
               Previous
@@ -113,15 +94,18 @@ export default function Paginator({ totalItems, showPreviousNext = true }: Pagin
           </PaginationItem>
         )}
 
-        {generatePaginationLinks(currentPage, totalPages)}
+        {/* Numbered Pages */}
+        {renderPages()}
 
-        {showPreviousNext && totalPages > 0 && (
+        {/* Next Button */}
+        {showPreviousNext && (
           <PaginationItem>
             <Link
-              href={buildHref(Math.min(totalPages, currentPage + 1))}
+              href={buildHref(currentPage + 1)}
               className={cn(
-                buttonVariants({ variant: 'outline' }),
-                currentPage >= totalPages && 'pointer-events-none opacity-45',
+                buttonVariants({ variant: 'ghost' }),
+                'px-3',
+                currentPage >= totalPages && 'pointer-events-none opacity-40',
               )}
             >
               Next

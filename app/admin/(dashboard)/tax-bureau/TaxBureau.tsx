@@ -8,6 +8,7 @@ import DeleteTaxBureau from './DeleteTaxBureau';
 import { TaxBureauListResponse } from '@/services/taxBureauService';
 import Paginator from '@/components/shared/paginator';
 import CommonFilters from '@/components/common/CommonFilters';
+import { format } from 'date-fns';
 
 const columns = [
   {
@@ -18,6 +19,7 @@ const columns = [
   {
     header: 'Full Name',
     accessor: 'fullName',
+    render: (row: any) => <span className="capitalize">{row.fullName}</span>,
   },
   {
     header: 'Email',
@@ -39,7 +41,7 @@ const columns = [
   {
     header: 'Created Date',
     accessor: 'createdAt',
-    render: (row: any) => <span>{new Date(row.createdAt).toLocaleDateString()}</span>,
+    render: (row: any) => <span>{format(new Date(row.createdAt), 'dd-MM-yyyy')}</span>,
   },
 
   {
@@ -48,19 +50,9 @@ const columns = [
     render: (row: any) => {
       const base = 'px-2 py-1 rounded-full text-xs';
       const value = row.status?.toLowerCase();
-
-      switch (value) {
-        case 'open':
-          return <Badge className={`${base} bg-blue-100 text-blue-600`}>Open</Badge>;
-        case 'closed':
-          return <Badge className={`${base} bg-gray-100 text-gray-600`}>Closed</Badge>;
-        case 'resolved':
-          return <Badge className={`${base} bg-green-100 text-green-600`}>Resolved</Badge>;
-        case 'waiting on customer':
-          return <Badge className={`${base} bg-yellow-100 text-yellow-600`}>Waiting</Badge>;
-        default:
-          return <Badge variant="outline">{row.status || '-'}</Badge>;
-      }
+      return (
+        <Badge variant={value === 'approved' ? 'default' : 'outline'}>{row.status || '-'}</Badge>
+      );
     },
   },
   {

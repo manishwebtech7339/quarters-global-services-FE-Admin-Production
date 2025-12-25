@@ -1,6 +1,6 @@
 'use server';
 import { fetcher } from '@/lib/fetcher';
-import { ApiPagination } from '@/lib/types';
+import { ApiPagination, UserDataType } from '@/lib/types';
 import { commonEmptyResponse } from './helper';
 import { revalidatePath } from 'next/cache';
 
@@ -14,7 +14,7 @@ export interface TicketDataType {
   _id: string;
   status: 'Open' | 'Closed' | 'Resolved' | 'Waiting on Customer' | 'Urgent';
   priority: 'Low' | 'Normal' | 'High' | 'Urgent';
-  customer: string;
+  customer: UserDataType;
   applicationId: string;
   category: string;
   subCategory?: string;

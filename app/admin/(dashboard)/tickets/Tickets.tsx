@@ -1,7 +1,6 @@
 import CommonTable from '@/components/common/CommonTable';
 import Icon from '@/components/common/Icon';
 import Paginator from '@/components/shared/paginator';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { TicketDataType } from '@/services/ticketsService';
@@ -23,14 +22,9 @@ const columns = [
   },
   {
     header: 'Customer',
-    accessor: 'customer',
+    accessor: 'name',
     render: (row: any) => (
-      <div className="flex items-center gap-2">
-        <Avatar>
-          <AvatarFallback>CU</AvatarFallback>
-        </Avatar>
-        <span className="font-medium">{row.customer.slice(-8)}</span>
-      </div>
+      <span className="capitalize">{row.customer.firstName + ' ' + row.customer.lastName}</span>
     ),
   },
   {
@@ -112,6 +106,7 @@ const columns = [
 ];
 
 const Tickets = ({ ticketsData }: TicketsProps) => {
+  console.log(ticketsData, 'ticketsData');
   return (
     <div className="space-y-2">
       {/* Filters */}

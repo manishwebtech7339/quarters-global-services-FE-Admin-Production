@@ -18,14 +18,13 @@ const EditTicketPage = async ({ params }: { params: Promise<{ id: string }> }) =
   }
 
   // Fetch ticket data and dropdown data in parallel
-  const [ticketData] = await Promise.all([getTicketById(id)]);
-
+  const ticketData = await getTicketById(id);
   if (!ticketData) {
     return redirect('/admin/tickets');
   }
 
   const [customersResponse, staffResponse] = await Promise.all([
-    getAllCustomers({ search: ticketData.customer || '', page: '1' }),
+    getAllCustomers({ search: ticketData.customer?._id || '', page: '1' }),
     getAgents({ search: ticketData.assignedStaff || '', page: '1' }),
   ]);
 
