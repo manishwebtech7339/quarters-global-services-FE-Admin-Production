@@ -820,7 +820,7 @@ const ApplicationForm = ({
 
             <ComboSelect
               name="platformServiceId"
-              placeholder="Select  service"
+              placeholder="Select service"
               enable={
                 isEdit
                   ? false
@@ -928,27 +928,7 @@ const ApplicationForm = ({
           {/* Payment Details */}
           <div className="p-4 border rounded-lg grid sm:grid-cols-2 gap-4">
             <p className="col-span-2 font-semibold">Payment Details</p>
-            <FormField
-              name="additionalServiceFields.paymentMethod"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Payment Method</FormLabel>
-                  <FormControl>
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Card">Card</SelectItem>
-                        <SelectItem value="Cash">Cash</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <FormField
               name="additionalServiceFields.paymentMethod"
               control={form.control}

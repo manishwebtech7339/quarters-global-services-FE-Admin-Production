@@ -46,6 +46,7 @@ export const PhoneInput2: React.FC<PhoneInput2Props> = ({
           buttonClass="!bg-transparent !border-0 !pr-1 !pl-1 !hover:bg-accent/10"
           dropdownClass="!bg-popover !border !border-border !text-sm !shadow-md"
           disabled={disabled}
+          enableSearch={true}
         />
       </div>
       {error && <FormMessage>{error}</FormMessage>}

@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { format } from 'date-fns';
+import { PhoneInput2 } from '@/components/ui/PhoneInput2';
 
 export default function PersonalInfo({
   isView = false,
@@ -459,7 +460,13 @@ export default function PersonalInfo({
           <FormItem>
             <FormLabel>Phone</FormLabel>
             <FormControl>
-              <Input readOnly={isView} {...field} />
+              <PhoneInput2
+                disabled={isView}
+                value={field.value}
+                onChange={(val) => {
+                  field.onChange(val ? `+${val}` : '');
+                }}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
