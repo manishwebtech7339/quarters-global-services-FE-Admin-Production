@@ -242,7 +242,7 @@ const DocumentForm = ({ selectedCategory, existingDocuments, isView }: DocumentF
       ) : (
         <div className="p-4 border rounded-lg">
           <p className="text-center text-gray-500">
-            Please select a category to see required documents
+            Please select service category to view required documents.
           </p>
         </div>
       )}

@@ -21,6 +21,7 @@ import { useRouter } from 'next/navigation';
 import { vehicleBooking_platformServiceCategoryPackageId } from '@/lib/staticIds';
 import CommonFilters from '@/components/common/CommonFilters';
 import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
+import { format } from 'date-fns';
 
 // Component
 const ServicesPage = ({
@@ -91,6 +92,9 @@ const ServicesPage = ({
     {
       header: 'Application Date',
       accessor: 'date',
+      render: (row: any) => {
+        return <span>{row.date ? format(new Date(row.date), 'dd/MM/yyyy hh:mm a') : '-'}</span>;
+      },
     },
     {
       header: 'Status',
@@ -102,7 +106,7 @@ const ServicesPage = ({
       accessor: 'action',
       className: 'text-center',
       render: (row: any) => (
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center">
           <Link href={`/admin/services/edit?application=${row.id}`}>
             <Icon name="edit" />
           </Link>

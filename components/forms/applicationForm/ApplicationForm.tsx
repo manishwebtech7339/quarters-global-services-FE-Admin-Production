@@ -1028,7 +1028,6 @@ const ApplicationForm = ({
         </div>
 
         {/*  Documents */}
-
         <div className="space-y-6">
           <DocumentForm
             isView={isView}

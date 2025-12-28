@@ -21,6 +21,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 import CommonFilters from '@/components/common/CommonFilters';
+import { format } from 'date-fns';
 
 // Status color mapping
 // const statusColorMap: Record<string, 'default' | 'secondary' | 'success' | 'warning'> = {
@@ -113,6 +114,9 @@ const ApplicationsPage = ({
     {
       header: 'Application Date',
       accessor: 'date',
+      render: (row: any) => {
+        return <span>{row.date ? format(new Date(row.date), 'dd/MM/yyyy hh:mm a') : '-'}</span>;
+      },
     },
     {
       header: 'Status',
@@ -124,7 +128,7 @@ const ApplicationsPage = ({
       accessor: 'action',
       className: 'text-center',
       render: (row: any) => (
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center">
           <Link href={`/admin/applications/edit?application=${row.id}`}>
             <Icon name="edit" />
           </Link>
