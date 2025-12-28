@@ -217,7 +217,7 @@ const CourierDocumentDeliveryForm = ({
             name="senderPhone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>Sender Phone</FormLabel>
                 <FormControl>
                   <PhoneInput2
                     value={field.value}
@@ -250,7 +250,7 @@ const CourierDocumentDeliveryForm = ({
             name="senderCity"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>City</FormLabel>
+                <FormLabel>Sender City</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -263,7 +263,7 @@ const CourierDocumentDeliveryForm = ({
             name="senderState"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>State</FormLabel>
+                <FormLabel>Sender State</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -276,7 +276,7 @@ const CourierDocumentDeliveryForm = ({
             name="senderCountry"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Country</FormLabel>
+                <FormLabel>Sender Country</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -303,7 +303,7 @@ const CourierDocumentDeliveryForm = ({
             name="recipientPhone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>RecipientPhone</FormLabel>
                 <FormControl>
                   <PhoneInput2
                     value={field.value}
@@ -335,7 +335,7 @@ const CourierDocumentDeliveryForm = ({
             name="recipientCity"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>City</FormLabel>
+                <FormLabel>Recipient City</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -348,7 +348,7 @@ const CourierDocumentDeliveryForm = ({
             name="recipientState"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>State</FormLabel>
+                <FormLabel>Recipient State</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -361,7 +361,7 @@ const CourierDocumentDeliveryForm = ({
             name="recipientCountry"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Country</FormLabel>
+                <FormLabel>Recipient Country</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
