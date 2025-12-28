@@ -45,8 +45,10 @@ export const PhoneInput2: React.FC<PhoneInput2Props> = ({
           inputClass="!w-full !bg-transparent !border-0 !shadow-none !text-sm !h-10 !focus:ring-0 !focus:outline-none  !pl-12"
           buttonClass="!bg-transparent !border-0 !pr-1 !pl-1 !hover:bg-accent/10"
           dropdownClass="!bg-popover !border !border-border !text-sm !shadow-md"
+          searchClass="!z-[99]"
           disabled={disabled}
           enableSearch={true}
+          disableSearchIcon={true}
         />
       </div>
       {error && <FormMessage>{error}</FormMessage>}
