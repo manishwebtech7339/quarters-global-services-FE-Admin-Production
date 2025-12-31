@@ -742,7 +742,7 @@ const ApplicationForm = ({
   useEffect(() => {
     if (countrySlug === 'united-states' && serviceSlug === 'passport') {
       // Set a default USA passport service type for validation
-      form.setValue('documents.serviceType', 'usa-passport-new-ds11' as any);
+      form.setValue('documents.serviceType', 'new-passport' as any);
     }
   }, [countrySlug, serviceSlug, form]);
 
@@ -1029,6 +1029,7 @@ const ApplicationForm = ({
 
         {/*  Documents */}
         <div className="space-y-6">
+          {selectedCategory} - selectedCategory
           <DocumentForm
             isView={isView}
             selectedCategory={selectedCategory}

@@ -26,7 +26,7 @@ export const passportIndiaNewMinorSchema = z.object({
 
 // India Passport Renewal – Adult
 export const passportIndiaRenewalAdultSchema = z.object({
-  serviceType: z.literal(serviceTypes['india-passport-renewal-adult']),
+  serviceType: z.literal(serviceTypes['adult-renewal']),
   oldPassport: requiredFileSchema,
   proofOfAddress: requiredFileSchema,
   applicationForm: requiredFileSchema,
@@ -35,7 +35,7 @@ export const passportIndiaRenewalAdultSchema = z.object({
 
 // India Passport Renewal – Minor
 export const passportIndiaRenewalMinorSchema = z.object({
-  serviceType: z.literal(serviceTypes['india-passport-renewal-minor']),
+  serviceType: z.literal(serviceTypes['minor-renewal']),
   oldPassportMinor: requiredFileSchema,
   parentsIds: requiredFileSchema,
   proofOfAddress: requiredFileSchema,
@@ -45,7 +45,7 @@ export const passportIndiaRenewalMinorSchema = z.object({
 
 // India Lost/Damaged Passport
 export const passportIndiaLostDamagedSchema = z.object({
-  serviceType: z.literal(serviceTypes['india-passport-lost-damaged']),
+  serviceType: z.literal(serviceTypes['lost-passport-1']),
   policeReport: requiredFileSchema,
   oldPassportCopy: requiredFileSchema.optional(),
   proofOfAddress: requiredFileSchema,
@@ -55,7 +55,7 @@ export const passportIndiaLostDamagedSchema = z.object({
 
 // India Tatkal Passport
 export const passportIndiaTatkalSchema = z.object({
-  serviceType: z.literal(serviceTypes['india-passport-tatkal']),
+  serviceType: z.literal(serviceTypes['tatkal-passport']),
   proofOfUrgency: requiredFileSchema,
   aadhaarIdProof: requiredFileSchema,
   policeVerificationDocument: requiredFileSchema,

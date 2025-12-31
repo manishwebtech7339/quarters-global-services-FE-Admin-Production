@@ -36,12 +36,14 @@ import {
   passportUSANewDS11Schema,
   passportUSARenewalDS82Schema,
   passportUSAChildUnder16Schema,
-  passportUSALostStolenDamagedSchema,
   passportUSACardSchema,
   passportUSANameChangeCorrectionSchema,
   passportUSASecondValidSchema,
   passportUSAExpeditedServiceSchema,
   passportUSAEmergencySameDaySchema,
+  passportUSAStolenSchema,
+  passportUSADamagedSchema,
+  passportUSALostSchema,
   // India Passport Schemas
   passportIndiaNewAdultSchema,
   passportIndiaNewMinorSchema,
@@ -50,6 +52,7 @@ import {
   passportIndiaLostDamagedSchema,
   passportIndiaTatkalSchema,
   passportIndiaNameChangeSchema,
+  // -
   emptySchema,
 } from './schemas/index'; // organized schemas folder
 import { FileInput } from '@/components/ui/file-input';
@@ -131,34 +134,38 @@ const DocumentForm = ({ selectedCategory, existingDocuments, isView }: DocumentF
       // USA Passport Cases
       case serviceTypes['new-passport']:
         return passportUSANewDS11Schema;
-      case serviceTypes['usa-passport-renewal-ds82']:
+      case serviceTypes['usa-passport-renewal']:
         return passportUSARenewalDS82Schema;
-      case serviceTypes['usa-passport-child-under16']:
+      case serviceTypes['child-passport']:
         return passportUSAChildUnder16Schema;
-      case serviceTypes['usa-passport-lost-stolen-damaged']:
-        return passportUSALostStolenDamagedSchema;
+      case serviceTypes['lost-passport']:
+        return passportUSALostSchema;
+      case serviceTypes['damaged-passport']:
+        return passportUSADamagedSchema;
+      case serviceTypes['stolen-passport']:
+        return passportUSAStolenSchema;
       case serviceTypes['usa-passport-card']:
         return passportUSACardSchema;
-      case serviceTypes['usa-passport-name-change-correction']:
+      case serviceTypes['name-change']:
         return passportUSANameChangeCorrectionSchema;
-      case serviceTypes['usa-passport-second-valid']:
+      case serviceTypes['second-passport']:
         return passportUSASecondValidSchema;
-      case serviceTypes['usa-passport-expedited-service']:
+      case serviceTypes['expedited-passport-service']:
         return passportUSAExpeditedServiceSchema;
-      case serviceTypes['usa-passport-emergency-same-day']:
+      case serviceTypes['emergency-or-same-day-passport']:
         return passportUSAEmergencySameDaySchema;
       // India Passport Cases
       case serviceTypes['india-passport-new-adult']:
         return passportIndiaNewAdultSchema;
       case serviceTypes['india-passport-new-minor']:
         return passportIndiaNewMinorSchema;
-      case serviceTypes['india-passport-renewal-adult']:
+      case serviceTypes['adult-renewal']:
         return passportIndiaRenewalAdultSchema;
-      case serviceTypes['india-passport-renewal-minor']:
+      case serviceTypes['minor-renewal']:
         return passportIndiaRenewalMinorSchema;
-      case serviceTypes['india-passport-lost-damaged']:
+      case serviceTypes['lost-passport-1']:
         return passportIndiaLostDamagedSchema;
-      case serviceTypes['india-passport-tatkal']:
+      case serviceTypes['tatkal-passport']:
         return passportIndiaTatkalSchema;
       case serviceTypes['india-passport-name-change']:
         return passportIndiaNameChangeSchema;

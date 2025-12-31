@@ -39,12 +39,14 @@ import {
   passportUSANewDS11Schema,
   passportUSARenewalDS82Schema,
   passportUSAChildUnder16Schema,
-  passportUSALostStolenDamagedSchema,
   passportUSACardSchema,
   passportUSANameChangeCorrectionSchema,
   passportUSASecondValidSchema,
   passportUSAExpeditedServiceSchema,
   passportUSAEmergencySameDaySchema,
+  passportUSADamagedSchema,
+  passportUSAStolenSchema,
+  passportUSALostSchema,
 } from './usa/passport';
 
 import {
@@ -109,7 +111,9 @@ export const serviceDocumentsSchemas = z.discriminatedUnion('serviceType', [
   passportUSANewDS11Schema,
   passportUSARenewalDS82Schema,
   passportUSAChildUnder16Schema,
-  passportUSALostStolenDamagedSchema,
+  passportUSALostSchema,
+  passportUSAStolenSchema,
+  passportUSADamagedSchema,
   passportUSACardSchema,
   passportUSANameChangeCorrectionSchema,
   passportUSASecondValidSchema,

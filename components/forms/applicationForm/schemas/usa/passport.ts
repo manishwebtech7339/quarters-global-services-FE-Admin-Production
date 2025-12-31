@@ -15,7 +15,7 @@ export const passportUSANewDS11Schema = z.object({
 
 // USA Passport Renewal (DS-82)
 export const passportUSARenewalDS82Schema = z.object({
-  serviceType: z.literal(serviceTypes['usa-passport-renewal-ds82']),
+  serviceType: z.literal(serviceTypes['usa-passport-renewal']),
   mostRecentPassport: requiredFileSchema,
   passportPhoto2x2: requiredFileSchema,
   ds82Form: requiredFileSchema,
@@ -25,7 +25,7 @@ export const passportUSARenewalDS82Schema = z.object({
 
 // USA Child Passport (Under 16)
 export const passportUSAChildUnder16Schema = z.object({
-  serviceType: z.literal(serviceTypes['usa-passport-child-under16']),
+  serviceType: z.literal(serviceTypes['child-passport']),
   proofOfCitizenship: requiredFileSchema,
   parentsIdCopies: requiredFileSchema,
   parentalConsent: requiredFileSchema,
@@ -34,8 +34,24 @@ export const passportUSAChildUnder16Schema = z.object({
 });
 
 // USA Lost/Stolen/Damaged Passport
-export const passportUSALostStolenDamagedSchema = z.object({
-  serviceType: z.literal(serviceTypes['usa-passport-lost-stolen-damaged']),
+export const passportUSALostSchema = z.object({
+  serviceType: z.literal(serviceTypes['lost-passport']),
+  ds64StatementOfLoss: requiredFileSchema,
+  ds11Form: requiredFileSchema,
+  proofOfCitizenship: requiredFileSchema,
+  proofOfIdentity: requiredFileSchema,
+  passportPhoto: requiredFileSchema,
+});
+export const passportUSAStolenSchema = z.object({
+  serviceType: z.literal(serviceTypes['stolen-passport']),
+  ds64StatementOfLoss: requiredFileSchema,
+  ds11Form: requiredFileSchema,
+  proofOfCitizenship: requiredFileSchema,
+  proofOfIdentity: requiredFileSchema,
+  passportPhoto: requiredFileSchema,
+});
+export const passportUSADamagedSchema = z.object({
+  serviceType: z.literal(serviceTypes['damaged-passport']),
   ds64StatementOfLoss: requiredFileSchema,
   ds11Form: requiredFileSchema,
   proofOfCitizenship: requiredFileSchema,
@@ -54,7 +70,7 @@ export const passportUSACardSchema = z.object({
 
 // USA Name Change/Correction
 export const passportUSANameChangeCorrectionSchema = z.object({
-  serviceType: z.literal(serviceTypes['usa-passport-name-change-correction']),
+  serviceType: z.literal(serviceTypes['name-change']),
   ds5504Form: requiredFileSchema,
   currentPassport: requiredFileSchema,
   legalNameChangeDocument: requiredFileSchema,
@@ -62,7 +78,7 @@ export const passportUSANameChangeCorrectionSchema = z.object({
 
 // USA Second Valid Passport
 export const passportUSASecondValidSchema = z.object({
-  serviceType: z.literal(serviceTypes['usa-passport-second-valid']),
+  serviceType: z.literal(serviceTypes['second-passport']),
   ds82OrDs11Form: requiredFileSchema,
   currentValidPassport: requiredFileSchema,
   letterOfJustification: requiredFileSchema,
@@ -71,7 +87,7 @@ export const passportUSASecondValidSchema = z.object({
 
 // USA Expedited Service
 export const passportUSAExpeditedServiceSchema = z.object({
-  serviceType: z.literal(serviceTypes['usa-passport-expedited-service']),
+  serviceType: z.literal(serviceTypes['expedited-passport-service']),
   proofOfUrgentTravel: requiredFileSchema,
   expeditedFeePayment: requiredFileSchema,
   standardRequiredDocs: requiredFileSchema,
@@ -79,7 +95,7 @@ export const passportUSAExpeditedServiceSchema = z.object({
 
 // USA Emergency/Same-Day Passport
 export const passportUSAEmergencySameDaySchema = z.object({
-  serviceType: z.literal(serviceTypes['usa-passport-emergency-same-day']),
+  serviceType: z.literal(serviceTypes['emergency-or-same-day-passport']),
   proofOfEmergency: requiredFileSchema,
   proofOfTravel: requiredFileSchema,
   requiredStandardDocs: requiredFileSchema,
