@@ -1,6 +1,5 @@
 import Summary from './_components/Summary';
 import Activities from './_components/Activities';
-import Alerts from './_components/Alerts';
 import ApplicationTrend from './_components/ApplicationTrend';
 import ServiceWiseUsage from './_components/ServiceWiseUsage';
 import { DashboardCounts, RecentActivity } from '@/services/dashboardService';
@@ -17,7 +16,7 @@ const Home = ({ dashboardData, recentActivities }: HomeProps) => {
       <ApplicationTrend />
       <ServiceWiseUsage />
       <Activities activities={recentActivities} />
-      <Alerts />
+      {/* <Alerts /> */}
     </div>
   );
 };

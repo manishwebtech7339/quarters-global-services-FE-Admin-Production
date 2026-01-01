@@ -41,7 +41,7 @@ const Activities = ({ activities, isLoading = false }: ActivitiesProps) => {
     }
   };
   return (
-    <div className="space-y-2">
+    <div className="space-y- 2 col-span-full">
       <p className="text-lg font-semibold">Recent Activities</p>
       <div className="max-h-96 overflow-auto relative">
         {isLoading ? (
