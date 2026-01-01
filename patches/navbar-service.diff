@@ -1,0 +1,52 @@
+*** Begin Patch
+*** Update File: services/platformService.ts
+@@
+-'use server';
+-'import { fetcher } from '@/lib/fetcher';
++'use client';
++import { fetcher } from '@/lib/fetcher';
+@@
+ export const getPlatformServiceCategoriesById = async (
+   platformServiceId: string,
+   toCountryId?: string,
+ ): Promise<PlatformServiceCategory[]> => {
+@@
+ };
++
++// Types and fetcher for navbar services used in the navbar
++export interface NavbarService {
++  _id: string;
++  parentServiceId: string | null;
++  name: string;
++  displayName?: string;
++  iconUrl?: string;
++  slug?: string;
++  subServices?: NavbarService[];
++  [key: string]: any;
++}
++
++export interface NavbarServicesResponse {
++  status: boolean;
++  message: string;
++  data: NavbarService[];
++}
++
++export const getNavbarServices = async (): Promise<NavbarService[]> => {
++  try {
++    const url = '/platform-service/get-navbar-services';
++    const response: NavbarServicesResponse = await fetcher(url, {
++      cache: 'no-cache',
++      revalidate: 60,
++    });
++
++    if (response?.status && Array.isArray(response.data)) {
++      return response.data;
++    }
++
++    return [];
++  } catch (error) {
++    console.error('Error fetching navbar services:', error);
++    return [];
++  }
++};
+*** End Patch

@@ -15,9 +15,14 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
+
+import { getCountries } from '@/services/countryService';
+import { getNavbarServices } from '@/services/navbarService';
+
 import { getTrendData, transformTrendDataForChart } from '@/services/dashboardService';
 import { useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
+import CommonComboBox from '@/components/common/CommonComboBox';
 
 export const description = 'A line chart';
 
@@ -32,6 +37,8 @@ function ApplicationTrend() {
   const [year, setYear] = useState('2025');
   const [country, setCountry] = useState('all');
   const [service, setService] = useState('all');
+  const [initialCountries, setInitialCountries] = useState<any[] | undefined>(undefined);
+  const [initialServices, setInitialServices] = useState<any[] | undefined>(undefined);
   const [chartData, setChartData] = useState<
     { month: string; value: number; monthNumber: number }[]
   >([]);
@@ -39,6 +46,33 @@ function ApplicationTrend() {
 
   // Fetch trend data when filters change
   useEffect(() => {
+    // load countries for combo box
+    const fetchCountries = async () => {
+      try {
+        const list = await getCountries(1, 256);
+        setInitialCountries(list);
+      } catch (err) {
+        console.error('Failed to load countries', err);
+        setInitialCountries([]);
+      }
+    };
+
+    fetchCountries();
+    const fetchServices = async () => {
+      try {
+        const svcs = await getNavbarServices();
+        console.log(svcs, 'Navbar services');
+        setInitialServices(
+          svcs.map((s) => ({ _id: s._id, name: s.displayName || s.name, code: s.slug || s._id })),
+        );
+      } catch (err) {
+        console.error('Failed to load services', err);
+        setInitialServices([]);
+      }
+    };
+
+    fetchServices();
+
     const fetchTrendData = async () => {
       setIsLoading(true);
       try {
@@ -75,28 +109,26 @@ function ApplicationTrend() {
               <SelectItem value="2023">2023</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={country} onValueChange={setCountry}>
-            <SelectTrigger className="w-32 h-8">
-              <SelectValue placeholder="Country" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Countries</SelectItem>
-              <SelectItem value="USA">USA</SelectItem>
-              <SelectItem value="UK">UK</SelectItem>
-              <SelectItem value="India">India</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select value={service} onValueChange={setService}>
-            <SelectTrigger className="w-32 h-8">
-              <SelectValue placeholder="Service" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Services</SelectItem>
-              <SelectItem value="CourierDelivery">Courier Delivery</SelectItem>
-              <SelectItem value="Visa">Visa</SelectItem>
-              <SelectItem value="Passport">Passport</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="w-44">
+            <CommonComboBox
+              value={country === 'all' ? '' : country}
+              initialOptions={initialCountries || []}
+              placeholder="All Countries"
+              searchPlaceholder="Search country..."
+              formatLabel={(item: any) => item.name}
+              onChange={(val) => setCountry(val || 'all')}
+            />
+          </div>
+          <div className="w-44">
+            <CommonComboBox
+              value={service === 'all' ? '' : service}
+              initialOptions={initialServices || []}
+              placeholder="All Services"
+              searchPlaceholder="Search service..."
+              formatLabel={(item: any) => item.name}
+              onChange={(val) => setService(val || 'all')}
+            />
+          </div>
         </div>
       </CardHeader>
       <CardContent className="mt-auto">
