@@ -14,18 +14,15 @@ import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store/Store';
 import { userInfo } from '@/store/slices/registerUserSlice';
+import { passwordSchema } from '@/lib/formSchemaFunctions';
 
 const formSchema = z
   .object({
     username: z.string().min(2, {
       message: 'Username must be at least 2 characters.',
     }),
-    password: z.string().min(6, {
-      message: 'Password must be at least 6 characters.',
-    }),
-    confirmPassword: z.string().min(6, {
-      message: 'Password must be at least 6 characters.',
-    }),
+    password: passwordSchema(),
+    confirmPassword: passwordSchema(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",

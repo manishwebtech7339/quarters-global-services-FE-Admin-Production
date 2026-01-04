@@ -13,13 +13,14 @@ import { toast } from 'sonner';
 import UserStatusModal, { UserStatus } from '../common/UserStatusModal';
 import Link from 'next/link';
 import { Loader } from 'lucide-react';
+import { passwordSchema } from '@/lib/formSchemaFunctions';
 
 // ---------------- Schema ----------------
 const formSchema = z
   .object({
     code: z.string().min(4, 'OTP must be 4 digits'),
-    newPassword: z.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z.string().min(6),
+    newPassword: passwordSchema(),
+    confirmPassword: passwordSchema(),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Passwords do not match',
