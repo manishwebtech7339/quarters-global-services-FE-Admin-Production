@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,6 +24,7 @@ import { editProfile } from '@/services/profileService';
 import { PhoneInput2 } from '@/components/ui/PhoneInput2';
 import { FileInput } from '@/components/ui/file-input';
 import { uploadFile } from '@/lib/uploadUtils';
+import { Separator } from '@/components/ui/separator';
 
 const formSchema = z.object({
   firstName: commonFieldSchema(),
@@ -84,7 +86,7 @@ const ProfileForm = ({
 
     form.reset({});
 
-    router.push('/admin/profile');
+    window.location.href = '/admin/profile';
   });
 
   return (
@@ -163,19 +165,26 @@ const ProfileForm = ({
           />
 
           {!isView && (
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="col-span-2">
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input readOnly={isView} placeholder="" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="col-span-2 space-y-4">
+              <Separator />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>Password (Optional)</FormLabel>
+                    <FormDescription>
+                      Enter your new password. Leave this field blank if you do not want to update
+                      it.
+                    </FormDescription>
+                    <FormControl>
+                      <Input readOnly={isView} placeholder="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           )}
         </div>
 
