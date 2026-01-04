@@ -75,19 +75,35 @@ export const postalCodeSchema = () =>
     .min(1, { message: 'This field is required' })
     .regex(/^[A-Za-z0-9-\s]{3,10}$/, { message: 'Invalid pin code' });
 
-export const passwordSchema = () =>
-  z
-    .string()
-    .min(1, { message: 'This field is required' })
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/, {
-      message:
-        'Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.',
-    });
 // export const passwordSchema = () =>
 //   z
 //     .string()
 //     .min(1, { message: 'This field is required' })
-//     .min(8, { message: 'Password must be at least 8 characters.' });
+//     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/, {
+//       message:
+//         'Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.',
+//     });
+
+export const passwordSchema = () =>
+  z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters long' })
+
+    // Strength rules
+    .regex(/[a-z]/, { message: 'Must contain at least one lowercase letter' })
+    .regex(/[A-Z]/, { message: 'Must contain at least one uppercase letter' })
+    .regex(/\d/, { message: 'Must contain at least one number' })
+    .regex(/[^A-Za-z0-9]/, {
+      message: 'Must contain at least one special character',
+    })
+
+    // ❌ Block email-like passwords
+    .refine((val) => !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val), {
+      message: 'Password must not be an email address',
+    })
+
+    // ❌ Block weird formats like test@.Test
+    .refine((val) => !/@\./.test(val), { message: 'Password format is invalid' });
 
 export const mustPositiveNumber = (minNumber = 0, maxNumber = Infinity) =>
   z
