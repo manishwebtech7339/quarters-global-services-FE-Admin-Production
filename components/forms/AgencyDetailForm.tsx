@@ -543,8 +543,7 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                             className="w-full justify-between"
                           >
                             {field.value
-                              ? allCountries.find((country) => country.isoCode === field.value)
-                                  ?.name
+                              ? allCountries.find((country) => country.name === field.value)?.name
                               : 'Select Country...'}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
@@ -558,10 +557,10 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                             <CommandGroup>
                               {allCountries.map((country) => (
                                 <CommandItem
-                                  key={country.isoCode}
+                                  key={country.name}
                                   value={country.name} // Use country name for search
                                   onSelect={() => {
-                                    form.setValue('country', country.isoCode, {
+                                    form.setValue('country', country.name, {
                                       shouldValidate: true,
                                     });
                                     setSelectedCountry(country.isoCode);
@@ -574,7 +573,7 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                                   <Check
                                     className={cn(
                                       'mr-2 h-4 w-4',
-                                      field.value === country.isoCode ? 'opacity-100' : 'opacity-0',
+                                      field.value === country.name ? 'opacity-100' : 'opacity-0',
                                     )}
                                   />
                                   {country.name}
@@ -613,7 +612,7 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                           >
                             {field.value && selectedCountry
                               ? State.getStatesOfCountry(selectedCountry).find(
-                                  (state) => state.isoCode === field.value,
+                                  (state) => state.name === field.value,
                                 )?.name
                               : 'Select State...'}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -629,10 +628,10 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                               {selectedCountry &&
                                 State.getStatesOfCountry(selectedCountry).map((state) => (
                                   <CommandItem
-                                    key={state.isoCode}
+                                    key={state.name}
                                     value={state.name} // Use state name for search
                                     onSelect={() => {
-                                      form.setValue('state', state.isoCode, {
+                                      form.setValue('state', state.name, {
                                         shouldValidate: true,
                                       });
                                       setSelectedState(state.isoCode);
@@ -643,7 +642,7 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                                     <Check
                                       className={cn(
                                         'mr-2 h-4 w-4',
-                                        field.value === state.isoCode ? 'opacity-100' : 'opacity-0',
+                                        field.value === state.name ? 'opacity-100' : 'opacity-0',
                                       )}
                                     />
                                     {state.name}
