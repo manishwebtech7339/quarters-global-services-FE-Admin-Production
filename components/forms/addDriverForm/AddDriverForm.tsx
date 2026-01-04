@@ -130,6 +130,7 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
         licence: licenceData,
         status: values.status,
       };
+      console.log(payload, 'payload');
 
       let response;
       if (isEdit && driverData?._id) {
@@ -357,7 +358,7 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
             name="state"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>City</FormLabel>
+                <FormLabel>State</FormLabel>
                 <FormControl>
                   <Input placeholder="" disabled={isView} {...field} />
                 </FormControl>
