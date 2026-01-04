@@ -750,24 +750,26 @@ const ApplicationForm = ({
       <form onSubmit={form.handleSubmit(isEdit ? onEditSubmit : onSubmit)} className="space-y-6">
         {/* Step Indicator */}
         <div className="flex items-center justify-between mb-6">
-          <p className="text-lg font-semibold">Application {JSON.stringify(isEdit)}</p>
-          <div className="flex gap-2  ">
-            <Select
-              onValueChange={handleApplicationStatusChange}
-              defaultValue={applicationData?.status || 'Submitted'}
-              disabled={isView || !isEdit}
-            >
-              <SelectTrigger className="w-fit min-w-44">
-                <SelectValue placeholder="Select Country" />
-              </SelectTrigger>
-              <SelectContent>
-                {applicationStatuses.map((status) => (
-                  <SelectItem key={status} value={status}>
-                    {status}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <p className="text-lg font-semibold">Application</p>
+          <div className="flex gap-2">
+            {(isView || isEdit) && (
+              <Select
+                onValueChange={handleApplicationStatusChange}
+                defaultValue={applicationData?.status || 'Submitted'}
+                disabled={isView || !isEdit}
+              >
+                <SelectTrigger className="w-fit min-w-44">
+                  <SelectValue placeholder="Select Country" />
+                </SelectTrigger>
+                <SelectContent>
+                  {applicationStatuses.map((status) => (
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
             <Link
               target="_blank"
               href={
