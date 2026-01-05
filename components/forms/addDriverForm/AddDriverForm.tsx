@@ -32,7 +32,10 @@ import { Autocomplete } from '@react-google-maps/api';
 
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full Name is required'),
-  email: z.string().email('Invalid email'),
+  email: z
+    .string()
+    .email('Invalid email')
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   countryCode: z.string().min(1, 'Country code is required'),
   phone: z.string().min(1, 'Phone number is required'),
   address: z.string().min(1, 'Address is required'),

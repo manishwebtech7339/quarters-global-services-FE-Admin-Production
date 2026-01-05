@@ -37,7 +37,11 @@ const formSchema = z.object({
   lastName: z.string().min(1, 'Last Name is required'),
   dateOfBirth: z.string('Date of Birth is required'),
   nationality: z.string().min(1, 'Nationality is required'),
-  email: z.string().email('Invalid email').min(1, 'Email is required'),
+  email: z
+    .string()
+    .email('Invalid email')
+    .min(1, 'Email is required')
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   phoneCode: z.string().min(1, 'Phone code is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
 

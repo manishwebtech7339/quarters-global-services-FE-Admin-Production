@@ -13,7 +13,10 @@ import UserStatusModal, { UserStatus } from '../common/UserStatusModal';
 
 // ---------------- Schema ----------------
 const formSchema = z.object({
-  email: z.string().email('Invalid email'),
+  email: z
+    .string()
+    .email('Invalid email')
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
 });
 
 // ---------------- Component ----------------

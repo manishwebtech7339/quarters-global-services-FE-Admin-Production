@@ -42,12 +42,18 @@ const enrollmentFormSchema = z.object({
   dateOfBirth: commonFieldSchema(),
   countryCode: commonFieldSchema(),
   phone: commonFieldSchema(),
-  email: z.string().email(),
+  email: z
+    .string()
+    .email()
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   homeAddress: commonFieldSchema(),
 
   businessName: commonFieldSchema(),
   businessPhone: commonFieldSchema(),
-  businessEmail: z.string().email(),
+  businessEmail: z
+    .string()
+    .email()
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   officeAddress: commonFieldSchema(),
   businessType: commonFieldSchema(),
 

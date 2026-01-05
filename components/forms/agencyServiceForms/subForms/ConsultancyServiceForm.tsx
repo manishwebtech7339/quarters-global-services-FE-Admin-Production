@@ -34,7 +34,11 @@ const purposes = ['Business', 'Personal', 'Other']; // example purposes
 const formSchema = z.object({
   firstName: z.string().min(1, 'First Name is required'),
   lastName: z.string().min(1, 'Last Name is required'),
-  email: z.string().email('Invalid email').min(1, 'Email ID is required'),
+  email: z
+    .string()
+    .email('Invalid email')
+    .min(1, 'Email ID is required')
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   phoneCode: z.string().min(1, 'Phone code is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
   city: z.string().min(1, 'City is required'),

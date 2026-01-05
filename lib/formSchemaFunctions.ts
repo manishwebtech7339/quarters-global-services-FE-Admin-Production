@@ -66,7 +66,8 @@ export const emailSchema = () =>
     .string()
     .trim()
     .min(1, { message: 'This field is required' })
-    .email({ message: 'Invalid email' });
+    .email({ message: 'Invalid email' })
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid');
 
 export const postalCodeSchema = () =>
   z
