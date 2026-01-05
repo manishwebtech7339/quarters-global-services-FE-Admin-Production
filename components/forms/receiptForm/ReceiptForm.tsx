@@ -26,7 +26,10 @@ import { PhoneInput } from '@/components/ui/phone-input';
 const formSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
-  email: z.string().email(),
+  email: z
+    .string()
+    .email()
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   phone: z.string().min(1),
   serviceCategory: z.string().min(1),
   miscService: z.string().optional(),

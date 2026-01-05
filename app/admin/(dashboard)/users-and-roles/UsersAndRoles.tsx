@@ -12,6 +12,7 @@ import RoleDeleteButton from './RoleDeleteButton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Eye } from 'lucide-react';
 import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
+import CommonFilters from '@/components/common/CommonFilters';
 
 const formatPermission = (perm: string) => {
   return perm
@@ -203,6 +204,8 @@ const UsersAndRolesPage = ({
               rows={(activeTab === 'users' ? preparedUsers : preparedRoles) as any}
               filename={activeTab === 'users' ? 'users.xlsx' : 'roles.xlsx'}
             />
+
+            {activeTab === 'users' && <CommonFilters />}
 
             {activeTab === 'users' ? (
               <>

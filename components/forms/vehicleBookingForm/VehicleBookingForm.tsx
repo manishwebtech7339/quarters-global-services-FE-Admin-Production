@@ -30,7 +30,10 @@ import { FormCombobox } from '@/components/common/FormComboBox';
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full Name is required'),
   agent: z.string().optional(),
-  email: z.string().email('Invalid email'),
+  email: z
+    .string()
+    .email('Invalid email')
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   phone: z.string().min(1, 'Phone number is required'),
   pickupLocation: z.string().min(1, 'Pickup Location is required'),
   dropOffLocation: z.string().min(1, 'Drop-off Location is required'),

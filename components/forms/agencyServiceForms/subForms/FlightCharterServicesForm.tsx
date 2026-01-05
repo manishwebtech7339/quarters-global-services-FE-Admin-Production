@@ -42,7 +42,11 @@ const formSchema = z.object({
   date: z.string('Date is required'),
   time: z.string().min(1, 'Time is required'), // You may want to parse time properly or use a time picker component
   passengerName: z.string().min(1, 'Passenger Name is required'),
-  email: z.string().email('Please enter a valid email address').min(1, 'Email is required'),
+  email: z
+    .string()
+    .email('Please enter a valid email address')
+    .min(1, 'Email is required')
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   phone: z.string().min(1, 'Phone number is required'),
   countryCode: z.string().optional(),
   applicationSource: z.string().min(1, 'Application Source is required'),

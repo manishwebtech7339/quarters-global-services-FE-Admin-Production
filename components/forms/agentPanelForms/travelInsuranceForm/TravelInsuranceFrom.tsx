@@ -27,7 +27,10 @@ const formSchema = z.object({
   numTravellers: z.string().min(1, 'Number of travellers is required'),
   dob: z.string().min(1, 'Date of Birth is required'),
   gender: z.enum(['male', 'female', 'other']),
-  email: z.string().email('Invalid email address'),
+  email: z
+    .string()
+    .email('Invalid email address')
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   phone: z.string().min(1, 'Phone number is required'),
 
   // Travel Details

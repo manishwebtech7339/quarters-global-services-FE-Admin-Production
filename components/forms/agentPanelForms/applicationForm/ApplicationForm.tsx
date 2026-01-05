@@ -23,7 +23,10 @@ export const firstStepApplicationFormSchema = z.object({
   // Personal Details
   firstName: z.string().min(1),
   lastName: z.string().min(1),
-  email: z.string().email(),
+  email: z
+    .string()
+    .email()
+    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
   phone: z.string().min(1),
   dob: z.string().min(1),
   personalCountry: z.string().min(1),
