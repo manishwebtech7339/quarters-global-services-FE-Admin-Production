@@ -126,11 +126,10 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
         pinCode: values.pinCode,
         licenseNumber: values.licenseNumber,
         licenseExpiryDate: values.licenseExpiryDate,
-        photo: photoData,
-        licence: licenceData,
+        photo: photoData ?? undefined,
+        licence: licenceData ?? undefined,
         status: values.status,
       };
-      console.log(payload, 'payload');
 
       let response;
       if (isEdit && driverData?._id) {
@@ -289,12 +288,37 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
                       const place = autocompleteRef.current?.getPlace();
                       if (!place?.address_components) return;
 
+                      let addressLine = '';
                       let city = '';
                       let state = '';
                       let pincode = '';
 
+                      let streetNumber = '';
+                      let route = '';
+                      let sublocality = '';
+                      let premise = '';
+
                       place.address_components.forEach((component) => {
                         const types = component.types;
+
+                        if (types.includes('street_number')) {
+                          streetNumber = component.long_name;
+                        }
+
+                        if (types.includes('route')) {
+                          route = component.long_name;
+                        }
+
+                        if (
+                          types.includes('sublocality') ||
+                          types.includes('sublocality_level_1')
+                        ) {
+                          sublocality = component.long_name;
+                        }
+
+                        if (types.includes('premise')) {
+                          premise = component.long_name;
+                        }
 
                         if (types.includes('locality')) {
                           city = component.long_name;
@@ -309,7 +333,12 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
                         }
                       });
 
-                      form.setValue('address', place.formatted_address || '');
+                      // Build clean address line (NO city/state/pincode)
+                      addressLine = [premise, streetNumber, route, sublocality]
+                        .filter(Boolean)
+                        .join(', ');
+
+                      form.setValue('address', addressLine);
                       form.setValue('city', city);
                       form.setValue('state', state);
                       form.setValue('pinCode', pincode);
