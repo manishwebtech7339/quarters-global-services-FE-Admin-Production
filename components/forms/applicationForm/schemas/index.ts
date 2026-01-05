@@ -46,8 +46,6 @@ export const serviceDocumentsSchemas = z.discriminatedUnion('serviceType', [
   ...extractSchemas(otherVisa),
 ] as const);
 
-console.log(serviceDocumentsSchemas, 'serviceDocumentsSchemas');
-
 // Base schema for application form
 const baseSchema = z.object({
   // Service

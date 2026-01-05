@@ -1,6 +1,81 @@
 import { z } from 'zod';
 import { requiredFileSchema } from '../common';
 
+export const visaGlobalSchema = z.object({
+  serviceType: z.literal('visa-global'),
+
+  // 🛂 Identity & Passport
+  validPassport: requiredFileSchema,
+  blankPassportPagesProof: requiredFileSchema.optional(),
+  oldPassports: requiredFileSchema.optional(),
+  nationalIdOrResidencePermit: requiredFileSchema.optional(),
+
+  // 📄 Previous Visa History
+  previousVisaCopiesAllCountries: requiredFileSchema.optional(),
+  previousVisaNumbers: requiredFileSchema.optional(),
+  entryExitStampCopies: requiredFileSchema.optional(),
+  currentVisasInOldPassports: requiredFileSchema.optional(),
+  longTermVisaDetails: requiredFileSchema.optional(),
+
+  // ❌ Visa Refusal / Rejection History
+  visaRefusalLetters: requiredFileSchema.optional(),
+  visaRefusalDateCountry: requiredFileSchema.optional(),
+  visaRejectionReason: requiredFileSchema.optional(),
+  visaRejectionExplanationLetter: requiredFileSchema.optional(),
+  immigrationOverstayDetails: requiredFileSchema.optional(),
+
+  // 📸 Photographs
+  passportPhotographs: requiredFileSchema,
+
+  // ✈️ Travel Proof
+  flightReservation: requiredFileSchema.optional(),
+  hotelAccommodationProof: requiredFileSchema.optional(),
+  travelItinerary: requiredFileSchema.optional(),
+  onwardReturnTravelProof: requiredFileSchema.optional(),
+
+  // 💰 Financial Proof
+  bankStatements: requiredFileSchema.optional(),
+  proofOfFunds: requiredFileSchema.optional(),
+  salarySlipsOrIncomeProof: requiredFileSchema.optional(),
+  sponsorFinancialProof: requiredFileSchema.optional(),
+
+  // 💼 Employment / Business / Study
+  employmentOrJobProof: requiredFileSchema.optional(),
+  approvedLeaveLetter: requiredFileSchema.optional(),
+  businessRegistrationDocuments: requiredFileSchema.optional(),
+  studentEnrollmentProof: requiredFileSchema.optional(),
+
+  // 🏠 Residence & Home Ties
+  currentAddressProof: requiredFileSchema.optional(),
+  utilityBillOrLeaseOrMortgage: requiredFileSchema.optional(),
+  familyRelationshipProof: requiredFileSchema.optional(),
+
+  // 📝 Purpose of Travel Support
+  invitationLetter: requiredFileSchema.optional(),
+  hostIdOrPassportCopy: requiredFileSchema.optional(),
+  eventConferenceAdmissionProof: requiredFileSchema.optional(),
+
+  // 🏥 Insurance & Health
+  travelMedicalInsurance: requiredFileSchema.optional(),
+  medicalReport: requiredFileSchema.optional(),
+  vaccinationRecord: requiredFileSchema.optional(),
+
+  // ⚖️ Legal & Background
+  policeClearanceCertificate: requiredFileSchema.optional(),
+  marriageCertificate: requiredFileSchema.optional(),
+  birthCertificateForMinors: requiredFileSchema.optional(),
+  parentalConsentLetter: requiredFileSchema.optional(),
+
+  // 📦 Final Supporting Documents
+  allPreviousVisaStampCopies: requiredFileSchema.optional(),
+  nameChangeDocuments: requiredFileSchema.optional(),
+  sponsorshipOrGuaranteeLetter: requiredFileSchema.optional(),
+  documentTranslations: requiredFileSchema.optional(),
+
+  // ✅ Final Review / Notes
+  finalChecklistAcknowledgement: requiredFileSchema.optional(),
+});
+
 export const visaCanadaVisitorSchema = z.object({
   serviceType: z.literal('canada-visitor-visa'),
 

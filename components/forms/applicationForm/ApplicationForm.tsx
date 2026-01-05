@@ -47,6 +47,7 @@ import ReferenceUSA from './ReferenceUsa';
 import AdditionalQuestions from './AdditionalQuestion';
 import USPassportForm from './USPassportForm';
 import { useRouter } from 'next/navigation';
+import { visaServices_platformServiceId } from '@/lib/staticIds';
 
 const ApplicationForm = ({
   isView = false,
@@ -1032,7 +1033,11 @@ const ApplicationForm = ({
         <div className="space-y-6">
           <DocumentForm
             isView={isView}
+            selectedService={
+              form.watch('platformServiceId') === visaServices_platformServiceId ? 'visa' : ''
+            }
             selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
             existingDocuments={applicationData?.serviceFields || null}
           />
         </div>

@@ -4,10 +4,13 @@ import { CreateApplicationType, getSchemaFields } from './schemas/index';
 import { FileInput } from '@/components/ui/file-input';
 import { Input } from '@/components/ui/input';
 import { schemaRegistry } from './schemas/schema-registry';
+import { useEffect } from 'react';
 
 interface DocumentFormProps {
   isView?: boolean;
+  selectedService?: 'visa' | string;
   selectedCategory?: string;
+  setSelectedCategory?: (category: string) => void;
   existingDocuments?: any;
 }
 
@@ -19,15 +22,27 @@ function formatLabel(fieldName: string) {
     .trim();
 }
 
-const DocumentForm = ({ selectedCategory, existingDocuments, isView }: DocumentFormProps) => {
+const DocumentForm = ({
+  selectedService,
+  selectedCategory,
+  setSelectedCategory,
+  existingDocuments,
+  isView,
+}: DocumentFormProps) => {
   const form = useFormContext<CreateApplicationType>();
 
-  const schema =
-    selectedCategory && schemaRegistry.has(selectedCategory)
-      ? schemaRegistry.get(selectedCategory)!
-      : null;
+  const hasService = selectedCategory && schemaRegistry.has(selectedCategory);
+  const schema = hasService ? schemaRegistry.get(selectedCategory)! : null;
 
   const fields = schema ? getSchemaFields(schema) : [];
+
+  // Automatically set category to "visa-global" if service is visa and no category is selected
+  useEffect(() => {
+    if (selectedService === 'visa' && selectedCategory && !hasService) {
+      setSelectedCategory && setSelectedCategory('visa-global');
+      form.setValue('documents.serviceType', 'visa-global');
+    }
+  }, [selectedCategory]);
 
   if (selectedCategory && !fields.length) {
     return null;
