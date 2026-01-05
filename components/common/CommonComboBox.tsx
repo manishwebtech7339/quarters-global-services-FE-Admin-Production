@@ -58,7 +58,7 @@ const CommonComboBox: React.FC<CommonComboBoxProps> = ({
       setOptions(mapped);
     }
   }, [initialOptions, formatLabel]);
-
+  console.log(options, 'Combo box options');
   const selectedLabel = options.find((o) => o.value === value)?.label ?? placeholder;
 
   return (
@@ -96,7 +96,13 @@ const CommonComboBox: React.FC<CommonComboBoxProps> = ({
                     renderOption(opt)
                   ) : (
                     <div className="flex items-center gap-2">
-                      <Flag country={opt.code || opt.country || opt.slug} countryName={opt.label} />
+                      {opt.country && (
+                        <Flag
+                          country={opt.code || opt.country || opt.slug}
+                          countryName={opt.label}
+                        />
+                      )}
+
                       <span className="text-sm">{opt.label}</span>
                     </div>
                   )}

@@ -17,12 +17,12 @@ export interface NavbarServicesResponse {
   data: NavbarServiceItem[];
 }
 
-export const getNavbarServices = async (): Promise<NavbarServiceItem[]> => {
+export const getNavbarServices = async (): Promise<any[]> => {
   try {
     const url = `/platform-service/get-navbar-services`;
     const res: NavbarServicesResponse = await fetcher(url, { method: 'GET' });
-
-    if (res?.status && Array.isArray(res.data)) {
+    console.log('Navbar services response:', res);
+    if (res?.status) {
       return res.data;
     }
 

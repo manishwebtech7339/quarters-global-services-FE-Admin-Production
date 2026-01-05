@@ -282,7 +282,7 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
                 <FormLabel>Address</FormLabel>
                 <FormControl>
                   <Autocomplete
-                    onLoad={(autocomplete) => {
+                    onLoad={(autocomplete: any) => {
                       autocompleteRef.current = autocomplete;
                     }}
                     onPlaceChanged={() => {
@@ -293,7 +293,7 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
                       let state = '';
                       let pincode = '';
 
-                      place.address_components.forEach((component) => {
+                      place.address_components.forEach((component: any) => {
                         const types = component.types;
 
                         if (types.includes('locality')) {

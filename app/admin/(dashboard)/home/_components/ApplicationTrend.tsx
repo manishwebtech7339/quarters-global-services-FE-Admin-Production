@@ -34,7 +34,8 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function ApplicationTrend() {
-  const [year, setYear] = useState('2025');
+  console.log('Rendering ApplicationTrend component', new Date().getFullYear());
+  const [year, setYear] = useState(new Date().getFullYear().toString());
   const [country, setCountry] = useState('all');
   const [service, setService] = useState('all');
   const [initialCountries, setInitialCountries] = useState<any[] | undefined>(undefined);
@@ -60,10 +61,14 @@ function ApplicationTrend() {
     fetchCountries();
     const fetchServices = async () => {
       try {
-        const svcs = await getNavbarServices();
+        const svcs: any = await getNavbarServices();
         console.log(svcs, 'Navbar services');
         setInitialServices(
-          svcs.map((s) => ({ _id: s._id, name: s.displayName || s.name, code: s.slug || s._id })),
+          svcs?.data?.map((s: any) => ({
+            _id: s._id,
+            name: s.displayName,
+            code: s.slug || s._id,
+          })),
         );
       } catch (err) {
         console.error('Failed to load services', err);
@@ -100,13 +105,13 @@ function ApplicationTrend() {
         <CardTitle>Application Trend</CardTitle>
         <div className="flex items-center gap-2  overflow-auto">
           <Select value={year} onValueChange={setYear}>
-            <SelectTrigger className="w-26 h-8">
+            <SelectTrigger className="w-26 !h-8 ">
               <SelectValue placeholder="Year" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="2027">2027</SelectItem>
+              <SelectItem value="2026">2026</SelectItem>
               <SelectItem value="2025">2025</SelectItem>
-              <SelectItem value="2024">2024</SelectItem>
-              <SelectItem value="2023">2023</SelectItem>
             </SelectContent>
           </Select>
           <div className="w-44">
