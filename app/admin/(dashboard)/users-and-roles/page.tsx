@@ -9,10 +9,19 @@ import { getRoles } from '@/services/rolesService';
 const page = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string; activeTab?: string }>;
+  searchParams: Promise<{
+    page?: string;
+    activeTab?: string;
+    q?: string;
+    from?: string;
+    to?: string;
+  }>;
 }) => {
   const page = (await searchParams).page || '1';
   const activeTab = (await searchParams).activeTab || 'users';
+  const search = (await searchParams).q || '';
+  const from = (await searchParams).from || '';
+  const to = (await searchParams).to || '';
 
   const accessUsers = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.users });
   const accessRoles = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.roles });
@@ -21,6 +30,9 @@ const page = async ({
   }
   const users = await getUsers({
     page,
+    search,
+    from,
+    to,
   });
   const roles = await getRoles();
   return (

@@ -10,15 +10,19 @@ export const getUsers = async ({
   page = '1',
   search = '',
   createdBy,
+  from = '',
+  to = '',
 }: {
   role?: UserTypeENUM;
   page?: string;
   search?: string;
   createdBy?: string;
+  from?: string;
+  to?: string;
 }): Promise<ApiPagination & { data: UserDataType[] }> => {
   try {
     const data = await fetcher(
-      `/user/get-all-user?roles=${role}&page=${page}&search=${search}&createdBy=${createdBy}`,
+      `/user/get-all-user?roles=${role}&page=${page}&search=${search}&createdBy=${createdBy}&from=${from}&to=${to}`,
       {
         cache: 'no-cache',
         revalidate: 60,
