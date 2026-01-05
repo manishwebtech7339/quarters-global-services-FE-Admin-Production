@@ -16,6 +16,8 @@ import * as indiaOci from './india/oci';
 import * as indiaConsular from './india/consular';
 // ICP
 import * as indiaIcp from './india/icp';
+// China E-Visa
+import * as chinaEVsa from './china/evisa';
 // Other countries
 import * as otherVisa from './other/visa';
 import { extractSchemas } from '.';
@@ -34,6 +36,7 @@ export const schemaRegistry = new Map<string, z.ZodObject<any>>();
   ...extractSchemas(indiaOci),
   ...extractSchemas(indiaConsular),
   ...extractSchemas(indiaIcp),
+  ...extractSchemas(chinaEVsa),
   ...extractSchemas(otherVisa),
 ].forEach((schema) => {
   const serviceType = getServiceType(schema);
