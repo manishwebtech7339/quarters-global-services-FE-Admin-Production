@@ -463,8 +463,9 @@ export default function PersonalInfo({
               <PhoneInput2
                 disabled={isView}
                 value={field.value}
-                onChange={(val) => {
+                onChange={(val, df) => {
                   field.onChange(val ? `+${val}` : '');
+                  form.setValue('countryCode', `+${df.dialCode || ''}`);
                 }}
               />
             </FormControl>

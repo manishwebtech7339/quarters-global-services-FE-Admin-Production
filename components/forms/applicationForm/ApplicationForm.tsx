@@ -84,6 +84,7 @@ const ApplicationForm = ({
       firstName: applicationData?.firstName || '',
       lastName: applicationData?.lastName || '',
       email: applicationData?.email || '',
+      countryCode: applicationData?.countryCode || '',
       phone: applicationData?.phone || '',
       country: applicationData?.address?.country || '',
       address: applicationData?.address?.addressLine1 || '',
@@ -270,8 +271,8 @@ const ApplicationForm = ({
           firstName: values.firstName,
           lastName: values.lastName,
           email: values.email,
-          countryCode: values.phone?.split(' ')?.[0] || '+1', // Extract country code from phone
-          phone: values.phone?.replace(/^\+\d+\s/, '') || '', // Remove country code from phone
+          countryCode: values.countryCode,
+          phone: values.phone,
           description: values.notes || '',
           address: {
             addressLine1: values.address,
@@ -467,8 +468,8 @@ const ApplicationForm = ({
       id: applicationData._id,
       firstName: values.firstName,
       lastName: values.lastName,
-      countryCode: values.phone?.split(' ')?.[0] || '+1',
-      phone: values.phone?.replace(/^\+\d+\s/, '') || '',
+      countryCode: values.countryCode,
+      phone: values.phone,
       description: values.notes || '',
       address: {
         addressLine1: values.address,
@@ -680,6 +681,7 @@ const ApplicationForm = ({
         firstName: applicationData?.firstName || '',
         lastName: applicationData?.lastName || '',
         email: applicationData?.email || '',
+        countryCode: applicationData?.countryCode || '',
         phone: applicationData?.phone || '',
         country: applicationData?.address?.country || '',
         address: applicationData?.address?.addressLine1 || '',

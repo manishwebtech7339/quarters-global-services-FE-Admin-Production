@@ -61,6 +61,7 @@ const baseSchema = z.object({
   lastName: commonFieldSchema(),
   email: emailSchema(),
   phone: commonFieldSchema(),
+  countryCode: commonFieldSchema(),
   country: commonFieldSchema(),
   address: commonFieldSchema(),
   city: commonFieldSchema(),
