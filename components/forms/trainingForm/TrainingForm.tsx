@@ -21,15 +21,16 @@ import { useRouter } from 'next/navigation';
 import handleAsync from '@/lib/handleAsync';
 import Link from 'next/link';
 import ComboSelect from '../applicationForm/components/ComboSelect';
+import { commonFieldSchema, documentFileSchema } from '@/lib/formSchemaFunctions';
 
 const trainingFormSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  toCountryId: z.string().min(1, 'This field is required'),
-  platformServiceId: z.string().min(1, 'This field is required'),
-  platformServiceCategoryId: z.string().min(1, 'This field is required'),
-  platformServiceSubCategoryId: z.string().optional(),
-  description: z.string().optional().or(z.literal('')),
-  resource: z.any(),
+  title: commonFieldSchema(),
+  toCountryId: commonFieldSchema(),
+  platformServiceId: commonFieldSchema(),
+  platformServiceCategoryId: commonFieldSchema(),
+  platformServiceSubCategoryId: commonFieldSchema().optional().or(z.literal('')),
+  description: commonFieldSchema().optional().or(z.literal('')),
+  resource: documentFileSchema({ MAX_FILE_SIZE: 16 * 1024 * 1024 }),
 });
 
 const TrainingForm = ({
@@ -54,6 +55,7 @@ const TrainingForm = ({
       resource: defaultData?.resource || '',
     },
   });
+  console.log(form.formState.errors, ':Training Form Errors');
 
   const [isSubCategoriesAvailable, setIsSubCategoriesAvailable] = useState(
     !!defaultData?.subCategory,

@@ -31,24 +31,27 @@ import { CustomerDataType } from '@/services/customerService';
 import { UserDataType, UserTypeENUM } from '@/lib/types';
 import { uploadFile } from '@/lib/uploadUtils';
 import { fetcher } from '@/lib/fetcher';
-import { commonFieldSchema } from '@/lib/formSchemaFunctions';
+import { commonFieldSchema, documentFileSchema } from '@/lib/formSchemaFunctions';
 import { TicketDataType } from '@/services/ticketsService';
 import { FormCombobox } from '@/components/common/FormComboBox';
 import Link from 'next/link';
 
+const ticketStatusOptions = ['Open', 'Waiting on Customer', 'Resolved', 'Closed'] as const;
+const ticketPriorityOptions = ['Normal', 'High', 'Urgent'] as const;
+
 const ticketFormSchema = z.object({
-  status: z.enum(['Open', 'Closed', 'Resolved', 'Waiting on Customer', 'Urgent']),
-  priority: z.enum(['Low', 'Normal', 'High', 'Urgent']),
-  customer: commonFieldSchema().min(1, 'Customer is required'),
+  status: z.enum(ticketStatusOptions),
+  priority: z.enum(ticketPriorityOptions),
+  customer: commonFieldSchema(),
   applicationId: commonFieldSchema(),
   category: commonFieldSchema(),
   subCategory: commonFieldSchema().optional().or(z.literal('')),
   assignedStaff: commonFieldSchema(),
   subject: commonFieldSchema().optional().or(z.literal('')),
   description: commonFieldSchema().optional().or(z.literal('')),
-  passportScan: z.any().optional(),
-  serviceForm: z.any().optional(),
-  signature: z.any().optional(),
+  passportScan: documentFileSchema({}),
+  serviceForm: documentFileSchema({}),
+  signature: documentFileSchema({}),
 });
 
 interface TicketFormProps {
@@ -72,8 +75,8 @@ const TicketForm = ({
   const form = useForm<z.infer<typeof ticketFormSchema>>({
     resolver: zodResolver(ticketFormSchema),
     defaultValues: {
-      status: ticketData?.status || 'Open',
-      priority: ticketData?.priority || 'Normal',
+      status: (ticketData?.status || 'Open') as z.infer<typeof ticketFormSchema>['status'],
+      priority: (ticketData?.priority || 'Normal') as z.infer<typeof ticketFormSchema>['priority'],
       customer: ticketData?.customer?._id || '',
       applicationId: ticketData?.applicationId || '',
       category: ticketData?.category || '',
@@ -81,11 +84,13 @@ const TicketForm = ({
       assignedStaff: ticketData?.assignedStaff || '',
       subject: ticketData?.subject || '',
       description: ticketData?.description || '',
-      passportScan: null,
-      serviceForm: null,
-      signature: null,
+      passportScan: ticketData?.passportScan || null,
+      serviceForm: ticketData?.serviceForm || null,
+      signature: ticketData?.signature || null,
     },
   });
+
+  console.log(ticketData, 'ticketData');
 
   const onSubmit = async (data: z.infer<typeof ticketFormSchema>) => {
     if (isView) return;
@@ -148,11 +153,6 @@ const TicketForm = ({
         description: data.description || '',
         priority: data.priority,
         status: data.status,
-        // attachments: {
-        //   passportScan: passportScanUrl,
-        //   serviceForm: serviceFormUrl,
-        //   signature: signatureUrl,
-        // },
         passportScan: passportScanUrl
           ? {
               file: passportScanUrl,
@@ -219,15 +219,15 @@ const TicketForm = ({
                 name="status"
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger className="w-[120px]">
+                    <SelectTrigger className="w-fit">
                       <SelectValue placeholder="Status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Open">Open</SelectItem>
-                      <SelectItem value="Resolved">Resolved</SelectItem>
-                      <SelectItem value="Closed">Closed</SelectItem>
-                      <SelectItem value="Waiting on Customer">Waiting</SelectItem>
-                      <SelectItem value="Urgent">Urgent</SelectItem>
+                      {ticketStatusOptions.map((status) => (
+                        <SelectItem key={status} value={status}>
+                          {status}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 )}
@@ -241,10 +241,11 @@ const TicketForm = ({
                       <SelectValue placeholder="Priority" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Low">Low</SelectItem>
-                      <SelectItem value="Normal">Normal</SelectItem>
-                      <SelectItem value="High">High</SelectItem>
-                      <SelectItem value="Urgent">Urgent</SelectItem>
+                      {ticketPriorityOptions.map((priority) => (
+                        <SelectItem key={priority} value={priority}>
+                          {priority}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 )}
@@ -364,6 +365,7 @@ const TicketForm = ({
                       existingFileName={ticketData?.passportScan?.filename || 'passport-scan.pdf'}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -379,7 +381,8 @@ const TicketForm = ({
                       existingFileUrl={ticketData?.serviceForm?.file}
                       existingFileName={ticketData?.serviceForm?.filename || 'service-form.pdf'}
                     />
-                  </FormControl>
+                  </FormControl>{' '}
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -395,7 +398,8 @@ const TicketForm = ({
                       existingFileUrl={ticketData?.signature?.file}
                       existingFileName={ticketData?.signature?.filename || 'signature.png'}
                     />
-                  </FormControl>
+                  </FormControl>{' '}
+                  <FormMessage />
                 </FormItem>
               )}
             />

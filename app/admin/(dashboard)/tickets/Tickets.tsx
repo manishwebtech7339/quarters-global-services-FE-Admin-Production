@@ -10,6 +10,7 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import DeleteTicket from './DeleteTicket';
 import CommonFilters from '@/components/common/CommonFilters';
+import { format } from 'date-fns';
 
 interface TicketsProps {
   ticketsData: ApiPagination & { data: TicketDataType[] };
@@ -43,7 +44,7 @@ const columns = [
   {
     header: 'Created Date',
     accessor: 'createdAt',
-    render: (row: any) => <span>{new Date(row.createdAt).toLocaleDateString()}</span>,
+    render: (row: any) => <span>{format(new Date(row.createdAt), 'dd-MM-yyyy')}</span>,
   },
   {
     header: 'Priority',
