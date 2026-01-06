@@ -54,7 +54,6 @@ const VehiclesBookings = ({
     {
       header: 'Phone',
       accessor: 'phone',
-      render: (row: any) => `${row.countryCode} ${row.phone}`,
     },
     {
       header: 'Email',
