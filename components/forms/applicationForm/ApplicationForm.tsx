@@ -846,7 +846,7 @@ const ApplicationForm = ({
               enable={isEdit ? false : form.watch('platformServiceId') ? true : false}
               apiPath={
                 form.watch('platformServiceId')
-                  ? `/platform-service-category/get-platform-service-category?platformServiceId=${form.watch('platformServiceId')}&toCountryId=${form.watch('toCountryId')}&fromCountryId=${form.watch('fromCountryId')}`
+                  ? `/platform-service-category/get-platform-service-category?platformServiceId=${form.watch('platformServiceId')}&toCountryId=${form.watch('toCountryId')}`
                   : ''
               }
               onSelectIsHaveSubCategory={setIsSubCategoriesAvailable}
@@ -867,7 +867,7 @@ const ApplicationForm = ({
                 enable={isEdit ? false : form.watch('platformServiceCategoryId') ? true : false}
                 apiPath={
                   form.watch('platformServiceCategoryId')
-                    ? `/platform-service-category/get-platform-service-category?platformServiceCategoryId=${form.watch('platformServiceCategoryId')}&platformServiceId=${form.watch('platformServiceId')}&toCountryId=${form.watch('toCountryId')}&fromCountryId=${form.watch('fromCountryId')}`
+                    ? `/platform-service-category/get-platform-service-category?platformServiceCategoryId=${form.watch('platformServiceCategoryId')}&platformServiceId=${form.watch('platformServiceId')}&toCountryId=${form.watch('toCountryId')}`
                     : ''
                 }
                 onSlugSelect={(e) => {
@@ -890,7 +890,7 @@ const ApplicationForm = ({
                   enable={isEdit ? false : !!categoryValue}
                   apiPath={
                     categoryValue
-                      ? `/platform-service-category-package/get-platform-service-category-package?toCountryId=${form.watch('toCountryId')}&fromCountryId=${form.watch('fromCountryId')}&platformServiceCategoryId=${categoryValue}`
+                      ? `/platform-service-category-package/get-platform-service-category-package?toCountryId=${form.watch('toCountryId')}&platformServiceCategoryId=${categoryValue}`
                       : ''
                   }
                 />

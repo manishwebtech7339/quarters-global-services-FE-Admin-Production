@@ -5,7 +5,7 @@ export const visaGlobalSchema = z.object({
   serviceType: z.literal('visa-global'),
 
   // 🛂 Identity & Passport
-  passportBioDataPage: requiredFileSchema,
+  passportBioDataPage: requiredFileSchema.optional,
   passportUsedPages: requiredFileSchema.optional(),
   oldPassports: requiredFileSchema.optional(),
   nationalIdOrResidencePermit: requiredFileSchema.optional(),
@@ -25,7 +25,7 @@ export const visaGlobalSchema = z.object({
   immigrationOverstayDetails: requiredFileSchema.optional(),
 
   // 📸 Photographs
-  passportSizePhotograph: requiredFileSchema,
+  passportSizePhotograph: requiredFileSchema.optional(),
 
   // ✈️ Travel Proof
   flightReservation: requiredFileSchema.optional(),
