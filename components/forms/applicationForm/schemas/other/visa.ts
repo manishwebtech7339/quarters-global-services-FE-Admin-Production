@@ -5,14 +5,14 @@ export const visaGlobalSchema = z.object({
   serviceType: z.literal('visa-global'),
 
   // 🛂 Identity & Passport
-  validPassport: requiredFileSchema,
-  blankPassportPagesProof: requiredFileSchema.optional(),
+  passportBioDataPage: requiredFileSchema,
+  passportUsedPages: requiredFileSchema.optional(),
   oldPassports: requiredFileSchema.optional(),
   nationalIdOrResidencePermit: requiredFileSchema.optional(),
 
   // 📄 Previous Visa History
   previousVisaCopiesAllCountries: requiredFileSchema.optional(),
-  previousVisaNumbers: requiredFileSchema.optional(),
+  previousVisaNumbersDocument: requiredFileSchema.optional(),
   entryExitStampCopies: requiredFileSchema.optional(),
   currentVisasInOldPassports: requiredFileSchema.optional(),
   longTermVisaDetails: requiredFileSchema.optional(),
@@ -20,12 +20,12 @@ export const visaGlobalSchema = z.object({
   // ❌ Visa Refusal / Rejection History
   visaRefusalLetters: requiredFileSchema.optional(),
   visaRefusalDateCountry: requiredFileSchema.optional(),
-  visaRejectionReason: requiredFileSchema.optional(),
+  visaRejectionReasonProof: requiredFileSchema.optional(),
   visaRejectionExplanationLetter: requiredFileSchema.optional(),
   immigrationOverstayDetails: requiredFileSchema.optional(),
 
   // 📸 Photographs
-  passportPhotographs: requiredFileSchema,
+  passportSizePhotograph: requiredFileSchema,
 
   // ✈️ Travel Proof
   flightReservation: requiredFileSchema.optional(),
@@ -36,7 +36,7 @@ export const visaGlobalSchema = z.object({
   // 💰 Financial Proof
   bankStatements: requiredFileSchema.optional(),
   proofOfFunds: requiredFileSchema.optional(),
-  salarySlipsOrIncomeProof: requiredFileSchema.optional(),
+  salarySlips: requiredFileSchema.optional(),
   sponsorFinancialProof: requiredFileSchema.optional(),
 
   // 💼 Employment / Business / Study
@@ -47,7 +47,7 @@ export const visaGlobalSchema = z.object({
 
   // 🏠 Residence & Home Ties
   currentAddressProof: requiredFileSchema.optional(),
-  utilityBillOrLeaseOrMortgage: requiredFileSchema.optional(),
+  propertyOwnershipOrRentalAgreement: requiredFileSchema.optional(),
   familyRelationshipProof: requiredFileSchema.optional(),
 
   // 📝 Purpose of Travel Support
@@ -67,13 +67,13 @@ export const visaGlobalSchema = z.object({
   parentalConsentLetter: requiredFileSchema.optional(),
 
   // 📦 Final Supporting Documents
-  allPreviousVisaStampCopies: requiredFileSchema.optional(),
-  nameChangeDocuments: requiredFileSchema.optional(),
-  sponsorshipOrGuaranteeLetter: requiredFileSchema.optional(),
-  documentTranslations: requiredFileSchema.optional(),
+  // allPreviousVisaStampCopies: requiredFileSchema.optional(),
+  // nameChangeDocuments: requiredFileSchema.optional(),
+  // sponsorshipOrGuaranteeLetter: requiredFileSchema.optional(),
+  // documentTranslations: requiredFileSchema.optional(),
 
   // ✅ Final Review / Notes
-  finalChecklistAcknowledgement: requiredFileSchema.optional(),
+  // finalChecklistAcknowledgement: requiredFileSchema.optional(),
 });
 
 export const visaCanadaVisitorSchema = z.object({
