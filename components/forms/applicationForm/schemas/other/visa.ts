@@ -5,7 +5,7 @@ export const visaGlobalSchema = z.object({
   serviceType: z.literal('visa-global'),
 
   // 🛂 Identity & Passport
-  passportBioDataPage: requiredFileSchema.optional,
+  passportBioDataPage: requiredFileSchema.optional(),
   passportUsedPages: requiredFileSchema.optional(),
   oldPassports: requiredFileSchema.optional(),
   nationalIdOrResidencePermit: requiredFileSchema.optional(),

@@ -20,6 +20,7 @@ import * as indiaIcp from './india/icp';
 // China E-Visa
 import * as chinaEVsa from './china/evisa';
 // Other countries
+import * as otherVisa from './other/visa';
 import { commonFieldSchema, emailSchema } from '@/lib/formSchemaFunctions';
 
 export function extractSchemas(module: Record<string, unknown>) {
@@ -45,7 +46,7 @@ export const serviceDocumentsSchemas = z.discriminatedUnion('serviceType', [
   ...extractSchemas(indiaConsular),
   ...extractSchemas(indiaIcp),
   ...extractSchemas(chinaEVsa),
-  // ...extractSchemas(otherVisa),
+  ...extractSchemas(otherVisa),
 ] as const);
 
 // Base schema for application form
