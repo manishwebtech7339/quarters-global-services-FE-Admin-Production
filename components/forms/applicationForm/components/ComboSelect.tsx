@@ -58,6 +58,7 @@ const ComboSelect = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const lastSlugSetRef = React.useRef<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   // Default static options (fallback)
   const defaultOptions: ComboSelectOption[] = [];
@@ -126,26 +127,26 @@ const ComboSelect = ({
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>{fieldLabel || placeholder}</FormLabel>
-          <Popover>
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger disabled={!enable} className="h-12 !w-full" asChild>
               <FormControl>
                 <Button
                   variant="outline"
                   role="combobox"
-                  className={cn(' justify-between', !field.value && 'text-muted-foreground')}
+                  className={cn(!field.value && 'text-muted-foreground')}
                 >
-                  <span>
+                  <div className="w-full text-justify">
                     {loading ? (
-                      <>
+                      <div className="flex items-center justify-between w-full">
+                        <p> Loading...</p>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Loading...
-                      </>
+                      </div>
                     ) : field.value ? (
                       options.find((option) => option._id === field.value)?.name
                     ) : (
                       placeholder
                     )}
-                  </span>
+                  </div>
                   {!loading && <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />}
                 </Button>
               </FormControl>
@@ -183,6 +184,7 @@ const ComboSelect = ({
                                     selected.subCategories.length > 0,
                                 );
                               }
+                              setOpen(false);
                             }}
                           >
                             <div className="flex flex-col w-full">
