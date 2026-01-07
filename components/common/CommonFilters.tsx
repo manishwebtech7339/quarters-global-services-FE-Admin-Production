@@ -191,7 +191,26 @@ export default function QueryFiltersPopover({
   }, [query, from, to, selectValues]);
 
   return (
-    <div className={cn(className)}>
+    <div className={cn('flex gap-4', className)}>
+      <div className="relative">
+        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 opacity-60" />
+        <Input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={placeholder}
+          className="pl-9 pr-10 h-9"
+        />
+        {query ? (
+          <button
+            type="button"
+            onClick={() => setQuery('')}
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-muted"
+            aria-label="Clear search"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        ) : null}
+      </div>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="outline" className={cn('justify-between md:w-auto', triggerClassName)}>
@@ -211,7 +230,7 @@ export default function QueryFiltersPopover({
         <PopoverContent className="w-[min(92vw,400px)] p-4" align="end">
           <div className="grid grid-cols-1 gap-4">
             {/* Search */}
-            <div>
+            {/* <div>
               <Label className="mb-1 block">Search</Label>
               <div className="relative">
                 <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 opacity-60" />
@@ -232,7 +251,7 @@ export default function QueryFiltersPopover({
                   </button>
                 ) : null}
               </div>
-            </div>
+            </div> */}
 
             {/* Dates */}
             {showDateFilters && (
