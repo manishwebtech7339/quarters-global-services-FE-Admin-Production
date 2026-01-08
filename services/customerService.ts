@@ -107,6 +107,7 @@ export const createCustomer = async (body: CustomerFormSchemaType) => {
       dob: body.dateOfBirth || '',
       gender: body.gender || 'other',
       status: body.status || undefined,
+      role: UserTypeENUM.USER,
       address: {
         addressLine1: body.address || '',
         addressLine2: '',
