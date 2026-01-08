@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -23,9 +23,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { PhoneInput } from '@/components/ui/phone-input';
 import { toast } from 'sonner';
 import { FormCombobox } from '@/components/common/FormComboBox';
+import { PhoneInput2 } from '@/components/ui/PhoneInput2';
+import { Autocomplete } from '@react-google-maps/api';
+import { format } from 'date-fns';
 
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full Name is required'),
@@ -34,6 +36,7 @@ const formSchema = z.object({
     .string()
     .email('Invalid email')
     .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
+  countryCode: z.string().min(1, 'Country code is required'),
   phone: z.string().min(1, 'Phone number is required'),
   pickupLocation: z.string().min(1, 'Pickup Location is required'),
   dropOffLocation: z.string().min(1, 'Drop-off Location is required'),
@@ -69,20 +72,23 @@ const VehicleBookingForm = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: bookingData?.fullName || '',
       agent: bookingData?.agent || '',
       email: bookingData?.email || '',
+      countryCode: bookingData?.countryCode || '',
       phone: bookingData?.phone || '',
       pickupLocation: bookingData?.pickupLocation || '',
       dropOffLocation: bookingData?.dropLocation || '',
       pickupDate: bookingData?.pickupDate
-        ? new Date(bookingData.pickupDate).toISOString().split('T')[0]
+        ? format(new Date(bookingData.pickupDate), "yyyy-MM-dd'T'HH:mm")
         : '',
       dropDate: bookingData?.dropDate
-        ? new Date(bookingData.dropDate).toISOString().split('T')[0]
+        ? format(new Date(bookingData.dropDate), "yyyy-MM-dd'T'HH:mm")
         : '',
 
       type: bookingData?.type || '',
@@ -107,8 +113,8 @@ const VehicleBookingForm = ({
         agent: values.agent,
         fullName: values.fullName,
         email: values.email,
-        countryCode: values.phone.split(' ')[0] || '+91',
-        phone: values.phone.split(' ')[1] || values.phone,
+        countryCode: values.countryCode,
+        phone: values.phone,
         amount: parseInt(values.estimatedFare) || 0,
         pickupLocation: values.pickupLocation,
         dropLocation: values.dropOffLocation,
@@ -138,7 +144,7 @@ const VehicleBookingForm = ({
           body: payload,
         });
       }
-      toast.success(`Booking ${isEdit ? 'updated' : 'created'} successfull`);
+      toast.success(`Booking ${isEdit ? 'updated' : 'created'} successful`);
       if (response?.status) {
         role === UserTypeENUM.AGENT
           ? router.push('/agent/vehicles/vehicles-bookings')
@@ -209,12 +215,20 @@ const VehicleBookingForm = ({
               <FormItem>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <PhoneInput placeholder="" disabled={isView} {...field} />
+                  {/* <PhoneInput placeholder="" disabled={isView} {...field} /> */}
+                  <PhoneInput2
+                    value={field.value}
+                    onChange={(val, df) => {
+                      field.onChange(val ? `+${val}` : '');
+                      form.setValue('countryCode', `+${df.dialCode || ''}`);
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="pickupLocation"
@@ -222,12 +236,25 @@ const VehicleBookingForm = ({
               <FormItem>
                 <FormLabel>Pickup Location</FormLabel>
                 <FormControl>
-                  <Input placeholder="" disabled={isView} {...field} />
+                  <Autocomplete
+                    onLoad={(autocomplete: any) => {
+                      autocompleteRef.current = autocomplete;
+                    }}
+                    onPlaceChanged={() => {
+                      const place = autocompleteRef.current?.getPlace();
+                      if (!place?.address_components) return;
+
+                      field.onChange(place.formatted_address || '');
+                    }}
+                  >
+                    <Input {...field} placeholder="" disabled={isView} />
+                  </Autocomplete>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="dropOffLocation"
@@ -235,12 +262,25 @@ const VehicleBookingForm = ({
               <FormItem>
                 <FormLabel>Drop off Location</FormLabel>
                 <FormControl>
-                  <Input placeholder="" disabled={isView} {...field} />
+                  <Autocomplete
+                    onLoad={(autocomplete: any) => {
+                      autocompleteRef.current = autocomplete;
+                    }}
+                    onPlaceChanged={() => {
+                      const place = autocompleteRef.current?.getPlace();
+                      if (!place?.address_components) return;
+
+                      field.onChange(place.formatted_address || '');
+                    }}
+                  >
+                    <Input {...field} placeholder="" disabled={isView} />
+                  </Autocomplete>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="pickupDate"
@@ -248,7 +288,7 @@ const VehicleBookingForm = ({
               <FormItem>
                 <FormLabel>Pickup Date</FormLabel>
                 <FormControl>
-                  <Input type="date" placeholder="" disabled={isView} {...field} />
+                  <Input type="datetime-local" placeholder="" disabled={isView} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -261,7 +301,7 @@ const VehicleBookingForm = ({
               <FormItem>
                 <FormLabel>Drop Date</FormLabel>
                 <FormControl>
-                  <Input type="date" placeholder="" disabled={isView} {...field} />
+                  <Input type="datetime-local" placeholder="" disabled={isView} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -296,16 +336,39 @@ const VehicleBookingForm = ({
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Type</FormLabel>
-                <FormControl>
-                  <Input placeholder="" disabled={isView} {...field} />
-                </FormControl>
+                <FormLabel>Vehicle Type</FormLabel>
+                <Select
+                  onValueChange={(e) => {
+                    field.onChange(e);
+                    form.setValue('assignedVehicle', '');
+                  }}
+                  defaultValue={field.value}
+                  disabled={isView}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select vehicle type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Car">Car</SelectItem>
+                    <SelectItem value="SUV">SUV</SelectItem>
+                    <SelectItem value="Van">Van</SelectItem>
+                    <SelectItem value="Bus">Bus</SelectItem>
+                    <SelectItem value="Truck">Truck</SelectItem>
+                    <SelectItem value="Motorcycle">Motorcycle</SelectItem>
+                    <SelectItem value="Sedan">Sedan</SelectItem>
+                    <SelectItem value="Hatchback">Hatchback</SelectItem>
+                    <SelectItem value="Coupe">Coupe</SelectItem>
+                    <SelectItem value="Convertible">Convertible</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="assignedVehicle"
             render={({ field }) => (
@@ -329,40 +392,24 @@ const VehicleBookingForm = ({
                 <FormMessage />
               </FormItem>
             )}
-          />
-          <FormField
-            control={form.control}
-            name="assignedDriver"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Assigned Driver</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isView}>
-                  <FormControl>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a driver" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {drivers.map((driver: any) => (
-                      <SelectItem key={driver._id} value={driver._id}>
-                        {driver.fullName} - {driver.licenseNumber}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+          /> */}
 
-                <FormMessage />
-              </FormItem>
-            )}
+          <FormCombobox
+            control={form.control}
+            name="assignedVehicle"
+            label="Assigned Vehicle"
+            apiUrl={`/vehicle/list?vehicleType=${form.watch('type') || ''}&status=active`}
+            initialOptions={vehicles}
+            formatLabel={(item) => `${item.vehicleName ?? ''} (${item.licensePlateNumber ?? ''})`}
           />
 
           <FormCombobox
             control={form.control}
             name="assignedDriver"
             label="Assigned Driver"
-            apiUrl={`/user/get-all-user?roles=${UserTypeENUM.AGENT}`}
+            apiUrl={`/vehicle/driver/list?status=active`}
             initialOptions={drivers}
-            formatLabel={(item) => `${item.fullName ?? ''} (${item.licenseNumber ?? ''})`}
+            formatLabel={(item) => `${item.fullName ?? ''}  (${item.licenseNumber ?? ''})`}
           />
 
           <FormField

@@ -16,6 +16,7 @@ import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 import CommonFilters from '@/components/common/CommonFilters';
 import { Badge } from '@/components/ui/badge';
 import { formatCurrency } from '@/lib/formatCurrency';
+import { format } from 'date-fns';
 
 const VehiclesBookings = ({
   bookingData,
@@ -134,13 +135,46 @@ const VehiclesBookings = ({
       ),
     },
   ];
+  console.log(bookingData?.data, 'bookingData?.data');
   return (
     <div className="space-y-2">
       {/* Filters and Actions */}
       <div className="flex items-center justify-between flex-wrap gap-2">
         <TabButton />
         <div className="flex items-center gap-2">
-          <ExcelExportButton rows={bookingData?.data || []} filename="vehicles-bookings.xlsx" />
+          <ExcelExportButton
+            columns={[
+              { header: 'Booking ID', key: 'bookingId' },
+              { header: 'Name', key: 'name' },
+              { header: 'Phone', key: 'phone' },
+              { header: 'Email', key: 'email' },
+              { header: 'Pickup Location', key: 'pickupLocation' },
+              { header: 'Drop Location', key: 'dropLocation' },
+              { header: 'Pickup Date', key: 'pickupDate' },
+              { header: 'Drop Date', key: 'dropDate' },
+              { header: 'Trip Purpose', key: 'tripPurpose' },
+              { header: 'Amount', key: 'amount' },
+              { header: 'Payment Status', key: 'paymentStatus' },
+              { header: 'Booking Status', key: 'bookingStatus' },
+            ]}
+            rows={
+              bookingData?.data?.map((e) => ({
+                bookingId: e._id,
+                name: e.fullName,
+                phone: e.phone,
+                email: e.email,
+                pickupLocation: e.pickupLocation,
+                dropLocation: e.dropLocation,
+                pickupDate: format(new Date(e.pickupDate), 'dd MMM yyyy, hh:mm a'),
+                dropDate: format(new Date(e.dropDate), 'dd MMM yyyy, hh:mm a'),
+                tripPurpose: e.tripPurpose,
+                amount: e.amount,
+                paymentStatus: e.paymentStatus,
+                bookingStatus: e.bookingStatus,
+              })) || []
+            }
+            filename="vehicles-bookings.xlsx"
+          />
 
           <CommonFilters />
 

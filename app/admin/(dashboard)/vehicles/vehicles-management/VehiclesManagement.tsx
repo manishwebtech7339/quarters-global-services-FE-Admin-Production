@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import Paginator from '@/components/shared/paginator';
 import CommonFilters from '@/components/common/CommonFilters';
 import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
 
 // ============================
 // Main Component
@@ -82,12 +83,7 @@ const VehiclesManagement = ({
     {
       header: 'Insurance Expiry',
       accessor: 'insuranceExpiryDate',
-      render: (row: any) =>
-        new Date(row.insuranceExpiryDate).toLocaleDateString('en-IN', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        }),
+      render: (row: any) => format(new Date(row.insuranceExpiryDate), 'dd MMM yyyy'),
     },
     {
       header: 'Status',
@@ -95,7 +91,7 @@ const VehiclesManagement = ({
       render: (row: any) => {
         return (
           <Badge variant="outline" className="capitalize">
-            {row.status}
+            {row.status === 'active' ? 'Available' : 'Not-available'}
           </Badge>
         );
       },
@@ -126,7 +122,7 @@ const VehiclesManagement = ({
       ),
     },
   ];
-
+  console.log(vehicleList, 'vehicleList');
   return (
     <div className="space-y-2">
       {/* Filters and Actions */}

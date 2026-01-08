@@ -78,6 +78,8 @@ export default function QueryFiltersPopover({
   const [isPending, startTransition] = useTransition();
   const [loading, setLoading] = useState(false);
 
+  const isButtonsVisible = showDateFilters || selects.length > 0;
+
   // local state mirrors URL
   const [query, setQuery] = useState(searchParams.get(searchKey) ?? '');
   const [from, setFrom] = useState<string>(searchParams.get(dateFromKey) ?? '');
@@ -207,109 +209,93 @@ export default function QueryFiltersPopover({
           </button>
         ) : null}
       </div>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button variant="outline" className={cn('justify-between md:w-auto', triggerClassName)}>
-            <span className="flex items-center gap-2">
-              {/* <SlidersHorizontal className="h-4 w-4" /> */}
-              Filters
-              {activeCount > 0 && (
-                <span className="ml-1 inline-flex items-center rounded-full border px-2 text-xs">
-                  {activeCount}
-                </span>
+      {isButtonsVisible && (
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button variant="outline" className={cn('justify-between md:w-auto', triggerClassName)}>
+              <span className="flex items-center gap-2">
+                {/* <SlidersHorizontal className="h-4 w-4" /> */}
+                Filters
+                {activeCount > 0 && (
+                  <span className="ml-1 inline-flex items-center rounded-full border px-2 text-xs">
+                    {activeCount}
+                  </span>
+                )}
+              </span>
+              {(loading || isPending) && (
+                <Loader2 className="ml-2 h-4 w-4 animate-spin opacity-70" />
               )}
-            </span>
-            {(loading || isPending) && <Loader2 className="ml-2 h-4 w-4 animate-spin opacity-70" />}
-          </Button>
-        </PopoverTrigger>
+            </Button>
+          </PopoverTrigger>
 
-        <PopoverContent className="w-[min(92vw,400px)] p-4" align="end">
-          <div className="grid grid-cols-1 gap-4">
-            {/* Search */}
-            {/* <div>
-              <Label className="mb-1 block">Search</Label>
-              <div className="relative">
-                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 opacity-60" />
-                <Input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder={placeholder}
-                  className="pl-9 pr-10"
-                />
-                {query ? (
-                  <button
-                    type="button"
-                    onClick={() => setQuery('')}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-muted"
-                    aria-label="Clear search"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                ) : null}
-              </div>
-            </div> */}
-
-            {/* Dates */}
-            {showDateFilters && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <Label className="mb-1 block">From</Label>
-                  <Input type="date" value={from} onChange={(e) => onFromChange(e.target.value)} />
-                </div>
-                <div>
-                  <Label className="mb-1 block">To</Label>
-                  <Input
-                    type="date"
-                    min={from}
-                    value={to}
-                    onChange={(e) => onToChange(e.target.value)}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Selects */}
-            {selects.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {selects.map((s) => (
-                  <div key={s.name}>
-                    <Label className="mb-1 block">{s.label}</Label>
-                    <Select
-                      value={selectValues[s.name] ?? ''}
-                      onValueChange={(v) => onSelectChange(s.name, v)}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder={s.placeholder ?? 'All'} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {/* <SelectItem >All</SelectItem> */}
-                        {s.options.map((o) => (
-                          <SelectItem key={o.value} value={o.value}>
-                            {o.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+          <PopoverContent className="w-[min(92vw,400px)] p-4" align="end">
+            <div className="grid grid-cols-1 gap-4">
+              {/* Dates */}
+              {showDateFilters && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <Label className="mb-1 block">From</Label>
+                    <Input
+                      type="date"
+                      value={from}
+                      onChange={(e) => onFromChange(e.target.value)}
+                    />
                   </div>
-                ))}
+                  <div>
+                    <Label className="mb-1 block">To</Label>
+                    <Input
+                      type="date"
+                      min={from}
+                      value={to}
+                      onChange={(e) => onToChange(e.target.value)}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Selects */}
+              {selects.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {selects.map((s) => (
+                    <div key={s.name}>
+                      <Label className="mb-1 block">{s.label}</Label>
+                      <Select
+                        value={selectValues[s.name] ?? ''}
+                        onValueChange={(v) => onSelectChange(s.name, v)}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder={s.placeholder ?? 'All'} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {/* <SelectItem >All</SelectItem> */}
+                          {s.options.map((o) => (
+                            <SelectItem key={o.value} value={o.value}>
+                              {o.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Extra custom filters */}
+              {children ? <div className="border-t pt-3">{children}</div> : null}
+
+              {/* Actions */}
+              <div className="flex flex-wrap items-center justify-end gap-2">
+                <Button variant="ghost" type="button" onClick={clearAll}>
+                  Clear all
+                </Button>
+                <Button type="button" onClick={() => setOpen(false)}>
+                  Close
+                </Button>
               </div>
-            )}
-
-            {/* Extra custom filters */}
-            {children ? <div className="border-t pt-3">{children}</div> : null}
-
-            {/* Actions */}
-            <div className="flex flex-wrap items-center justify-end gap-2">
-              <Button variant="ghost" type="button" onClick={clearAll}>
-                Clear all
-              </Button>
-              <Button type="button" onClick={() => setOpen(false)}>
-                Close
-              </Button>
             </div>
-          </div>
-        </PopoverContent>
-      </Popover>
+          </PopoverContent>
+        </Popover>
+      )}
     </div>
   );
 }

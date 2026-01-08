@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Paginator from '@/components/shared/paginator';
 import CommonFilters from '@/components/common/CommonFilters';
+import { Badge } from '@/components/ui/badge';
 
 // ============================
 // Main Component
@@ -65,6 +66,13 @@ const DriverManagement = ({
     {
       header: 'License Number',
       accessor: 'licenseNumber',
+    },
+    {
+      header: 'Status',
+      accessor: 'status',
+      render: (row: any) => (
+        <Badge variant="outline">{row.status === 'active' ? 'Available' : 'Not Available'}</Badge>
+      ),
     },
     {
       header: 'Action',

@@ -54,7 +54,7 @@ const formSchema = z.object({
     .min(5, 'License Number must be at least 5 characters')
     .max(20, 'License Number must be at most 20 characters'),
   licenseExpiryDate: commonFieldSchema(),
-  status: z.enum(['Available', 'Not Available']),
+  status: commonFieldSchema(),
   photo: documentFileSchema({}),
   licence: documentFileSchema({}), // Note: API uses 'licence' not 'license'
 });
@@ -87,11 +87,12 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
       licenseExpiryDate: driverData?.licenseExpiryDate
         ? driverData.licenseExpiryDate.split('T')[0]
         : '',
-      status: driverData?.status || 'Available', // Default status
+      status: driverData?.status || 'active',
       photo: driverData?.photo || null,
       licence: driverData?.licence || null,
     },
   });
+  console.log('Form Errors:', form.formState.errors);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log('Form Values:', values);
@@ -103,7 +104,6 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
 
       // Step 1: Upload files if they are new File objects and create document objects
       if (values.photo instanceof File) {
-        console.log('Uploading driver photo...');
         const uploadedUrl = await uploadFile(values.photo, 'driver-photo');
         if (!uploadedUrl) {
           throw new Error('Failed to upload driver photo');
@@ -116,7 +116,6 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
       }
 
       if (values.licence instanceof File) {
-        console.log('Uploading license document...');
         const uploadedUrl = await uploadFile(values.licence, 'driver-license');
         if (!uploadedUrl) {
           throw new Error('Failed to upload license document');
@@ -218,6 +217,7 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
                   <PhoneInput2
+                    disabled={isView}
                     value={field.value}
                     onChange={(val, df) => {
                       field.onChange(val ? `+${val}` : '');
@@ -275,8 +275,8 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Available">Available</SelectItem>
-                    <SelectItem value="Not Available">Not Available</SelectItem>
+                    <SelectItem value="active">Available</SelectItem>
+                    <SelectItem value="inactive">Not Available</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -363,9 +363,6 @@ const AddDriverForm = ({ isView, isEdit, driverData, role }: DriverFormProps) =>
                       form.setValue('state', state);
                       form.setValue('country', country);
                       form.setValue('pinCode', pincode);
-                    }}
-                    options={{
-                      componentRestrictions: { country: 'in' }, // optional
                     }}
                   >
                     <Input {...field} placeholder="" disabled={isView} />

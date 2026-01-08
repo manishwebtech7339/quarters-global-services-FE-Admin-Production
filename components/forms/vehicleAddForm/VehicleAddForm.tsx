@@ -38,7 +38,7 @@ const formSchema = z.object({
   fuelType: commonFieldSchema(),
   transmissionType: commonFieldSchema(),
   insuranceExpiryDate: commonFieldSchema(),
-  status: z.enum(['Available', 'Not-available']),
+  status: commonFieldSchema(),
   image: documentFileSchema({}),
   documentOne: documentFileSchema({}),
   documentTwo: documentFileSchema({}),
@@ -69,7 +69,7 @@ const VehicleAddForm = ({ isView, isEdit, vehicleData, role }: VehicleFormProps)
       insuranceExpiryDate: vehicleData?.insuranceExpiryDate
         ? vehicleData.insuranceExpiryDate.split('T')[0]
         : '',
-      status: vehicleData?.status === 'active' ? 'Available' : 'Not-available',
+      status: vehicleData?.status,
       image: vehicleData?.image || undefined,
       documentOne: vehicleData?.documentOne || undefined,
       documentTwo: vehicleData?.documentTwo || undefined,
@@ -133,7 +133,7 @@ const VehicleAddForm = ({ isView, isEdit, vehicleData, role }: VehicleFormProps)
         fuelType: values.fuelType,
         transmissionType: values.transmissionType,
         insuranceExpiryDate: values.insuranceExpiryDate,
-        status: 'active', // Always send 'active' to API as requested
+        status: values.status,
         image: imageData,
         documentOne: documentOneData,
         documentTwo: documentTwoData,
@@ -350,8 +350,8 @@ const VehicleAddForm = ({ isView, isEdit, vehicleData, role }: VehicleFormProps)
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Available">Available</SelectItem>
-                    <SelectItem value="Not-available">Not-available</SelectItem>
+                    <SelectItem value="active">Available</SelectItem>
+                    <SelectItem value="inactive">Not-available</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
