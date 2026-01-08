@@ -18,7 +18,6 @@ import { deleteApplication } from '@/services/applicatonService';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { vehicleBooking_platformServiceCategoryPackageId } from '@/lib/staticIds';
 import CommonFilters from '@/components/common/CommonFilters';
 import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 import { format } from 'date-fns';
@@ -173,7 +172,7 @@ const ServicesPage = ({
                 Online
               </Link>
             </TabsTrigger>
-            <TabsTrigger
+            {/* <TabsTrigger
               asChild
               value={vehicleBooking_platformServiceCategoryPackageId}
               className="data-[state=active]:bg-primary-100 data-[state=active]:text-white"
@@ -183,7 +182,7 @@ const ServicesPage = ({
               >
                 Vehicle Booking
               </Link>
-            </TabsTrigger>
+            </TabsTrigger> */}
           </TabsList>
         </Tabs>
 
