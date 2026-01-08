@@ -35,7 +35,7 @@ export default function PersonalInfo({
     }
   }, [isEdit]);
   useEffect(() => {
-    if (emailVerified !== email) {
+    if (emailVerified !== email && emailVerified !== undefined) {
       setEmailVerified(undefined);
     }
   }, [email]);
