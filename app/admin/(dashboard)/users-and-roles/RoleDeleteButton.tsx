@@ -1,7 +1,6 @@
 'use client';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
 import Icon from '@/components/common/Icon';
-import { Button } from '@/components/ui/button';
 import handleAsync from '@/lib/handleAsync';
 import { deleteRole } from '@/services/rolesService';
 import { useState } from 'react';
@@ -22,9 +21,7 @@ export function RoleDeleteButton({ id }: { id: string }) {
 
   return (
     <DeleteConfirm onConfirm={handleDelete}>
-      <Button variant="ghost" size="icon" disabled={loading}>
-        <Icon name={loading ? 'loading' : 'delete'} />
-      </Button>
+      <Icon name={loading ? 'loading' : 'delete'} disabled={loading} />
     </DeleteConfirm>
   );
 }
