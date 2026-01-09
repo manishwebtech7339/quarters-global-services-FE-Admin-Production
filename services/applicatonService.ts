@@ -30,7 +30,7 @@ export const getApplications = async ({
 }): Promise<ApiPagination & { data: UserDataType[] }> => {
   try {
     const data = await fetcher(
-      `/application/get-application?page=${page}&applicationSources=${applicationSources}&search=${search || ''}&isSubmittedFromApplication=${isSubmittedFromApplication || '0'}&isSubmittedFromService=${isSubmittedFromService || '0'}&platformServiceCategoryPackageId=${platformServiceCategoryPackageId}&from=${from}&to=${to}&status=${status}&createdBy=${createdBy}`,
+      `/application/get-application?page=${page}&applicationSources=${applicationSources}&search=${search || ''}&isSubmittedFromApplication=${isSubmittedFromApplication || '0'}&isSubmittedFromService=${isSubmittedFromService || '0'}&platformServiceCategoryPackageId=${platformServiceCategoryPackageId}&from=${from}&to=${to}&status=${status}`,
       {
         cache: 'no-cache',
         revalidate: 60,

@@ -35,6 +35,7 @@ import { commonFieldSchema, documentFileSchema } from '@/lib/formSchemaFunctions
 import { TicketDataType } from '@/services/ticketsService';
 import { FormCombobox } from '@/components/common/FormComboBox';
 import Link from 'next/link';
+import { Label } from '@/components/ui/label';
 
 const ticketStatusOptions = ['Open', 'Waiting on Customer', 'Resolved', 'Closed'] as const;
 const ticketPriorityOptions = ['Normal', 'High', 'Urgent'] as const;
@@ -45,7 +46,7 @@ const ticketFormSchema = z.object({
   customer: commonFieldSchema(),
   applicationId: commonFieldSchema(),
   category: commonFieldSchema(),
-  subCategory: commonFieldSchema().optional().or(z.literal('')),
+  // subCategory: commonFieldSchema().optional(),
   assignedStaff: commonFieldSchema(),
   subject: commonFieldSchema().optional().or(z.literal('')),
   description: commonFieldSchema().optional().or(z.literal('')),
@@ -59,6 +60,7 @@ interface TicketFormProps {
   isEdit?: boolean;
   customers?: CustomerDataType[];
   staff?: UserDataType[];
+  applications?: any[];
   ticketData?: TicketDataType;
 }
 
@@ -68,9 +70,16 @@ const TicketForm = ({
   ticketData,
   customers = [],
   staff = [],
+  applications = [],
 }: TicketFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [showApplicationDetails, setShowApplicationDetails] = useState({
+    service: '',
+    category: '',
+    subCategory: '',
+    package: '',
+  });
 
   const form = useForm<z.infer<typeof ticketFormSchema>>({
     resolver: zodResolver(ticketFormSchema),
@@ -80,7 +89,6 @@ const TicketForm = ({
       customer: ticketData?.customer?._id || '',
       applicationId: ticketData?.applicationId || '',
       category: ticketData?.category || '',
-      subCategory: ticketData?.subCategory || '',
       assignedStaff: ticketData?.assignedStaff || '',
       subject: ticketData?.subject || '',
       description: ticketData?.description || '',
@@ -147,7 +155,6 @@ const TicketForm = ({
         customer: data.customer,
         applicationId: data.applicationId || '',
         category: data.category,
-        subCategory: data.subCategory || '',
         assignedStaff: data.assignedStaff || '',
         subject: data.subject,
         description: data.description || '',
@@ -260,19 +267,48 @@ const TicketForm = ({
             initialOptions={customers}
             formatLabel={(item) => `${item.firstName} ${item.lastName} (${item.email})`}
           />
-          <FormField
+
+          <FormCombobox
+            disabled={!form.watch('customer')}
             control={form.control}
             name="applicationId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Linked Application ID</FormLabel>
-                <FormControl>
-                  <Input placeholder="App ID" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Select Application"
+            apiUrl={`/application/get-application?userId=${form.watch('customer')}`}
+            initialOptions={applications}
+            formatLabel={(item) =>
+              `${item.serviceFields?.service} - ${item.serviceFields?.serviceType}`
+            }
+            onSelect={(e) => {
+              console.log(e, 'teasdfasdfasd');
+              // if(e?.serviceFields?.service) form.setValue("category",e?.serviceFields?.service)
+              // if(e?.serviceFields?.service) form.setValue("subCategory",e?.serviceFields?.serviceType)
+            }}
           />
+
+          {showApplicationDetails.service && (
+            <div>
+              <Label className="mb-2">Service</Label>
+              <Input value={showApplicationDetails.service} readOnly />
+            </div>
+          )}
+          {showApplicationDetails.category && (
+            <div>
+              <Label className="mb-2">Category</Label>
+              <Input value={showApplicationDetails.category} readOnly />
+            </div>
+          )}
+          {showApplicationDetails.subCategory && (
+            <div>
+              <Label className="mb-2">Sub Category</Label>
+              <Input value={showApplicationDetails.subCategory} readOnly />
+            </div>
+          )}
+          {showApplicationDetails.package && (
+            <div>
+              <Label className="mb-2">Package</Label>
+              <Input value={showApplicationDetails.package} readOnly />
+            </div>
+          )}
 
           <FormField
             control={form.control}
@@ -296,25 +332,12 @@ const TicketForm = ({
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="subCategory"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Select Sub Category</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
           <FormCombobox
             control={form.control}
             name="assignedStaff"
             label="Select Staff"
-            apiUrl={`/user/get-all-user?roles=${UserTypeENUM.AGENT}`}
+            apiUrl={`/user/get-all-user?roles=${UserTypeENUM.SUBADMIN}`}
             initialOptions={staff}
             formatLabel={(item) => `${item.firstName ?? ''} ${item.lastName ?? ''} (${item.email})`}
           />

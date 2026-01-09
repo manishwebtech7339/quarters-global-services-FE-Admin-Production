@@ -46,7 +46,7 @@ export function FormCombobox<T extends FieldValues>({
   name,
   control,
   label,
-  placeholder = 'Select option...',
+  placeholder = '',
   searchPlaceholder = 'Search...',
   initialOptions,
   labelClassName = '',
@@ -215,7 +215,7 @@ export function FormCombobox<T extends FieldValues>({
                   disabled={disabled}
                   aria-expanded={open}
                   className={cn(
-                    'justify-between rounded-sm text-text-black h-full border border-gray-300',
+                    'justify-between rounded-sm text-text-black h-full border border-gray-300 h-12',
                   )}
                 >
                   <span className="truncate">
