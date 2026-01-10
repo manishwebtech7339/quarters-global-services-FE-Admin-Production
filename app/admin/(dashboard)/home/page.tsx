@@ -1,15 +1,26 @@
 import React from 'react';
 import Home from './Home';
-import { getDashboardCounts, getRecentActivities } from '@/services/dashboardService';
+import {
+  getDashboardCounts,
+  getDashboardUsage,
+  getRecentActivities,
+} from '@/services/dashboardService';
 
 const page = async () => {
   // Fetch dashboard data and recent activities in parallel
-  const [dashboardData, recentActivities] = await Promise.all([
+  const [dashboardData, recentActivities, dashboardUsage] = await Promise.all([
     getDashboardCounts(),
     getRecentActivities(),
+    getDashboardUsage(),
   ]);
 
-  return <Home dashboardData={dashboardData?.data || null} recentActivities={recentActivities} />;
+  return (
+    <Home
+      dashboardData={dashboardData?.data || null}
+      recentActivities={recentActivities}
+      dashboardUsage={dashboardUsage}
+    />
+  );
 };
 
 export default page;

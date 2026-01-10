@@ -34,7 +34,6 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function ApplicationTrend() {
-  console.log('Rendering ApplicationTrend component', new Date().getFullYear());
   const [year, setYear] = useState(new Date().getFullYear().toString());
   const [country, setCountry] = useState('all');
   const [service, setService] = useState('all');

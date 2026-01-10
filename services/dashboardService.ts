@@ -131,3 +131,23 @@ export const getRecentActivities = async (): Promise<RecentActivity[]> => {
     return [];
   }
 };
+
+// Dashboard Usage types based on the API response
+
+export interface DashboardUsageDataType {
+  _id: string;
+  name: string;
+  percentage: number;
+  totalApplications: number;
+}
+export const getDashboardUsage = async (): Promise<DashboardUsageDataType[] | null> => {
+  try {
+    const response = await fetcher('/dashboard/usage', {
+      method: 'GET',
+    });
+    return response?.data?.result || null;
+  } catch (error) {
+    console.error('Error fetching dashboard usage:', error);
+    return null;
+  }
+};
