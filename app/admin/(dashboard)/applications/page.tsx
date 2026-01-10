@@ -16,6 +16,7 @@ const page = async ({
     from?: string;
     to?: string;
     status?: string;
+    isShippingAvailable?: string;
   }>;
 }) => {
   const page = (await searchParams).page || '1';
@@ -24,6 +25,7 @@ const page = async ({
   const from = (await searchParams).from || '';
   const to = (await searchParams).to || '';
   const status = (await searchParams).status || '';
+  const isShippingAvailable = (await searchParams).isShippingAvailable || '';
 
   const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.applications });
   if (!access) {
@@ -38,10 +40,15 @@ const page = async ({
     from,
     to,
     status,
+    isShippingAvailable,
   });
 
   return (
-    <Application applicationsData={applications} selectedApplicationSources={applicationSources} />
+    <Application
+      applicationsData={applications}
+      selectedApplicationSources={applicationSources}
+      isShippingAvailable={isShippingAvailable}
+    />
   );
 };
 

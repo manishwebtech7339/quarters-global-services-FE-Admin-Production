@@ -34,9 +34,11 @@ import { format } from 'date-fns';
 const ApplicationsPage = ({
   applicationsData,
   selectedApplicationSources,
+  isShippingAvailable,
 }: {
   applicationsData: ApiPagination & { data: any[] };
   selectedApplicationSources: ApplicationSource;
+  isShippingAvailable?: string;
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
@@ -170,7 +172,13 @@ const ApplicationsPage = ({
       {/* Top Bar */}
       <div className="flex items-center justify-between flex-wrap gap-2">
         {/* Tabs */}
-        <Tabs defaultValue={selectedApplicationSources || applicationSources[0]}>
+        <Tabs
+          defaultValue={
+            (selectedApplicationSources || applicationSources[0]) +
+            (isShippingAvailable === '1' ? '-shipping' : '')
+          }
+          className="w-auto"
+        >
           <TabsList className="bg-primary-300 text-primary-100 p-0">
             <TabsTrigger
               asChild
@@ -197,6 +205,17 @@ const ApplicationsPage = ({
             >
               <Link href={`/admin/applications?applicationSources=${applicationSources[2]}`}>
                 Online
+              </Link>
+            </TabsTrigger>
+            <TabsTrigger
+              asChild
+              value={applicationSources[2] + '-shipping'}
+              className="data-[state=active]:bg-primary-100 data-[state=active]:text-white"
+            >
+              <Link
+                href={`/admin/applications?applicationSources=${applicationSources[2]}&isShippingAvailable=1`}
+              >
+                Shipping
               </Link>
             </TabsTrigger>
           </TabsList>
@@ -227,7 +246,7 @@ const ApplicationsPage = ({
 
       {/* Table */}
       <CommonTable columns={columns} data={applications} />
-      <Paginator totalItems={applicationsData.totalPages} />
+      <Paginator totalItems={applicationsData?.totalPages ?? 0} />
     </div>
   );
 };
