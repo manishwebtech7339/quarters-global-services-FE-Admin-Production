@@ -27,7 +27,7 @@ import { toast } from 'sonner';
 import { FormCombobox } from '@/components/common/FormComboBox';
 import { PhoneInput2 } from '@/components/ui/PhoneInput2';
 import { Autocomplete } from '@react-google-maps/api';
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 
 const formSchema = z.object({
   // fullName: z.string().min(1, 'Full Name is required'),
@@ -319,7 +319,17 @@ const VehicleBookingForm = ({
               <FormItem>
                 <FormLabel>Drop Date</FormLabel>
                 <FormControl>
-                  <Input type="datetime-local" placeholder="" disabled={isView} {...field} />
+                  <Input
+                    type="datetime-local"
+                    placeholder=""
+                    disabled={isView}
+                    {...field}
+                    min={
+                      form.watch('pickupDate')
+                        ? format(addDays(form.watch('pickupDate'), 1), "yyyy-MM-dd'T'HH:mm")
+                        : ''
+                    }
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
