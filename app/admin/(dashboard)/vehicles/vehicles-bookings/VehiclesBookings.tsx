@@ -25,7 +25,7 @@ const VehiclesBookings = ({
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
-
+  console.log(bookingData, 'bookingData');
   const handleDelete = async (id: string) => {
     setIsDeleting(true);
     try {
@@ -49,8 +49,12 @@ const VehiclesBookings = ({
       accessor: '_id',
     },
     {
-      header: 'Name',
-      accessor: 'fullName',
+      header: 'First Name',
+      accessor: 'firstName',
+    },
+    {
+      header: 'Last Name',
+      accessor: 'lastName',
     },
     {
       header: 'Phone',
@@ -160,7 +164,7 @@ const VehiclesBookings = ({
             rows={
               bookingData?.data?.map((e) => ({
                 bookingId: e._id,
-                name: e.fullName,
+                name: e.firstName + ' ' + e.lastName,
                 phone: e.phone,
                 email: e.email,
                 pickupLocation: e.pickupLocation,

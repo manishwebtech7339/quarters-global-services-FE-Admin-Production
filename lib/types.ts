@@ -116,7 +116,7 @@ export type BookingDataType = {
   dropLocation: string;
   pickupDate: string;
   dropDate: string;
-  type: string; // e.g., "One-way", "Round-trip"
+  customerSelectedVehicleInfo: string; // e.g., "One-way", "Round-trip"
   assignedVehicle: string; // Vehicle ID
   assignedDriver: string; // Driver ID
   tripPurpose: string;

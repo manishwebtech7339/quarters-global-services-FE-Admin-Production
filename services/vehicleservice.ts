@@ -24,6 +24,7 @@ export const getVehicleBookings = async ({
 
     // Transform the API response to match our expected structure
     if (response?.data) {
+      console.log(response, 'Bookings response');
       return {
         data: response.data.data || [],
         count: response.data.total || 0,

@@ -25,6 +25,7 @@ const page = async ({
     from: from || '',
     to: to || '',
   });
+  console.log(bookings, 'bookings data in page');
   return <VehiclesBookings bookingData={bookings} />;
 };
 

@@ -170,7 +170,7 @@ const VehicleBookingForm = ({
       setIsLoading(false);
     }
   });
-
+  console.log(defaultData, 'DefaultData');
   // Form default values
   React.useEffect(() => {
     if (defaultData) {

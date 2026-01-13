@@ -28,7 +28,14 @@ import { FormCombobox } from '@/components/common/FormComboBox';
 import { PhoneInput2 } from '@/components/ui/PhoneInput2';
 import { Autocomplete } from '@react-google-maps/api';
 import { format } from 'date-fns';
-
+export const vehicleList = [
+  { id: 'sedan', name: 'Sedan' },
+  { id: 'mid-suv', name: 'Mid Size SUV' },
+  { id: 'mini-van', name: 'Mini Van' },
+  { id: '15-seater', name: '15 Seater' },
+  { id: 'shuttle-bus', name: 'Shuttle Bus' },
+  { id: 'charter-bus', name: 'Charter Bus' },
+] as const;
 const formSchema = z.object({
   // fullName: z.string().min(1, 'Full Name is required'),
   firstName: z.string().min(1, 'First Name is required'),
@@ -45,12 +52,12 @@ const formSchema = z.object({
   pickupDate: z.string().min(1, 'Pick-up Date is required'), // z.date() if you're handling date objects
   dropDate: z.string().min(1, 'Drop Date is required'),
 
-  type: z.string().min(1, 'Type is required'),
+  customerSelectedVehicleInfo: z.string().min(1, 'Type is required'),
   assignedVehicle: z.string().min(1, 'Assigned Vehicle is required'),
   assignedDriver: z.string().min(1, 'Assigned Driver is required'),
   tripPurpose: z.string().min(1, 'Trip Purpose is required'),
   numberOfPassengers: z.string().min(1, 'Number of Passengers is required'),
-  destination: z.string().min(1, 'Destination is required'),
+  // destination: z.string().min(1, 'Destination is required'),
   approxKilometer: z.string().min(1, 'Approx. Kilometer is required'),
   estimatedFare: z.string().min(1, 'Estimated Fare is required'),
   paymentStatus: z.string(), // Can be any string from API
@@ -76,6 +83,7 @@ const VehicleBookingForm = ({
   const router = useRouter();
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
+  console.log(bookingData, 'Booking Data in Form');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -94,12 +102,12 @@ const VehicleBookingForm = ({
         ? format(new Date(bookingData.dropDate), "yyyy-MM-dd'T'HH:mm")
         : '',
 
-      type: bookingData?.type || '',
+      customerSelectedVehicleInfo: bookingData?.customerSelectedVehicleInfo || '',
       assignedVehicle: bookingData?.assignedVehicle || '',
       assignedDriver: bookingData?.assignedDriver || '',
       tripPurpose: bookingData?.tripPurpose || '',
       numberOfPassengers: bookingData?.numberOfPassanger || '0',
-      destination: bookingData?.destination || '',
+      // destination: bookingData?.destination || '',
       approxKilometer: bookingData?.approxKilometer || '0',
       estimatedFare: bookingData?.estFare || '0',
       paymentStatus: bookingData?.paymentStatus || 'Unpaid',
@@ -124,12 +132,12 @@ const VehicleBookingForm = ({
         dropLocation: values.dropOffLocation,
         pickupDate: values.pickupDate,
         dropDate: values.dropDate,
-        type: values.type,
+        customerSelectedVehicleInfo: values.customerSelectedVehicleInfo,
         assignedVehicle: values.assignedVehicle,
         assignedDriver: values.assignedDriver,
         tripPurpose: values.tripPurpose,
         numberOfPassanger: values.numberOfPassengers,
-        destination: values.destination,
+        // destination: values.destination,
         approxKilometer: values.approxKilometer,
         estFare: values.estimatedFare,
         paymentStatus: values.paymentStatus,
@@ -351,7 +359,7 @@ const VehicleBookingForm = ({
           /> */}
           <FormField
             control={form.control}
-            name="type"
+            name="customerSelectedVehicleInfo"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Vehicle Type</FormLabel>
@@ -364,21 +372,16 @@ const VehicleBookingForm = ({
                   disabled={isView}
                 >
                   <FormControl>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger disabled={isEdit} className="w-full">
                       <SelectValue placeholder="Select vehicle type" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Car">Car</SelectItem>
-                    <SelectItem value="SUV">SUV</SelectItem>
-                    <SelectItem value="Van">Van</SelectItem>
-                    <SelectItem value="Bus">Bus</SelectItem>
-                    <SelectItem value="Truck">Truck</SelectItem>
-                    <SelectItem value="Motorcycle">Motorcycle</SelectItem>
-                    <SelectItem value="Sedan">Sedan</SelectItem>
-                    <SelectItem value="Hatchback">Hatchback</SelectItem>
-                    <SelectItem value="Coupe">Coupe</SelectItem>
-                    <SelectItem value="Convertible">Convertible</SelectItem>
+                    {vehicleList.map((vehicle) => (
+                      <SelectItem key={vehicle.id} value={vehicle.name}>
+                        {vehicle.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -416,7 +419,7 @@ const VehicleBookingForm = ({
             control={form.control}
             name="assignedVehicle"
             label="Assigned Vehicle"
-            apiUrl={`/vehicle/list?vehicleType=${form.watch('type') || ''}&status=active`}
+            apiUrl={`/vehicle/list?status=active`}
             initialOptions={vehicles}
             formatLabel={(item) => `${item.vehicleName ?? ''} (${item.licensePlateNumber ?? ''})`}
           />
@@ -469,7 +472,7 @@ const VehicleBookingForm = ({
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name="destination"
             render={({ field }) => (
@@ -481,7 +484,7 @@ const VehicleBookingForm = ({
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
           <FormField
             control={form.control}
             name="approxKilometer"
