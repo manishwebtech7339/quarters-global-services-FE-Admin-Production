@@ -7,7 +7,7 @@ export const formatCurrency = ({
   currency?: string;
   locale?: string;
 }): string => {
-  const numericAmount = +amount;
+  const numericAmount = +(amount ?? 0);
   const hasDecimal = numericAmount % 1 !== 0;
   return new Intl.NumberFormat(locale, {
     style: 'currency',
