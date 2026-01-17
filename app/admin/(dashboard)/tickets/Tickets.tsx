@@ -39,7 +39,9 @@ const columns = [
   {
     header: 'Application ID',
     accessor: 'applicationId',
-    render: (row: any) => <span className="font-mono text-sm">#{row.applicationId.slice(-8)}</span>,
+    render: (row: any) => (
+      <span className="font-mono text-sm">#{row?.applicationId?.slice(-8)}</span>
+    ),
   },
   {
     header: 'Created Date',
