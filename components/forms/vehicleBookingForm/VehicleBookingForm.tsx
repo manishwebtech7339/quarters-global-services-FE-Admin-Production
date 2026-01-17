@@ -330,7 +330,7 @@ const VehicleBookingForm = ({
                     placeholder=""
                     disabled={isView}
                     {...field}
-                    min={format(new Date(), "yyyy-MM-dd'T'HH:mm")}
+                    min={format(bookingData?.pickupDate ?? new Date(), "yyyy-MM-dd'T'HH:mm")}
                   />
                 </FormControl>
                 <FormMessage />

@@ -97,7 +97,7 @@ const VehiclesBookings = ({
     {
       header: 'Amount',
       accessor: 'amount',
-      render: (row: any) => <span>{formatCurrency({ amount: row.amount })}</span>,
+      render: (row: any) => <span>{formatCurrency({ amount: row.amount ?? 0 })}</span>,
     },
     {
       header: 'Payment Status',
