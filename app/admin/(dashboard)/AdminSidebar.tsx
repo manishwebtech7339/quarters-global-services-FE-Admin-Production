@@ -10,6 +10,7 @@ import {
   Table2,
   Ticket,
   MessageCircle,
+  DockIcon,
 } from 'lucide-react';
 import { NavItem, Sidebar } from '@/components/ui/sidebar';
 import useHasAccess from '@/hooks/useAccessControl/useHasAccess';
@@ -115,6 +116,12 @@ const AdminSidebar = () => {
       href: '/admin/tax-bureau',
       icon: CreditCard,
       isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.chat }),
+    },
+    {
+      name: 'Apostille',
+      href: '/admin/apostille',
+      icon: DockIcon,
+      isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.apostille }),
     },
   ];
   const visibleItems = navigationItems.filter((item) => item.isVisible);

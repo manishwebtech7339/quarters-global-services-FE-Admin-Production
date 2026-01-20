@@ -16,4 +16,5 @@ export enum PERMISSIONS_LIST_ENUM {
   chat = 'chat',
   receipts = 'receipts',
   tax_bureau = 'tax_bureau',
+  apostille = 'apostille',
 }

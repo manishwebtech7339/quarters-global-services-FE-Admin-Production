@@ -25,6 +25,9 @@ export type ApiPagination = {
 export const applicationSources = ['AdminPortal', 'AgentPortal', 'Website'] as const;
 export type ApplicationSource = (typeof applicationSources)[number];
 
+export const apostilleBookingSources = ['ONLINE', 'WALK_IN', 'AGENT'] as const;
+export type ApostilleBookingSources = (typeof apostilleBookingSources)[number];
+
 export type UserSession = {
   id: string;
   token: string;
@@ -295,6 +298,98 @@ export type TaxBureauDataType = {
   updatedAt: string;
   __v: number;
 };
+
+export interface ApostilleApplicationDataType {
+  _id: string;
+  userId: string;
+  createdBy: string;
+  status: string;
+  orderType: string;
+  currency: string;
+  customer: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    countryCode: string;
+    phone: string;
+  };
+  addresses: {
+    physical: {
+      addressLine1: string;
+      addressLine2: string;
+      city: string;
+      state: string;
+      zipCode: string;
+      country: string;
+    };
+    legal: {
+      addressLine1: string;
+      addressLine2: string;
+      city: string;
+      state: string;
+      zipCode: string;
+      country: string;
+    };
+  };
+  serviceSelection: {
+    destinationCountry: string;
+    documentCount: number;
+    documents: {
+      documentType: string;
+      issuedState: string;
+      packageId: string;
+      packageName: string;
+      price: number;
+    }[];
+    addons: {
+      scannedCopy: {
+        selected: boolean;
+        price: number;
+      };
+      translation: {
+        selected: boolean;
+        language: string;
+        pages: number;
+      };
+    };
+  };
+  pricing: {
+    subTotal: number;
+    tax: number;
+    discount: number;
+    grandTotal: number;
+  };
+  metadata: {
+    source: string;
+    createdAt: string;
+  };
+
+  isDeleted: boolean;
+  deletedBy: any;
+  deletedAt: any;
+  createdAt: string;
+  updatedAt: string;
+  transactionDetails: {
+    _id: string;
+    sessionId: string;
+    userId: string;
+    customerId: string;
+    paymentIntentId: any;
+    transactionId: any;
+    amount: string;
+    currency: string;
+    paymentStatus: string;
+    paymentType: string;
+    paymentMode: string;
+    relatedApplicationIds: any[];
+    relatedShippingIds: any[];
+    apostilleLegalizationId: string;
+    transactionSource: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
+}
 
 // ----------------------------
 export type ErrorInstance = { response: { data: { message: string } } };
