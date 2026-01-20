@@ -82,7 +82,10 @@ const ComboSelect = ({
         let fetchedOptions: any[] = [];
         if (name === 'platformServiceId') {
           fetchedOptions = response?.data?.data.filter(
-            (service: any) => service?.slug !== 'other-services' && service?.slug !== 'tax-filling',
+            (service: any) =>
+              service?.slug !== 'other-services' &&
+              service?.slug !== 'tax-filling' &&
+              service?.slug !== 'apostille-and-legalization',
           );
           console.log('Filtered platformServiceId options:', fetchedOptions);
         } else if (name === 'platformServiceSubCategoryId') {

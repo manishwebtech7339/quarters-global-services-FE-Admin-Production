@@ -836,7 +836,7 @@ const ApplicationForm = ({
               }
               apiPath={
                 form.watch('toCountryId') && form.watch('fromCountryId')
-                  ? `/platform-service/get-platform-service?toCountryId=${form.watch('toCountryId')}&fromCountryId=${form.watch('fromCountryId')}`
+                  ? `/platform-service/get-platform-service?toCountryId=${form.watch('toCountryId')}`
                   : ''
               }
               onSlugSelect={(slug) => setServiceSlug(slug)}

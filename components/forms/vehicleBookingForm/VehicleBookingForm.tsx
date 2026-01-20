@@ -28,6 +28,7 @@ import { FormCombobox } from '@/components/common/FormComboBox';
 import { PhoneInput2 } from '@/components/ui/PhoneInput2';
 import { Autocomplete } from '@react-google-maps/api';
 import { addDays, format } from 'date-fns';
+import { Textarea } from '@/components/ui/textarea';
 export const vehicleList = [
   { id: 'sedan', name: 'Sedan' },
   { id: 'mid-suv', name: 'Mid Size SUV' },
@@ -35,6 +36,10 @@ export const vehicleList = [
   { id: '15-seater', name: '15 Seater' },
   { id: 'shuttle-bus', name: 'Shuttle Bus' },
   { id: 'charter-bus', name: 'Charter Bus' },
+  {
+    id: 'large-suv',
+    name: 'Large SUV',
+  },
 ] as const;
 const formSchema = z.object({
   // fullName: z.string().min(1, 'Full Name is required'),
@@ -62,6 +67,8 @@ const formSchema = z.object({
   estimatedFare: z.string().min(1, 'Estimated Fare is required'),
   paymentStatus: z.string(), // Can be any string from API
   bookingStatus: z.string(), // Can be any string from API
+  paymentType: z.string(),
+  note: z.string().optional(),
 });
 
 const VehicleBookingForm = ({
@@ -111,7 +118,9 @@ const VehicleBookingForm = ({
       approxKilometer: bookingData?.approxKilometer || '0',
       estimatedFare: bookingData?.estFare || '0',
       paymentStatus: bookingData?.paymentStatus || 'Unpaid',
+      paymentType: bookingData?.paymentType || 'Pending',
       bookingStatus: bookingData?.bookingStatus || 'Pending',
+      note: bookingData?.note || '',
     },
   });
   console.log(form.formState.errors);
@@ -142,6 +151,8 @@ const VehicleBookingForm = ({
         estFare: values.estimatedFare,
         paymentStatus: values.paymentStatus,
         bookingStatus: values.bookingStatus,
+        note: values.note,
+        paymentType: values.paymentType,
       };
 
       let response;
@@ -228,7 +239,7 @@ const VehicleBookingForm = ({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="" disabled={isView} {...field} />
+                  <Input type="email" placeholder="" disabled={isView || isEdit} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -378,7 +389,7 @@ const VehicleBookingForm = ({
             name="customerSelectedVehicleInfo"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Vehicle Type</FormLabel>
+                <FormLabel>Customer Selected Vehicle</FormLabel>
                 <Select
                   onValueChange={(e) => {
                     field.onChange(e);
@@ -468,13 +479,14 @@ const VehicleBookingForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Number of Passengers</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isView}>
-                  <FormControl>
-                    <SelectTrigger className="w-full">
+
+                <FormControl>
+                  {/* <SelectTrigger className="w-full">
                       <SelectValue placeholder="" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
+                    </SelectTrigger> */}
+                  <Input {...field} />
+                </FormControl>
+                {/* <SelectContent>
                     <SelectItem value="1">1</SelectItem>
                     <SelectItem value="2">2</SelectItem>
                     <SelectItem value="3">3</SelectItem>
@@ -482,8 +494,8 @@ const VehicleBookingForm = ({
                     <SelectItem value="5">5</SelectItem>
                     <SelectItem value="6">6</SelectItem>
                     <SelectItem value="7">7+</SelectItem>
-                  </SelectContent>
-                </Select>
+                  </SelectContent> */}
+
                 <FormMessage />
               </FormItem>
             )}
@@ -553,6 +565,30 @@ const VehicleBookingForm = ({
           />
           <FormField
             control={form.control}
+            name="paymentType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Payment Type</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isView}>
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Card">Card</SelectItem>
+                    <SelectItem value="Cash">Cash</SelectItem>
+                    <SelectItem value="Online">Online</SelectItem>
+                    <SelectItem value="Pending">Pending</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="bookingStatus"
             render={({ field }) => (
               <FormItem>
@@ -568,6 +604,22 @@ const VehicleBookingForm = ({
                     <SelectItem value="Pending">Pending</SelectItem>
                     <SelectItem value="Cancelled">Cancelled</SelectItem>
                   </SelectContent>
+                </Select>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="note"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Note</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isView}>
+                  <FormControl>
+                    <Textarea {...field} />
+                  </FormControl>
                 </Select>
 
                 <FormMessage />
