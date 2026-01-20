@@ -3,7 +3,7 @@
 import CommonTable from '@/components/common/CommonTable';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Check, Plus } from 'lucide-react';
+import { Check, ChevronDownIcon, Plus } from 'lucide-react';
 import Link from 'next/link';
 import Icon from '@/components/common/Icon';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
@@ -157,8 +157,12 @@ const ApostillePage = ({
         {/* Tabs */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-full max-w-32 capitalize">
+            <Button
+              variant="outline"
+              className="w-full max-w-32 capitalize flex items-center justify-between"
+            >
               {(bookingSource || apostilleBookingSources[0])?.replace(/_/g, ' ')?.toLowerCase()}
+              <ChevronDownIcon className="size-4 opacity-50" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>

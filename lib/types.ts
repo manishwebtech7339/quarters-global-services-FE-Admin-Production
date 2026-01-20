@@ -25,7 +25,7 @@ export type ApiPagination = {
 export const applicationSources = ['AdminPortal', 'AgentPortal', 'Website'] as const;
 export type ApplicationSource = (typeof applicationSources)[number];
 
-export const apostilleBookingSources = ['ONLINE', 'WALK_IN', 'AGENT'] as const;
+export const apostilleBookingSources = ['WALK_IN', 'AGENT', 'ONLINE'] as const;
 export type ApostilleBookingSources = (typeof apostilleBookingSources)[number];
 
 export type UserSession = {
