@@ -924,7 +924,7 @@ const ApostilleForm = ({
               />
 
               {/* Issued State */}
-              <FormField
+              {/* <FormField
                 name={`documents.${index}.issuedState`}
                 control={form.control}
                 render={({ field }) => (
@@ -942,6 +942,19 @@ const ApostilleForm = ({
                         ))}
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              /> */}
+              <FormField
+                name={`documents.${index}.issuedState`}
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Issued State</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter state name" />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
