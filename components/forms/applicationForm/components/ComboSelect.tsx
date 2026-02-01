@@ -36,6 +36,7 @@ interface ComboSelectProps {
   onSelectIsHaveSubCategory?: (v: boolean) => void;
   onSelect?: VoidFunction;
   onSlugSelect?: (v: string) => void;
+  onOptionSelect?: (v: any) => void;
 }
 
 const ComboSelect = ({
@@ -52,6 +53,7 @@ const ComboSelect = ({
   onSelectIsHaveSubCategory,
   onSelect,
   onSlugSelect,
+  onOptionSelect,
 }: ComboSelectProps) => {
   const form = useFormContext<CreateApplicationType>();
   const [options, setOptions] = useState<any[]>([]);
@@ -175,6 +177,9 @@ const ComboSelect = ({
                             value={optionLabel}
                             onSelect={() => {
                               field.onChange(optionValue);
+                              if (onOptionSelect) {
+                                onOptionSelect(option);
+                              }
                               if (onSelect) {
                                 onSelect();
                               }

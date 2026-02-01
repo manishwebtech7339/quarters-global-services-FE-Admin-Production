@@ -748,6 +748,22 @@ const ApplicationForm = ({
     }
   }, [applicationData, form]);
 
+  // -- handle dynamic amount ---
+  const handleDynamicAmount = (amount: number) => {
+    const discount = Number(form.getValues('additionalServiceFields.discount') || 0);
+
+    form.setValue('additionalServiceFields.totalAmount', String(amount));
+    form.setValue('additionalServiceFields.amountToBePaid', String(amount - discount));
+  };
+
+  const handleDynamicAmountByAddon = (add: boolean, amount: number) => {
+    const total = Number(form.getValues('additionalServiceFields.totalAmount') || 0);
+    const discount = Number(form.getValues('additionalServiceFields.discount') || 0);
+    const totalValue = add ? total + amount : total - amount;
+    form.setValue('additionalServiceFields.totalAmount', String(totalValue - discount));
+    form.setValue('additionalServiceFields.amountToBePaid', String(totalValue - discount));
+  };
+
   // Set default serviceType for US passport forms
   useEffect(() => {
     if (countrySlug === 'united-states' && serviceSlug === 'passport') {
@@ -901,6 +917,10 @@ const ApplicationForm = ({
                       ? `/platform-service-category-package/get-platform-service-category-package?toCountryId=${form.watch('toCountryId')}&platformServiceCategoryId=${categoryValue}`
                       : ''
                   }
+                  onOptionSelect={(e) => {
+                    handleDynamicAmount(e.price || 0);
+                    form.setValue('platformServiceCategoryPackageAddonsId', []);
+                  }}
                 />
               );
             })()}
@@ -914,6 +934,9 @@ const ApplicationForm = ({
                     packageId={selectedPackageId || ''}
                     enable={!!selectedPackageId}
                     isEdit={isEdit}
+                    onOptionSelect={(c, e) => {
+                      handleDynamicAmountByAddon(c, e.price || 0);
+                    }}
                   />
                 </div>
               );

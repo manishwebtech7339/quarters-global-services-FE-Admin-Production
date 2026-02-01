@@ -8,15 +8,15 @@ import { requiredFileSchema } from '../common';
 export const visaIndiaTouristSchema = z.object({
   serviceType: z.literal('tourist-visa'),
 
-  validPassport: requiredFileSchema,
-  visaApplicationForm: requiredFileSchema,
-  recentPassportPhoto: requiredFileSchema,
-  travelItinerary: requiredFileSchema,
-  proofOfFunds: requiredFileSchema,
-  hotelBookingInvitationLetter: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  visaApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  recentPassportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  travelItinerary: requiredFileSchema.optional().or(z.literal('')),
+  proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
+  hotelBookingInvitationLetter: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  returnFlightTicket: requiredFileSchema.optional(),
+  returnFlightTicket: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -26,15 +26,15 @@ export const visaIndiaTouristSchema = z.object({
 export const visaIndiaBusinessSchema = z.object({
   serviceType: z.literal('business-visa'),
 
-  validPassport: requiredFileSchema,
-  visaApplicationForm: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
-  invitationLetterFromIndianCompany: requiredFileSchema,
-  incorporationCertificateOfIndianCompany: requiredFileSchema,
-  proofOfFunds: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  visaApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
+  invitationLetterFromIndianCompany: requiredFileSchema.optional().or(z.literal('')),
+  incorporationCertificateOfIndianCompany: requiredFileSchema.optional().or(z.literal('')),
+  proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  businessCoverLetter: requiredFileSchema.optional(),
+  businessCoverLetter: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -44,15 +44,15 @@ export const visaIndiaBusinessSchema = z.object({
 export const visaIndiaStudentSchema = z.object({
   serviceType: z.literal('student-visa'),
 
-  validPassport: requiredFileSchema,
-  visaApplicationForm: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
-  admissionLetterFromIndianInstitution: requiredFileSchema,
-  proofOfFunds: requiredFileSchema,
-  academicCertificates: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  visaApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
+  admissionLetterFromIndianInstitution: requiredFileSchema.optional().or(z.literal('')),
+  proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
+  academicCertificates: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  bonafideCertificate: requiredFileSchema.optional(),
+  bonafideCertificate: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -62,15 +62,15 @@ export const visaIndiaStudentSchema = z.object({
 export const visaIndiaMedicalSchema = z.object({
   serviceType: z.literal('medical-visa'),
 
-  validPassport: requiredFileSchema,
-  visaApplicationForm: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
-  medicalTreatmentLetterFromIndianHospital: requiredFileSchema,
-  proofOfFunds: requiredFileSchema,
-  medicalReports: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  visaApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
+  medicalTreatmentLetterFromIndianHospital: requiredFileSchema.optional().or(z.literal('')),
+  proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
+  medicalReports: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  attendantDetailsLetter: requiredFileSchema.optional(),
+  attendantDetailsLetter: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -80,15 +80,15 @@ export const visaIndiaMedicalSchema = z.object({
 export const visaIndiaConferenceSchema = z.object({
   serviceType: z.literal('conference-visa'),
 
-  validPassport: requiredFileSchema,
-  visaApplicationForm: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
-  invitationLetterToConference: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  visaApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
+  invitationLetterToConference: requiredFileSchema.optional().or(z.literal('')),
 
-  governmentClearance: requiredFileSchema.optional(),
+  governmentClearance: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  conferenceRegistrationProof: requiredFileSchema.optional(),
+  conferenceRegistrationProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -98,13 +98,13 @@ export const visaIndiaConferenceSchema = z.object({
 export const visaIndiaEmploymentSchema = z.object({
   serviceType: z.literal('employment-visa'),
 
-  validPassport: requiredFileSchema,
-  visaApplicationForm: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
-  appointmentLetter: requiredFileSchema,
-  companyRegistrationProof: requiredFileSchema,
-  proofOfFunds: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  visaApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
+  appointmentLetter: requiredFileSchema.optional().or(z.literal('')),
+  companyRegistrationProof: requiredFileSchema.optional().or(z.literal('')),
+  proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  employmentContract: requiredFileSchema.optional(),
+  employmentContract: requiredFileSchema.optional().or(z.literal('')),
 });

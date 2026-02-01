@@ -64,12 +64,12 @@ const baseSchema = z.object({
   lastName: commonFieldSchema(),
   email: emailSchema(),
   phone: commonFieldSchema(),
-  countryCode: commonFieldSchema(),
-  country: commonFieldSchema(),
-  address: commonFieldSchema(),
-  city: commonFieldSchema(),
-  state: commonFieldSchema(),
-  pincode: commonFieldSchema(),
+  countryCode: commonFieldSchema().optional().or(z.literal('')),
+  country: commonFieldSchema().optional().or(z.literal('')),
+  address: commonFieldSchema().optional().or(z.literal('')),
+  city: commonFieldSchema().optional().or(z.literal('')),
+  state: commonFieldSchema().optional().or(z.literal('')),
+  pincode: commonFieldSchema().optional().or(z.literal('')),
   notes: commonFieldSchema().optional().or(z.literal('')),
 
   // Personal Information fields

@@ -4,188 +4,188 @@ import { requiredFileSchema } from '../common';
 export const ociAdultDetailedSchema = z.object({
   serviceType: z.literal('oci-adult-application-checklist'),
 
-  photograph2x2: requiredFileSchema,
-  signature: requiredFileSchema,
+  photograph2x2: requiredFileSchema.optional().or(z.literal('')),
+  signature: requiredFileSchema.optional().or(z.literal('')),
 
-  currentPassportCopy: requiredFileSchema,
-  lastIndianPassportCopyOrSurrenderCert: requiredFileSchema,
-  naturalizationCertificate: requiredFileSchema,
+  currentPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  lastIndianPassportCopyOrSurrenderCert: requiredFileSchema.optional().or(z.literal('')),
+  naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
 
-  proofOfLegalStatusUSA: requiredFileSchema.optional(),
+  proofOfLegalStatusUSA: requiredFileSchema.optional().or(z.literal('')),
 
-  birthCertificate: requiredFileSchema,
-  maritalStatusProof: requiredFileSchema.optional(),
+  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
+  maritalStatusProof: requiredFileSchema.optional().or(z.literal('')),
 
-  nameChangeDocument: requiredFileSchema.optional(),
-  employmentOrWorkLetter: requiredFileSchema.optional(),
+  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
+  employmentOrWorkLetter: requiredFileSchema.optional().or(z.literal('')),
 
-  parentsAndSpouseDocuments: requiredFileSchema.optional(),
-  previousIndianVisaCopy: requiredFileSchema.optional(),
+  parentsAndSpouseDocuments: requiredFileSchema.optional().or(z.literal('')),
+  previousIndianVisaCopy: requiredFileSchema.optional().or(z.literal('')),
 
-  addressProofUSA: requiredFileSchema,
-  nativeAddressDetails: requiredFileSchema.optional(),
+  addressProofUSA: requiredFileSchema.optional().or(z.literal('')),
+  nativeAddressDetails: requiredFileSchema.optional().or(z.literal('')),
 
-  voterRationCardUndertaking: requiredFileSchema,
-  ociUndertaking: requiredFileSchema,
-  affidavitInLieuOfOriginals: requiredFileSchema,
+  voterRationCardUndertaking: requiredFileSchema.optional().or(z.literal('')),
+  ociUndertaking: requiredFileSchema.optional().or(z.literal('')),
+  affidavitInLieuOfOriginals: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const ociMinorDetailedSchema = z.object({
   serviceType: z.literal('oci-minor-application-checklist'),
 
-  photograph2x2: requiredFileSchema,
-  signature: requiredFileSchema,
+  photograph2x2: requiredFileSchema.optional().or(z.literal('')),
+  signature: requiredFileSchema.optional().or(z.literal('')),
 
-  parentalAuthorizationForm: requiredFileSchema,
-  parentsAffidavitForMinor: requiredFileSchema,
+  parentalAuthorizationForm: requiredFileSchema.optional().or(z.literal('')),
+  parentsAffidavitForMinor: requiredFileSchema.optional().or(z.literal('')),
 
-  currentPassportCopy: requiredFileSchema,
-  lastIndianPassportCopyOrSurrenderCert: requiredFileSchema,
-  parentsPassportCopies: requiredFileSchema,
+  currentPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  lastIndianPassportCopyOrSurrenderCert: requiredFileSchema.optional().or(z.literal('')),
+  parentsPassportCopies: requiredFileSchema.optional().or(z.literal('')),
 
-  naturalizationCertificateParents: requiredFileSchema.optional(),
-  marriageCertificateParents: requiredFileSchema,
+  naturalizationCertificateParents: requiredFileSchema.optional().or(z.literal('')),
+  marriageCertificateParents: requiredFileSchema.optional().or(z.literal('')),
 
-  parentsLegalStatusUSA: requiredFileSchema.optional(),
+  parentsLegalStatusUSA: requiredFileSchema.optional().or(z.literal('')),
 
-  parentsOciCardCopy: requiredFileSchema.optional(),
-  previousIndianVisaCopy: requiredFileSchema.optional(),
+  parentsOciCardCopy: requiredFileSchema.optional().or(z.literal('')),
+  previousIndianVisaCopy: requiredFileSchema.optional().or(z.literal('')),
 
-  addressProofUSA: requiredFileSchema,
-  nativeAddressDetails: requiredFileSchema.optional(),
+  addressProofUSA: requiredFileSchema.optional().or(z.literal('')),
+  nativeAddressDetails: requiredFileSchema.optional().or(z.literal('')),
 
-  voterRationCardUndertaking: requiredFileSchema,
+  voterRationCardUndertaking: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const ociSpouseDetailedSchema = z.object({
   serviceType: z.literal('oci-spouse-foreign-national'),
 
-  ociApplicationForm: requiredFileSchema,
-  photograph2x2: requiredFileSchema,
-  signature: requiredFileSchema,
+  ociApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  photograph2x2: requiredFileSchema.optional().or(z.literal('')),
+  signature: requiredFileSchema.optional().or(z.literal('')),
 
-  currentPassportCopy: requiredFileSchema,
-  birthCertificateApostilled: requiredFileSchema.optional(),
+  currentPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  birthCertificateApostilled: requiredFileSchema.optional().or(z.literal('')),
 
-  spouseIndianOriginProof: requiredFileSchema,
-  marriageCertificate: requiredFileSchema,
+  spouseIndianOriginProof: requiredFileSchema.optional().or(z.literal('')),
+  marriageCertificate: requiredFileSchema.optional().or(z.literal('')),
 
-  jointAffidavitOfMarriage: requiredFileSchema,
+  jointAffidavitOfMarriage: requiredFileSchema.optional().or(z.literal('')),
 
-  legalStatusUSA: requiredFileSchema,
-  nameChangeDocument: requiredFileSchema.optional(),
+  legalStatusUSA: requiredFileSchema.optional().or(z.literal('')),
+  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
 
-  employmentOrStatusLetter: requiredFileSchema.optional(),
-  previousIndianVisaCopy: requiredFileSchema.optional(),
+  employmentOrStatusLetter: requiredFileSchema.optional().or(z.literal('')),
+  previousIndianVisaCopy: requiredFileSchema.optional().or(z.literal('')),
 
-  addressProofUSA: requiredFileSchema,
-  nativeAddressDetails: requiredFileSchema.optional(),
+  addressProofUSA: requiredFileSchema.optional().or(z.literal('')),
+  nativeAddressDetails: requiredFileSchema.optional().or(z.literal('')),
 
-  affidavitInLieuOfOriginals: requiredFileSchema,
-  applicantUndertaking: requiredFileSchema,
-  spouseUndertaking: requiredFileSchema.optional(),
+  affidavitInLieuOfOriginals: requiredFileSchema.optional().or(z.literal('')),
+  applicantUndertaking: requiredFileSchema.optional().or(z.literal('')),
+  spouseUndertaking: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const ociInLieuOfValidPioSchema = z.object({
   serviceType: z.literal('oci-registration-in-lieu-of-pio-card'),
 
-  canceledIndianPassportCopy: requiredFileSchema,
-  renunciationCertificate: requiredFileSchema,
-  usPassportCopy: requiredFileSchema,
+  canceledIndianPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  renunciationCertificate: requiredFileSchema.optional().or(z.literal('')),
+  usPassportCopy: requiredFileSchema.optional().or(z.literal('')),
 
-  addressProofUSA: requiredFileSchema,
-  birthCertificate: requiredFileSchema,
-  naturalizationCertificate: requiredFileSchema,
+  addressProofUSA: requiredFileSchema.optional().or(z.literal('')),
+  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
+  naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
 
-  nameChangeDocument: requiredFileSchema.optional(),
+  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
 
-  parentsAndSpouseDetails: requiredFileSchema.optional(),
-  referenceAddressIndia: requiredFileSchema,
+  parentsAndSpouseDetails: requiredFileSchema.optional().or(z.literal('')),
+  referenceAddressIndia: requiredFileSchema.optional().or(z.literal('')),
 
-  pioCardOriginal: requiredFileSchema,
-  photographs2x2: requiredFileSchema,
+  pioCardOriginal: requiredFileSchema.optional().or(z.literal('')),
+  photographs2x2: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const ociInLieuOfLostPioSchema = z.object({
   serviceType: z.literal('oci-registration-lostdamaged-pio-card'),
 
-  usPassportCopy: requiredFileSchema,
-  addressProofUSA: requiredFileSchema,
+  usPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  addressProofUSA: requiredFileSchema.optional().or(z.literal('')),
 
-  policeReportLostPio: requiredFileSchema,
-  naturalizationCertificate: requiredFileSchema,
-  birthCertificate: requiredFileSchema,
+  policeReportLostPio: requiredFileSchema.optional().or(z.literal('')),
+  naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
+  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
 
-  nameChangeDocument: requiredFileSchema.optional(),
+  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
 
-  parentsAndSpouseDetails: requiredFileSchema.optional(),
-  referenceAddressIndia: requiredFileSchema,
+  parentsAndSpouseDetails: requiredFileSchema.optional().or(z.literal('')),
+  referenceAddressIndia: requiredFileSchema.optional().or(z.literal('')),
 
-  photographs2x2: requiredFileSchema,
+  photographs2x2: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const ociLostDamagedSchema = z.object({
   serviceType: z.literal('oci-lostdamaged'),
 
-  usPassportCopy: requiredFileSchema,
-  addressProofUSA: requiredFileSchema,
+  usPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  addressProofUSA: requiredFileSchema.optional().or(z.literal('')),
 
-  policeReport: requiredFileSchema,
-  naturalizationCertificate: requiredFileSchema,
-  birthCertificate: requiredFileSchema,
+  policeReport: requiredFileSchema.optional().or(z.literal('')),
+  naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
+  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
 
-  nameChangeDocument: requiredFileSchema.optional(),
+  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
 
-  parentsAndSpouseDetails: requiredFileSchema.optional(),
-  referenceAddressIndia: requiredFileSchema,
+  parentsAndSpouseDetails: requiredFileSchema.optional().or(z.literal('')),
+  referenceAddressIndia: requiredFileSchema.optional().or(z.literal('')),
 
-  photographs2x2: requiredFileSchema,
+  photographs2x2: requiredFileSchema.optional().or(z.literal('')),
 
-  familyOciCardCopy: requiredFileSchema.optional(),
+  familyOciCardCopy: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const ociSurrenderSchema = z.object({
   serviceType: z.literal('oci-surrender'),
 
-  originalOciCard: requiredFileSchema,
-  drivingLicenseCopy: requiredFileSchema,
+  originalOciCard: requiredFileSchema.optional().or(z.literal('')),
+  drivingLicenseCopy: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const pioToOciSchema = z.object({
   serviceType: z.literal('pio-to-oci-checklist'),
 
-  canceledIndianPassportCopy: requiredFileSchema,
-  renunciationCertificate: requiredFileSchema,
-  usPassportCopy: requiredFileSchema,
+  canceledIndianPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  renunciationCertificate: requiredFileSchema.optional().or(z.literal('')),
+  usPassportCopy: requiredFileSchema.optional().or(z.literal('')),
 
-  addressProofUSA: requiredFileSchema,
-  birthCertificate: requiredFileSchema,
-  naturalizationCertificate: requiredFileSchema,
+  addressProofUSA: requiredFileSchema.optional().or(z.literal('')),
+  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
+  naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
 
-  nameChangeDocument: requiredFileSchema.optional(),
+  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
 
-  parentsAndSpouseDetails: requiredFileSchema.optional(),
-  referenceAddressIndia: requiredFileSchema,
+  parentsAndSpouseDetails: requiredFileSchema.optional().or(z.literal('')),
+  referenceAddressIndia: requiredFileSchema.optional().or(z.literal('')),
 
-  pioCardOriginal: requiredFileSchema,
-  photographs2x2: requiredFileSchema,
+  pioCardOriginal: requiredFileSchema.optional().or(z.literal('')),
+  photographs2x2: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // export const ociMiscAdultSchema = z.object({
 //   serviceType: z.literal('oci-misc-adult'),
 
-//   usPassportCopy: requiredFileSchema,
-//   addressProofUSA: requiredFileSchema,
+//   usPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+//   addressProofUSA: requiredFileSchema.optional().or(z.literal('')),
 
-//   originalOciCard: requiredFileSchema,
-//   naturalizationCertificate: requiredFileSchema,
-//   birthCertificate: requiredFileSchema,
+//   originalOciCard: requiredFileSchema.optional().or(z.literal('')),
+//   naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
+//   birthCertificate: requiredFileSchema.optional().or(z.literal('')),
 
-//   nameChangeDocument: requiredFileSchema.optional(),
+//   nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
 
-//   parentsAndSpouseDetails: requiredFileSchema.optional(),
-//   referenceAddressIndia: requiredFileSchema,
+//   parentsAndSpouseDetails: requiredFileSchema.optional().or(z.literal('')),
+//   referenceAddressIndia: requiredFileSchema.optional().or(z.literal('')),
 
-//   affidavitInLieuOfOriginals: requiredFileSchema,
-//   photographs2x2: requiredFileSchema,
+//   affidavitInLieuOfOriginals: requiredFileSchema.optional().or(z.literal('')),
+//   photographs2x2: requiredFileSchema.optional().or(z.literal('')),
 // });

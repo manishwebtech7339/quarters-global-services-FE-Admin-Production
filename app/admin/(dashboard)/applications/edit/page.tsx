@@ -1,6 +1,5 @@
 import ApplicationForm from '@/components/forms/applicationForm/ApplicationForm';
 import React from 'react';
-import Actions from './Actions';
 import StatusTimeLine from './StatusTimeLine';
 import { redirect } from 'next/navigation';
 import hasAccess from '@/hooks/useAccessControl/hasAccess';
@@ -8,7 +7,7 @@ import { PERMISSIONS_LIST_ENUM } from '@/hooks/useAccessControl/permissions';
 import { getApplicationById } from '@/services/applicatonService';
 import { ApplicationSource } from '@/lib/types';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 const page = async ({
@@ -44,13 +43,13 @@ const page = async ({
           </Link>
         </Button>
         <p className="text-base font-semibold grow">Application ID: {application} </p>
-        {isView ? (
+        {/* {isView ? (
           <Actions />
         ) : (
           <Button>
             <Edit /> Edit
           </Button>
-        )}
+        )} */}
       </div>
 
       <StatusTimeLine activeStatus={applicationData.status || 'Submitted'} />

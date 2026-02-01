@@ -8,11 +8,11 @@ import { requiredFileSchema } from '../common';
 export const renunciationIndianCitizenshipSchema = z.object({
   serviceType: z.literal('renunciation-indian-citizenship'),
 
-  renunciationApplicationForm: requiredFileSchema,
-  indianPassportOriginal: requiredFileSchema,
-  foreignPassportCopy: requiredFileSchema,
-  naturalizationCertificate: requiredFileSchema,
-  photograph: requiredFileSchema,
+  renunciationApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  indianPassportOriginal: requiredFileSchema.optional().or(z.literal('')),
+  foreignPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
+  photograph: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================
@@ -22,10 +22,10 @@ export const renunciationIndianCitizenshipSchema = z.object({
 export const policeClearanceCertificateSchema = z.object({
   serviceType: z.literal('police-clearance-certificate'),
 
-  pccApplicationForm: requiredFileSchema,
-  passportCopy: requiredFileSchema,
-  addressProof: requiredFileSchema,
-  photograph: requiredFileSchema,
+  pccApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  passportCopy: requiredFileSchema.optional().or(z.literal('')),
+  addressProof: requiredFileSchema.optional().or(z.literal('')),
+  photograph: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================
@@ -35,8 +35,8 @@ export const policeClearanceCertificateSchema = z.object({
 export const globalEntryProgramSchema = z.object({
   serviceType: z.literal('global-entry-program'),
 
-  gepApplicationForm: requiredFileSchema,
-  passportCopy: requiredFileSchema,
-  visaCopy: requiredFileSchema.optional(),
-  addressProof: requiredFileSchema,
+  gepApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  passportCopy: requiredFileSchema.optional().or(z.literal('')),
+  visaCopy: requiredFileSchema.optional().or(z.literal('')),
+  addressProof: requiredFileSchema.optional().or(z.literal('')),
 });

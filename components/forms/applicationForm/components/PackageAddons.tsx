@@ -19,6 +19,7 @@ interface PackageAddonsProps {
   packageId: string;
   enable?: boolean;
   isEdit?: boolean;
+  onOptionSelect: (checked: boolean, e: PackageAddon) => void;
 }
 
 const PackageAddonsSkeleton = () => {
@@ -52,7 +53,12 @@ const PackageAddonsSkeleton = () => {
   );
 };
 
-const PackageAddons = ({ packageId, enable = true, isEdit = false }: PackageAddonsProps) => {
+const PackageAddons = ({
+  packageId,
+  enable = true,
+  isEdit = false,
+  onOptionSelect,
+}: PackageAddonsProps) => {
   const form = useFormContext<CreateApplicationType>();
   const [addons, setAddons] = useState<PackageAddon[]>([]);
   const [loading, setLoading] = useState(false);
@@ -149,7 +155,10 @@ const PackageAddons = ({ packageId, enable = true, isEdit = false }: PackageAddo
                     <div className="flex items-start space-x-2">
                       <Checkbox
                         checked={(field.value || []).includes(addon._id)}
-                        onCheckedChange={(checked) => handleAddonToggle(addon._id, !!checked)}
+                        onCheckedChange={(checked) => {
+                          handleAddonToggle(addon._id, !!checked);
+                          onOptionSelect(!!checked, addon);
+                        }}
                         disabled={!!isEdit}
                       />
                       <div className="flex-1 space-y-1">

@@ -70,7 +70,7 @@ const DocumentForm = ({
                     <FormItem>
                       <FormLabel>
                         {formatLabel(f.name)}
-                        {f.required && <span className="text-red-500 ml-1">*</span>}
+                        {/* {f.required && <span className="text-red-500 ml-1">*</span>} */}
                       </FormLabel>
                       <FormControl>
                         <Input {...field} disabled={isView} />
@@ -92,7 +92,7 @@ const DocumentForm = ({
                     <FormItem>
                       <FormLabel>
                         {formatLabel(f.name)}
-                        {f.required && <span className="text-red-500 ml-1">*</span>}
+                        {/* {f.required && <span className="text-red-500 ml-1">*</span>} */}
                       </FormLabel>
                       <FormControl>
                         <FileInput

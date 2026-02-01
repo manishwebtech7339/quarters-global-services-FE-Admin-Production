@@ -4,271 +4,271 @@ import { requiredFileSchema } from '../common';
 export const visaUSB1B2Schema = z.object({
   serviceType: z.literal('b1b2-visitor-visa'),
 
-  validPassport: requiredFileSchema.optional(),
-  ds160Confirmation: requiredFileSchema.optional(),
-  visaFeeReceipt: requiredFileSchema.optional(),
-  passportPhoto: requiredFileSchema.optional(),
-  travelItinerary: requiredFileSchema.optional(),
-  bankStatements: requiredFileSchema.optional(),
-  invitationLetter: requiredFileSchema.optional(),
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  visaFeeReceipt: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  travelItinerary: requiredFileSchema.optional().or(z.literal('')),
+  bankStatements: requiredFileSchema.optional().or(z.literal('')),
+  invitationLetter: requiredFileSchema.optional().or(z.literal('')),
 
-  employmentProof: requiredFileSchema.optional(),
-  propertyOwnershipProof: requiredFileSchema.optional(),
+  employmentProof: requiredFileSchema.optional().or(z.literal('')),
+  propertyOwnershipProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSStudentSchema = z.object({
   serviceType: z.literal('f1-student-visa'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  sevisFeeReceipt: requiredFileSchema,
-  i20Form: requiredFileSchema,
-  visaFeeReceipt: requiredFileSchema,
-  passportPhoto: requiredFileSchema,
-  academicRecords: requiredFileSchema,
-  bankStatementsSponsorLetter: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  sevisFeeReceipt: requiredFileSchema.optional().or(z.literal('')),
+  i20Form: requiredFileSchema.optional().or(z.literal('')),
+  visaFeeReceipt: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  academicRecords: requiredFileSchema.optional().or(z.literal('')),
+  bankStatementsSponsorLetter: requiredFileSchema.optional().or(z.literal('')),
 
-  englishProficiencyProof: requiredFileSchema.optional(),
+  englishProficiencyProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSExchangeVisitorSchema = z.object({
   serviceType: z.literal('j1-exchange-visa'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  sevisFeeReceipt: requiredFileSchema,
-  ds2019Form: requiredFileSchema,
-  passportPhoto: requiredFileSchema,
-  sponsorLetter: requiredFileSchema,
-  proofOfFunds: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  sevisFeeReceipt: requiredFileSchema.optional().or(z.literal('')),
+  ds2019Form: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  sponsorLetter: requiredFileSchema.optional().or(z.literal('')),
+  proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
 
-  trainingProgramDetails: requiredFileSchema.optional(),
+  trainingProgramDetails: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSBusinessSchema = z.object({
   serviceType: z.literal('h1b-work-visa'),
 
-  validPassport: requiredFileSchema.optional(),
-  ds160Confirmation: requiredFileSchema.optional(),
-  i797ApprovalNotice: requiredFileSchema.optional(),
-  lcaDocument: requiredFileSchema.optional(),
-  employmentLetter: requiredFileSchema.optional(),
-  degreesCertificates: requiredFileSchema.optional(),
-  passportPhoto: requiredFileSchema.optional(),
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  i797ApprovalNotice: requiredFileSchema.optional().or(z.literal('')),
+  lcaDocument: requiredFileSchema.optional().or(z.literal('')),
+  employmentLetter: requiredFileSchema.optional().or(z.literal('')),
+  degreesCertificates: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  resumeCV: requiredFileSchema.optional(),
+  resumeCV: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSTemporaryWorkerSchema = z.object({
   serviceType: z.literal('h2a-h2b-temporary-worker-visa'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  jobOrderOfferLetter: requiredFileSchema,
-  passportPhoto: requiredFileSchema,
-  previousVisaHistory: requiredFileSchema.optional(),
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  jobOrderOfferLetter: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  previousVisaHistory: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSIntraCompanyTransferSchema = z.object({
   serviceType: z.literal('l1-intra-company-transfer'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  i129sI797Approval: requiredFileSchema,
-  employmentLetters: requiredFileSchema,
-  passportPhoto: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  i129sI797Approval: requiredFileSchema.optional().or(z.literal('')),
+  employmentLetters: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  companyRelationshipProof: requiredFileSchema.optional(),
+  companyRelationshipProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSExtraordinaryAbilitySchema = z.object({
   serviceType: z.literal('o1-extraordinary-ability'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  i797Approval: requiredFileSchema,
-  evidenceOfExtraordinaryAbility: requiredFileSchema,
-  passportPhoto: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  i797Approval: requiredFileSchema.optional().or(z.literal('')),
+  evidenceOfExtraordinaryAbility: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  expertOpinionLetters: requiredFileSchema.optional(),
+  expertOpinionLetters: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSAthleteArtistSchema = z.object({
   serviceType: z.literal('p1-p3-athlete-artist-visa'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  i797Approval: requiredFileSchema,
-  contractsItinerary: requiredFileSchema,
-  passportPhoto: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  i797Approval: requiredFileSchema.optional().or(z.literal('')),
+  contractsItinerary: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  eventInvitations: requiredFileSchema.optional(),
+  eventInvitations: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSReligiousWorkerSchema = z.object({
   serviceType: z.literal('r1-religious-worker-visa'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  i797Approval: requiredFileSchema,
-  religiousOrganizationLetter: requiredFileSchema,
-  passportPhoto: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  i797Approval: requiredFileSchema.optional().or(z.literal('')),
+  religiousOrganizationLetter: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  religiousQualificationProof: requiredFileSchema.optional(),
+  religiousQualificationProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSNAFTASchema = z.object({
   serviceType: z.literal('tntd-nafta-visa'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  offerLetter: requiredFileSchema,
-  proofOfCitizenship: requiredFileSchema,
-  passportPhoto: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  offerLetter: requiredFileSchema.optional().or(z.literal('')),
+  proofOfCitizenship: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSImmediateRelativeSchema = z.object({
   serviceType: z.literal('ir-immediate-relative-visa'),
 
-  validPassport: requiredFileSchema,
-  ds260Confirmation: requiredFileSchema,
-  civilDocuments: requiredFileSchema,
-  policeCertificates: requiredFileSchema,
-  medicalExam: requiredFileSchema,
-  i864AffidavitOfSupport: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds260Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  civilDocuments: requiredFileSchema.optional().or(z.literal('')),
+  policeCertificates: requiredFileSchema.optional().or(z.literal('')),
+  medicalExam: requiredFileSchema.optional().or(z.literal('')),
+  i864AffidavitOfSupport: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 
-  birthCertificate: requiredFileSchema.optional(),
+  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSFamilyPreferenceSchema = z.object({
   serviceType: z.literal('f1-f4-family-preference-visa'),
 
-  validPassport: requiredFileSchema,
-  ds260Confirmation: requiredFileSchema,
-  civilDocuments: requiredFileSchema,
-  policeCertificates: requiredFileSchema,
-  i864AffidavitOfSupport: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds260Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  civilDocuments: requiredFileSchema.optional().or(z.literal('')),
+  policeCertificates: requiredFileSchema.optional().or(z.literal('')),
+  i864AffidavitOfSupport: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 
-  birthCertificate: requiredFileSchema.optional(),
+  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSEmploymentBasedSchema = z.object({
   serviceType: z.literal('eb1-employment-based-visa'),
 
-  validPassport: requiredFileSchema,
-  ds260Confirmation: requiredFileSchema,
-  i140Approval: requiredFileSchema,
-  academicRecords: requiredFileSchema,
-  policeCertificates: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds260Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  i140Approval: requiredFileSchema.optional().or(z.literal('')),
+  academicRecords: requiredFileSchema.optional().or(z.literal('')),
+  policeCertificates: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 
-  jobOfferLetter: requiredFileSchema.optional(),
+  jobOfferLetter: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSDiversityLotterySchema = z.object({
   serviceType: z.literal('dv-lottery-visa'),
 
-  validPassport: requiredFileSchema,
-  selectionLetter: requiredFileSchema,
-  ds260Confirmation: requiredFileSchema,
-  educationWorkProof: requiredFileSchema,
-  policeCertificates: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  selectionLetter: requiredFileSchema.optional().or(z.literal('')),
+  ds260Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  educationWorkProof: requiredFileSchema.optional().or(z.literal('')),
+  policeCertificates: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSFianceSchema = z.object({
   serviceType: z.literal('k1-fiancee-visa-1'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  i129fApproval: requiredFileSchema,
-  proofOfRelationship: requiredFileSchema,
-  intentToMarryLetters: requiredFileSchema,
-  policeCertificates: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  i129fApproval: requiredFileSchema.optional().or(z.literal('')),
+  proofOfRelationship: requiredFileSchema.optional().or(z.literal('')),
+  intentToMarryLetters: requiredFileSchema.optional().or(z.literal('')),
+  policeCertificates: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 
-  relationshipChatProof: requiredFileSchema.optional(),
+  relationshipChatProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSSpouseSchema = z.object({
   serviceType: z.literal('k3-spouse-visa'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  i129fApproval: requiredFileSchema,
-  marriageCertificate: requiredFileSchema,
-  relationshipEvidence: requiredFileSchema,
-  policeCertificates: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  i129fApproval: requiredFileSchema.optional().or(z.literal('')),
+  marriageCertificate: requiredFileSchema.optional().or(z.literal('')),
+  relationshipEvidence: requiredFileSchema.optional().or(z.literal('')),
+  policeCertificates: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSWitnessInformantSchema = z.object({
   serviceType: z.literal('s-visa-witnessesinformants'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  lawEnforcementCertification: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  lawEnforcementCertification: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSTraffickingVictimsSchema = z.object({
   serviceType: z.literal('t-visa-trafficking-victims'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  proofOfTrafficking: requiredFileSchema,
-  lawEnforcementDocuments: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  proofOfTrafficking: requiredFileSchema.optional().or(z.literal('')),
+  lawEnforcementDocuments: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSCrimeVictimsSchema = z.object({
   serviceType: z.literal('u-visa-crime-victims'),
 
-  validPassport: requiredFileSchema,
-  ds160Confirmation: requiredFileSchema,
-  formI918bCertification: requiredFileSchema,
-  policeLegalRecords: requiredFileSchema,
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  ds160Confirmation: requiredFileSchema.optional().or(z.literal('')),
+  formI918bCertification: requiredFileSchema.optional().or(z.literal('')),
+  policeLegalRecords: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSPetitionerDocumentsSchema = z.object({
   serviceType: z.literal('petitioner-us-citizen-documents'),
 
-  proofOfUSCitizenship: requiredFileSchema,
-  marriageCertificate: requiredFileSchema.optional(),
-  terminationOfPriorMarriage: requiredFileSchema.optional(),
-  passportStylePhoto: requiredFileSchema,
-  bonaFideRelationshipEvidence: requiredFileSchema,
+  proofOfUSCitizenship: requiredFileSchema.optional().or(z.literal('')),
+  marriageCertificate: requiredFileSchema.optional().or(z.literal('')),
+  terminationOfPriorMarriage: requiredFileSchema.optional().or(z.literal('')),
+  passportStylePhoto: requiredFileSchema.optional().or(z.literal('')),
+  bonaFideRelationshipEvidence: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSBeneficiaryDocumentsSchema = z.object({
   serviceType: z.literal('beneficiary-relative-documents'),
 
-  validPassport: requiredFileSchema,
-  birthCertificate: requiredFileSchema,
-  policeClearance: requiredFileSchema.optional(),
-  passportPhotos: requiredFileSchema,
+  validPassport: requiredFileSchema.optional().or(z.literal('')),
+  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
+  policeClearance: requiredFileSchema.optional().or(z.literal('')),
+  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSFinancialEvidenceSchema = z.object({
   serviceType: z.literal('financial-evidence'),
 
-  taxReturns: requiredFileSchema,
-  w2Forms: requiredFileSchema,
-  payStubs: requiredFileSchema,
+  taxReturns: requiredFileSchema.optional().or(z.literal('')),
+  w2Forms: requiredFileSchema.optional().or(z.literal('')),
+  payStubs: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSAdjustmentOfStatusSchema = z.object({
   serviceType: z.literal('if-adjusting-status-in-the-us'),
 
-  proofOfLawfulEntry: requiredFileSchema,
+  proofOfLawfulEntry: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSConsularProcessingSchema = z.object({
   serviceType: z.literal('if-applying-from-abroad-consular-processing'),
 
-  visaApplicationForm: requiredFileSchema,
-  civilDocuments: requiredFileSchema,
+  visaApplicationForm: requiredFileSchema.optional().or(z.literal('')),
+  civilDocuments: requiredFileSchema.optional().or(z.literal('')),
 });
