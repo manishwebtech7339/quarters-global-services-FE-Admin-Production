@@ -6,7 +6,6 @@ import hasAccess from '@/hooks/useAccessControl/hasAccess';
 import { PERMISSIONS_LIST_ENUM } from '@/hooks/useAccessControl/permissions';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const ViewSupportPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -52,25 +51,15 @@ const ViewSupportPage = async ({ params }: { params: Promise<{ id: string }> }) 
       <div className="grid gap-6">
         {/* Support Information */}
         <div className="p-6 border rounded-lg">
-          <h2 className="text-lg font-semibold mb-4">Support Information</h2>
+          {/* <h2 className="text-lg font-semibold mb-4">Support Information</h2> */}
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Customer Details */}
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <Avatar className="h-12 w-12">
-                  <AvatarImage src={supportData.avatar || 'https://github.com/shadcn.png'} />
-                  <AvatarFallback>
-                    {supportData.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')
-                      .toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
                 <div>
-                  <h3 className="font-medium">{supportData.name}</h3>
                   <p className="text-sm text-gray-600">Customer</p>
+                  <h3 className="font-medium">{supportData.name}</h3>
                 </div>
               </div>
 

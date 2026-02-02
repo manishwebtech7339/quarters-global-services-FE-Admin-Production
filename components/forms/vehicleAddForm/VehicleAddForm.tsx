@@ -40,8 +40,8 @@ const formSchema = z.object({
   insuranceExpiryDate: commonFieldSchema(),
   status: commonFieldSchema(),
   image: documentFileSchema({}),
-  documentOne: documentFileSchema({}),
-  documentTwo: documentFileSchema({}),
+  documentOne: documentFileSchema({}).optional().or(z.literal('')),
+  documentTwo: documentFileSchema({}).optional().or(z.literal('')),
 });
 
 interface VehicleFormProps {
@@ -203,16 +203,13 @@ const VehicleAddForm = ({ isView, isEdit, vehicleData, role }: VehicleFormProps)
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Car">Car</SelectItem>
-                    <SelectItem value="SUV">SUV</SelectItem>
-                    <SelectItem value="Van">Van</SelectItem>
-                    <SelectItem value="Bus">Bus</SelectItem>
-                    <SelectItem value="Truck">Truck</SelectItem>
-                    <SelectItem value="Motorcycle">Motorcycle</SelectItem>
                     <SelectItem value="Sedan">Sedan</SelectItem>
-                    <SelectItem value="Hatchback">Hatchback</SelectItem>
-                    <SelectItem value="Coupe">Coupe</SelectItem>
-                    <SelectItem value="Convertible">Convertible</SelectItem>
+                    <SelectItem value="Mid Size SUV">Mid Size SUV</SelectItem>
+                    <SelectItem value="Large SUV">Large SUV</SelectItem>
+                    <SelectItem value="Mini Van">Mini Van</SelectItem>
+                    <SelectItem value="15 Seater">15 Seater</SelectItem>
+                    <SelectItem value="Shuttle Bus">Shuttle Bus</SelectItem>
+                    <SelectItem value="Charter Bus">Charter Bus</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

@@ -766,7 +766,7 @@ const TaxBureauForm = ({
           </Button>
           {!isView && (
             <Button disabled={loading} type="submit">
-              Submit Form
+              Save Form
             </Button>
           )}
         </div>

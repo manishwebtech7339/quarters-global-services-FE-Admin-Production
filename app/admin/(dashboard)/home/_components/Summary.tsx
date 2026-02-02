@@ -13,21 +13,21 @@ const Summary = ({ dashboardData }: SummaryProps) => {
       label: 'Total Applications',
       value: dashboardData.totalApplications,
     },
-    {
-      key: 'applications_by_status',
-      label: 'Applications by Status',
-      value: dashboardData.applicationByStatus,
-    },
+    // {
+    //   key: 'applications_by_status',
+    //   label: 'Applications by Status',
+    //   value: dashboardData.applicationByStatus,
+    // },
     {
       key: 'todays_submission',
       label: "Today's Submission",
       value: dashboardData.todaysSubmission,
     },
-    {
-      key: 'pending_approvals',
-      label: 'Pending Approvals',
-      value: dashboardData.pendingApprovals,
-    },
+    // {
+    //   key: 'pending_approvals',
+    //   label: 'Pending Approvals',
+    //   value: dashboardData.pendingApprovals,
+    // },
     {
       key: 'total_revenue',
       label: 'Total Revenue',
@@ -37,7 +37,7 @@ const Summary = ({ dashboardData }: SummaryProps) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 lg:col-span-2 mb-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 lg:col-span-2 mb-3">
       {summaryCards.map((card) => (
         <Card key={card.key + 'summary-card'} className="bg-secondary border-0">
           <CardContent className="space-y-2">

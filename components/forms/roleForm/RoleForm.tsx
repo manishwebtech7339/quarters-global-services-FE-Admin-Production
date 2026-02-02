@@ -20,6 +20,7 @@ import { createRole, editRole } from '@/services/rolesService';
 import { RoleDataType } from '@/lib/types';
 import handleAsync from '@/lib/handleAsync';
 import { PERMISSIONS_LIST_ENUM } from '@/hooks/useAccessControl/permissions';
+import { Label } from '@/components/ui/label';
 
 const formSchema = z.object({
   name: z.string().min(1, 'Role is required'),
@@ -85,34 +86,46 @@ const RoleForm = ({ defaultValues }: { defaultValues?: RoleDataType }) => {
           />
 
           {/* Permissions */}
-          <div className="grid grid-cols-2 gap-3 border p-3 rounded-md">
-            {Object.values(PERMISSIONS_LIST_ENUM).map((permission) => (
-              <FormField
-                key={permission}
-                control={form.control}
-                name="permissions"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center space-x-2">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value?.includes(permission)}
-                        onCheckedChange={(checked) => {
-                          return checked
-                            ? field.onChange([...(field.value || []), permission])
-                            : field.onChange(field.value?.filter((v) => v !== permission));
-                        }}
-                      />
-                    </FormControl>
-                    <FormLabel className="text-sm">
-                      {permission
-                        .replace(/_/g, ' ')
-                        .toLowerCase()
-                        .replace(/\b\w/g, (char) => char.toUpperCase())}
-                    </FormLabel>
-                  </FormItem>
-                )}
-              />
-            ))}
+          <div className="space-y-2">
+            <Label>Permissions</Label>
+            <div className="grid grid-cols-2 gap-3 border p-3 rounded-md">
+              {Object.values(PERMISSIONS_LIST_ENUM).map((permission) => {
+                // @Temporary remove these permission // Need to talk with team
+                if (
+                  [PERMISSIONS_LIST_ENUM.documents, PERMISSIONS_LIST_ENUM.receipts].includes(
+                    permission,
+                  )
+                )
+                  return;
+                return (
+                  <FormField
+                    key={permission}
+                    control={form.control}
+                    name="permissions"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-center space-x-2">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value?.includes(permission)}
+                            onCheckedChange={(checked) => {
+                              return checked
+                                ? field.onChange([...(field.value || []), permission])
+                                : field.onChange(field.value?.filter((v) => v !== permission));
+                            }}
+                          />
+                        </FormControl>
+                        <FormLabel className="text-sm">
+                          {permission
+                            .replace(/_/g, ' ')
+                            .toLowerCase()
+                            .replace(/\b\w/g, (char) => char.toUpperCase())}
+                        </FormLabel>
+                      </FormItem>
+                    )}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
 

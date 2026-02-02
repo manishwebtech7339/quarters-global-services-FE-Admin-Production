@@ -37,6 +37,11 @@ export interface TicketDataType {
     filename: string;
     mimeType: string;
   };
+  attachments?: {
+    file: string;
+    filename: string;
+    mimeType: string;
+  }[];
 
   isDeleted: boolean;
   deletedBy?: string | null;

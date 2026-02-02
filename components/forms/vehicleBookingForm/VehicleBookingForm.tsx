@@ -326,7 +326,7 @@ const VehicleBookingForm = ({
                 <FormLabel>Pickup Date</FormLabel>
                 <FormControl>
                   <Input
-                    type="datetime-local"
+                    type="date"
                     placeholder=""
                     disabled={isView}
                     {...field}
@@ -345,7 +345,7 @@ const VehicleBookingForm = ({
                 <FormLabel>Drop Date</FormLabel>
                 <FormControl>
                   <Input
-                    type="datetime-local"
+                    type="date"
                     placeholder=""
                     disabled={isView}
                     {...field}

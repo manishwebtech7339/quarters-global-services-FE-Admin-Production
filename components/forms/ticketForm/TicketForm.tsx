@@ -1,7 +1,7 @@
 'use client';
 
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -50,9 +50,18 @@ const ticketFormSchema = z.object({
   assignedStaff: commonFieldSchema(),
   subject: commonFieldSchema().optional().or(z.literal('')),
   description: commonFieldSchema().optional().or(z.literal('')),
-  passportScan: documentFileSchema({}),
-  serviceForm: documentFileSchema({}),
-  signature: documentFileSchema({}),
+  // passportScan: documentFileSchema({}),
+  // serviceForm: documentFileSchema({}),
+  // signature: documentFileSchema({}),
+  attachments: z
+    .array(
+      z.object({
+        fileName: commonFieldSchema().optional().or(z.literal('')),
+        mimeType: commonFieldSchema().optional().or(z.literal('')),
+        file: documentFileSchema({}).or(z.string()),
+      }),
+    )
+    .optional(),
 });
 
 interface TicketFormProps {
@@ -92,13 +101,19 @@ const TicketForm = ({
       assignedStaff: ticketData?.assignedStaff || '',
       subject: ticketData?.subject || '',
       description: ticketData?.description || '',
-      passportScan: ticketData?.passportScan || null,
-      serviceForm: ticketData?.serviceForm || null,
-      signature: ticketData?.signature || null,
+      // passportScan: ticketData?.passportScan || null,
+      // serviceForm: ticketData?.serviceForm || null,
+      // signature: ticketData?.signature || null,
+      attachments: ticketData?.attachments || [],
     },
   });
 
   console.log(ticketData, 'ticketData');
+
+  const { fields, prepend, remove } = useFieldArray({
+    control: form.control,
+    name: 'attachments',
+  });
 
   const onSubmit = async (data: z.infer<typeof ticketFormSchema>) => {
     if (isView) return;
@@ -107,47 +122,70 @@ const TicketForm = ({
       setIsLoading(true);
 
       // Step 1: Upload files if they are new File objects
-      let passportScanUrl = ticketData?.passportScan?.file || '';
-      let passportScanFileName = ticketData?.passportScan?.filename || '';
-      let passportScanFileType = ticketData?.passportScan?.mimeType || '';
+      // let passportScanUrl = ticketData?.passportScan?.file || '';
+      // let passportScanFileName = ticketData?.passportScan?.filename || '';
+      // let passportScanFileType = ticketData?.passportScan?.mimeType || '';
 
-      let serviceFormUrl = ticketData?.serviceForm?.file || '';
-      let serviceFormUrlName = ticketData?.serviceForm?.filename || '';
-      let serviceFormUrlType = ticketData?.serviceForm?.mimeType || '';
+      // let serviceFormUrl = ticketData?.serviceForm?.file || '';
+      // let serviceFormUrlName = ticketData?.serviceForm?.filename || '';
+      // let serviceFormUrlType = ticketData?.serviceForm?.mimeType || '';
 
-      let signatureUrl = ticketData?.signature?.file || '';
-      let signatureUrlName = ticketData?.signature?.filename || '';
-      let signatureUrlType = ticketData?.signature?.mimeType || '';
+      // let signatureUrl = ticketData?.signature?.file || '';
+      // let signatureUrlName = ticketData?.signature?.filename || '';
+      // let signatureUrlType = ticketData?.signature?.mimeType || '';
 
-      if (data.passportScan instanceof File) {
-        const uploadedUrl = await uploadFile(data.passportScan, 'ticket-passport-scan');
-        if (!uploadedUrl) {
-          throw new Error('Failed to upload passport scan');
+      // if (data.passportScan instanceof File) {
+      //   const uploadedUrl = await uploadFile(data.passportScan, 'ticket-passport-scan');
+      //   if (!uploadedUrl) {
+      //     throw new Error('Failed to upload passport scan');
+      //   }
+      //   passportScanUrl = uploadedUrl;
+      //   passportScanFileName = data.passportScan.name;
+      //   passportScanFileType = data.passportScan.type;
+      // }
+
+      // if (data.serviceForm instanceof File) {
+      //   const uploadedUrl = await uploadFile(data.serviceForm, 'ticket-service-form');
+      //   if (!uploadedUrl) {
+      //     throw new Error('Failed to upload service form');
+      //   }
+      //   serviceFormUrl = uploadedUrl;
+      //   serviceFormUrlName = data.serviceForm.name;
+      //   serviceFormUrlType = data.serviceForm.type;
+      // }
+
+      // if (data.signature instanceof File) {
+      //   console.log('Uploading signature...');
+      //   const uploadedUrl = await uploadFile(data.signature, 'ticket-signature');
+      //   if (!uploadedUrl) {
+      //     throw new Error('Failed to upload signature');
+      //   }
+      //   signatureUrl = uploadedUrl;
+      //   signatureUrlName = data.signature.name;
+      //   signatureUrlType = data.signature.type;
+      // }
+
+      const uploadedAttachments = [];
+
+      if (data.attachments?.length) {
+        for (const doc of data.attachments) {
+          if (doc.file instanceof File) {
+            const uploadedUrl = await uploadFile(doc.file, 'ticket-documents');
+            if (!uploadedUrl) throw new Error('File upload failed');
+
+            uploadedAttachments.push({
+              file: uploadedUrl,
+              fileName: doc.file.name,
+              mimeType: doc.file.type,
+            });
+          } else {
+            uploadedAttachments.push({
+              file: doc.file,
+              fileName: doc.fileName,
+              mimeType: doc.mimeType,
+            });
+          }
         }
-        passportScanUrl = uploadedUrl;
-        passportScanFileName = data.passportScan.name;
-        passportScanFileType = data.passportScan.type;
-      }
-
-      if (data.serviceForm instanceof File) {
-        const uploadedUrl = await uploadFile(data.serviceForm, 'ticket-service-form');
-        if (!uploadedUrl) {
-          throw new Error('Failed to upload service form');
-        }
-        serviceFormUrl = uploadedUrl;
-        serviceFormUrlName = data.serviceForm.name;
-        serviceFormUrlType = data.serviceForm.type;
-      }
-
-      if (data.signature instanceof File) {
-        console.log('Uploading signature...');
-        const uploadedUrl = await uploadFile(data.signature, 'ticket-signature');
-        if (!uploadedUrl) {
-          throw new Error('Failed to upload signature');
-        }
-        signatureUrl = uploadedUrl;
-        signatureUrlName = data.signature.name;
-        signatureUrlType = data.signature.type;
       }
 
       // Step 2: Prepare the payload with uploaded URLs
@@ -160,27 +198,28 @@ const TicketForm = ({
         description: data.description || '',
         priority: data.priority,
         status: data.status,
-        passportScan: passportScanUrl
-          ? {
-              file: passportScanUrl,
-              fileName: passportScanFileName,
-              mimeType: passportScanFileType,
-            }
-          : null,
-        serviceForm: serviceFormUrl
-          ? {
-              file: serviceFormUrl,
-              fileName: serviceFormUrlName,
-              mimeType: serviceFormUrlType,
-            }
-          : null,
-        signature: signatureUrl
-          ? {
-              file: signatureUrl,
-              fileName: signatureUrlName,
-              mimeType: signatureUrlType,
-            }
-          : null,
+        // passportScan: passportScanUrl
+        //   ? {
+        //       file: passportScanUrl,
+        //       fileName: passportScanFileName,
+        //       mimeType: passportScanFileType,
+        //     }
+        //   : null,
+        // serviceForm: serviceFormUrl
+        //   ? {
+        //       file: serviceFormUrl,
+        //       fileName: serviceFormUrlName,
+        //       mimeType: serviceFormUrlType,
+        //     }
+        //   : null,
+        // signature: signatureUrl
+        //   ? {
+        //       file: signatureUrl,
+        //       fileName: signatureUrlName,
+        //       mimeType: signatureUrlType,
+        //     }
+        //   : null,
+        attachments: uploadedAttachments,
       };
 
       if (isEdit && ticketData?._id) {
@@ -371,7 +410,7 @@ const TicketForm = ({
         </div>
 
         {/* Attachments */}
-        <div className="p-4 border rounded-lg space-y-4">
+        {/* <div className="p-4 border rounded-lg space-y-4">
           <p className="font-semibold col-span-2 border-b pb-2">Attachments</p>
 
           <div className="grid sm:grid-cols-2 gap-4">
@@ -427,6 +466,51 @@ const TicketForm = ({
               )}
             />
           </div>
+        </div> */}
+
+        <div className="p-4 border rounded-lg space-y-4">
+          <div className="flex items-center justify-between border-b pb-2">
+            <p className="font-semibold">Attachments</p>
+            <Button type="button" variant="outline" onClick={() => prepend({ file: null })}>
+              + Add Document
+            </Button>
+          </div>
+
+          {fields.map((mainField, index) => (
+            <div
+              key={mainField.id + index}
+              className="flex sm:grid-cols-3 gap-4 items-end border p-3 rounded-md"
+            >
+              {/* File Upload */}
+              <FormField
+                control={form.control}
+                name={`attachments.${index}.file`}
+                render={({ field }) => (
+                  <FormItem className="grow">
+                    <FormLabel>Upload File</FormLabel>
+                    <FormControl>
+                      <FileInput
+                        onFileChange={field.onChange}
+                        existingFileUrl={mainField?.file}
+                        existingFileName={mainField?.fileName || ''}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Remove */}
+              <Button
+                type="button"
+                variant="destructive"
+                className="h-12"
+                onClick={() => remove(index)}
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
         </div>
 
         {/* Buttons */}

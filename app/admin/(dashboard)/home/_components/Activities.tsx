@@ -1,8 +1,6 @@
-import DeleteConfirm from '@/components/common/DeleteConfirm';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   Table,
   TableBody,
@@ -11,8 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { EllipsisVertical, Eye, MoveUpRight, Pencil, Trash, Loader2 } from 'lucide-react';
+import { MoveUpRight, Loader2, ExternalLink } from 'lucide-react';
 import { RecentActivity } from '@/services/dashboardService';
+import Link from 'next/link';
 
 interface ActivitiesProps {
   activities: RecentActivity[];
@@ -88,7 +87,12 @@ const Activities = ({ activities, isLoading = false }: ActivitiesProps) => {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-center">
-                    <Popover>
+                    <Button size="sm" variant="ghost" asChild>
+                      <Link href={`/admin/applications/edit?application=${activity._id}&isView=1`}>
+                        <ExternalLink />
+                      </Link>
+                    </Button>
+                    {/* <Popover>
                       <PopoverTrigger>
                         <Button size="icon" variant="ghost">
                           <EllipsisVertical />
@@ -113,7 +117,7 @@ const Activities = ({ activities, isLoading = false }: ActivitiesProps) => {
                           </DeleteConfirm>
                         </div>
                       </PopoverContent>
-                    </Popover>
+                    </Popover> */}
                   </TableCell>
                 </TableRow>
               ))}
