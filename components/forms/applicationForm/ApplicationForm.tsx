@@ -4,15 +4,7 @@ import DocumentForm from './DocumentForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Form } from '@/components/ui/form';
 import {
   Select,
   SelectContent,
@@ -34,18 +26,12 @@ import handleAsync from '@/lib/handleAsync';
 import { ApplicationSource, ApplicationStatus, applicationStatuses } from '@/lib/types';
 import Link from 'next/link';
 import { uploadFile } from '@/lib/uploadUtils';
-import PersonalInfo from './PersonalInfo';
-import PassportDetails from './PassportDetails';
-import ContactInfo from './ContactInfo';
-import FamilyInfo from './FamilyInfo';
-import WorkSchoolInfo from './WorkSchoolInfo';
-import TravelToIndia from './TravelToIndia';
-import ReferenceIndia from './ReferenceIndia';
-import ReferenceUSA from './ReferenceUsa';
-import AdditionalQuestions from './AdditionalQuestion';
 import USPassportForm from './USPassportForm';
 import { useRouter } from 'next/navigation';
-import { visaServices_platformServiceId } from '@/lib/staticIds';
+import {
+  passportServices_platformServiceId,
+  visaServices_platformServiceId,
+} from '@/lib/staticIds';
 import { OtpModal } from '@/components/common/OtpModal';
 
 const ApplicationForm = ({
@@ -986,7 +972,7 @@ const ApplicationForm = ({
             <USPassportForm isView={isView} />
           ) : (
             <>
-              <PersonalInfo isView={isView} isEdit={isEdit} setOtpModalOpen={setOtpModalOpen} />
+              {/* <PersonalInfo isView={isView} isEdit={isEdit} setOtpModalOpen={setOtpModalOpen} />
               <PassportDetails isView={isView} />
               <ContactInfo isView={isView} />
               <FamilyInfo isView={isView} />
@@ -994,12 +980,12 @@ const ApplicationForm = ({
               <TravelToIndia isView={isView} />
               <ReferenceIndia isView={isView} />
               <ReferenceUSA isView={isView} />
-              <AdditionalQuestions isView={isView} />
+              <AdditionalQuestions isView={isView} /> */}
             </>
           )}
 
           {/* Payment Details */}
-          <div className="p-4 border rounded-lg grid sm:grid-cols-2 gap-4">
+          {/* <div className="p-4 border rounded-lg grid sm:grid-cols-2 gap-4">
             <p className="col-span-2 font-semibold">Payment Details</p>
 
             <FormField
@@ -1162,10 +1148,10 @@ const ApplicationForm = ({
                 </FormItem>
               )}
             />
-          </div>
+          </div> */}
 
           {/* Additional Details */}
-          <div className="p-4 border rounded-lg grid sm:grid-cols-2 gap-4">
+          {/* <div className="p-4 border rounded-lg grid sm:grid-cols-2 gap-4">
             <p className="col-span-2 font-semibold">Additional Details</p>
 
             <FormField
@@ -1195,15 +1181,20 @@ const ApplicationForm = ({
                 </FormItem>
               )}
             />
-          </div>
+          </div> */}
         </div>
 
         {/*  Documents */}
+        {form.watch('platformServiceId')}
         <div className="space-y-6">
           <DocumentForm
             isView={isView}
             selectedService={
-              form.watch('platformServiceId') === visaServices_platformServiceId ? 'visa' : ''
+              form.watch('platformServiceId') === visaServices_platformServiceId
+                ? 'visa'
+                : form.watch('platformServiceId') === passportServices_platformServiceId
+                  ? 'passport'
+                  : ''
             }
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}

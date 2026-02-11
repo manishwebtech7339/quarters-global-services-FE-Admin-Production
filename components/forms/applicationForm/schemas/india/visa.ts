@@ -16,7 +16,7 @@ export const visaIndiaTouristSchema = z.object({
   hotelBookingInvitationLetter: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  returnFlightTicket: requiredFileSchema.optional().or(z.literal('')),
+  // returnFlightTicket: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -34,7 +34,7 @@ export const visaIndiaBusinessSchema = z.object({
   proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  businessCoverLetter: requiredFileSchema.optional().or(z.literal('')),
+  // businessCoverLetter: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -52,7 +52,7 @@ export const visaIndiaStudentSchema = z.object({
   academicCertificates: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  bonafideCertificate: requiredFileSchema.optional().or(z.literal('')),
+  // bonafideCertificate: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -70,7 +70,7 @@ export const visaIndiaMedicalSchema = z.object({
   medicalReports: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  attendantDetailsLetter: requiredFileSchema.optional().or(z.literal('')),
+  // attendantDetailsLetter: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -88,7 +88,7 @@ export const visaIndiaConferenceSchema = z.object({
   governmentClearance: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  conferenceRegistrationProof: requiredFileSchema.optional().or(z.literal('')),
+  // conferenceRegistrationProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 // =======================================================
@@ -106,5 +106,5 @@ export const visaIndiaEmploymentSchema = z.object({
   proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
 
   // ✅ Excel
-  employmentContract: requiredFileSchema.optional().or(z.literal('')),
+  // employmentContract: requiredFileSchema.optional().or(z.literal('')),
 });

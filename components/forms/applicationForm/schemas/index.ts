@@ -5,10 +5,10 @@ import { emptySchema } from './common';
 import * as usaVisa from './usa/visa';
 // USA Passport
 import * as usaPassport from './usa/passport';
+// UK Passport
+import * as ukPassport from './uk/passport';
 // India Visa
 import * as indiaVisa from './india/visa';
-// India E-Visa
-import * as indiaEVisa from './india/evisa';
 // India Passport
 import * as indiaPassport from './india/passport';
 // OCI
@@ -17,10 +17,18 @@ import * as indiaOci from './india/oci';
 import * as indiaConsular from './india/consular';
 // ICP
 import * as indiaIcp from './india/icp';
+// Pan Card
+import * as indiaPanCard from './india/panCard';
 // China E-Visa
 import * as chinaEVsa from './china/evisa';
 // Other countries
 import * as otherVisa from './other/visa';
+import * as otherPassport from './other/passport';
+// E-Visa
+import * as eVisa from './other/evisa';
+// POA
+import * as poa from './other/poa';
+
 import { commonFieldSchema, emailSchema } from '@/lib/formSchemaFunctions';
 
 export function extractSchemas(module: Record<string, unknown>) {
@@ -39,14 +47,18 @@ export const serviceDocumentsSchemas = z.discriminatedUnion('serviceType', [
   emptySchema,
   ...extractSchemas(usaVisa),
   ...extractSchemas(usaPassport),
+  ...extractSchemas(ukPassport),
   ...extractSchemas(indiaVisa),
-  ...extractSchemas(indiaEVisa),
   ...extractSchemas(indiaPassport),
   ...extractSchemas(indiaOci),
   ...extractSchemas(indiaConsular),
   ...extractSchemas(indiaIcp),
+  ...extractSchemas(indiaPanCard),
   ...extractSchemas(chinaEVsa),
   ...extractSchemas(otherVisa),
+  ...extractSchemas(otherPassport),
+  ...extractSchemas(eVisa),
+  ...extractSchemas(poa),
 ] as const);
 
 // Base schema for application form

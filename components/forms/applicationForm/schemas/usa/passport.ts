@@ -10,7 +10,7 @@ export const passportUSANewDS11Schema = z.object({
   socialSecurityNumber: requiredFileSchema.optional().or(z.literal('')),
   ds11Form: requiredFileSchema.optional().or(z.literal('')),
 
-  appointmentConfirmation: requiredFileSchema.optional().or(z.literal('')),
+  // appointmentConfirmation: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSARenewalDS82Schema = z.object({
@@ -20,10 +20,9 @@ export const passportUSARenewalDS82Schema = z.object({
   passportPhoto2x2: requiredFileSchema.optional().or(z.literal('')),
   ds82Form: requiredFileSchema.optional().or(z.literal('')),
   paymentReceipt: requiredFileSchema.optional().or(z.literal('')),
-
   nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
 
-  oldPassportSubmission: requiredFileSchema.optional().or(z.literal('')),
+  // oldPassportSubmission: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSAChildUnder16Schema = z.object({
@@ -32,10 +31,10 @@ export const passportUSAChildUnder16Schema = z.object({
   proofOfCitizenship: requiredFileSchema.optional().or(z.literal('')),
   parentsIdCopies: requiredFileSchema.optional().or(z.literal('')),
   parentalConsent: requiredFileSchema.optional().or(z.literal('')),
-  passportPhotos: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto2x2: requiredFileSchema.optional().or(z.literal('')),
   ds11Form: requiredFileSchema.optional().or(z.literal('')),
 
-  parentsMarriageCertificate: requiredFileSchema.optional().or(z.literal('')),
+  // parentsMarriageCertificate: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSALostSchema = z.object({
@@ -45,9 +44,9 @@ export const passportUSALostSchema = z.object({
   ds11Form: requiredFileSchema.optional().or(z.literal('')),
   proofOfCitizenship: requiredFileSchema.optional().or(z.literal('')),
   proofOfIdentity: requiredFileSchema.optional().or(z.literal('')),
-  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto2x2: requiredFileSchema.optional().or(z.literal('')),
 
-  policeReport: requiredFileSchema.optional().or(z.literal('')),
+  // policeReport: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSAStolenSchema = z.object({
@@ -57,9 +56,9 @@ export const passportUSAStolenSchema = z.object({
   ds11Form: requiredFileSchema.optional().or(z.literal('')),
   proofOfCitizenship: requiredFileSchema.optional().or(z.literal('')),
   proofOfIdentity: requiredFileSchema.optional().or(z.literal('')),
-  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto2x2: requiredFileSchema.optional().or(z.literal('')),
 
-  policeReport: requiredFileSchema.optional().or(z.literal('')),
+  // policeReport: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSADamagedSchema = z.object({
@@ -69,20 +68,20 @@ export const passportUSADamagedSchema = z.object({
   ds11Form: requiredFileSchema.optional().or(z.literal('')),
   proofOfCitizenship: requiredFileSchema.optional().or(z.literal('')),
   proofOfIdentity: requiredFileSchema.optional().or(z.literal('')),
-  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto2x2: requiredFileSchema.optional().or(z.literal('')),
 
-  damagedPassportSubmission: requiredFileSchema.optional().or(z.literal('')),
+  // damagedPassportSubmission: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSACardSchema = z.object({
   serviceType: z.literal('usa-passport-card'),
 
   ds11OrDs82Form: requiredFileSchema.optional().or(z.literal('')),
-  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto2x2: requiredFileSchema.optional().or(z.literal('')),
   proofOfCitizenship: requiredFileSchema.optional().or(z.literal('')),
   proofOfIdentity: requiredFileSchema.optional().or(z.literal('')),
 
-  previousPassportCopy: requiredFileSchema.optional().or(z.literal('')),
+  // previousPassportCopy: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSANameChangeCorrectionSchema = z.object({
@@ -92,7 +91,7 @@ export const passportUSANameChangeCorrectionSchema = z.object({
   currentPassport: requiredFileSchema.optional().or(z.literal('')),
   legalNameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
 
-  affidavitForNameChange: requiredFileSchema.optional().or(z.literal('')),
+  // affidavitForNameChange: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSASecondSchema = z.object({
@@ -101,9 +100,9 @@ export const passportUSASecondSchema = z.object({
   ds82OrDs11Form: requiredFileSchema.optional().or(z.literal('')),
   currentValidPassport: requiredFileSchema.optional().or(z.literal('')),
   letterOfJustification: requiredFileSchema.optional().or(z.literal('')),
-  passportPhoto: requiredFileSchema.optional().or(z.literal('')),
+  passportPhoto2x2: requiredFileSchema.optional().or(z.literal('')),
 
-  employerTravelLetter: requiredFileSchema.optional().or(z.literal('')),
+  // employerTravelLetter: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSASecondValidSchema = z.object({
@@ -114,7 +113,7 @@ export const passportUSASecondValidSchema = z.object({
   letterOfJustification: requiredFileSchema.optional().or(z.literal('')),
   passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  employerTravelLetter: requiredFileSchema.optional().or(z.literal('')),
+  // employerTravelLetter: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSAExpeditedServiceSchema = z.object({
@@ -124,7 +123,7 @@ export const passportUSAExpeditedServiceSchema = z.object({
   expeditedFeePayment: requiredFileSchema.optional().or(z.literal('')),
   standardRequiredDocs: requiredFileSchema.optional().or(z.literal('')),
 
-  appointmentConfirmation: requiredFileSchema.optional().or(z.literal('')),
+  // appointmentConfirmation: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const passportUSAEmergencySameDaySchema = z.object({
@@ -134,74 +133,5 @@ export const passportUSAEmergencySameDaySchema = z.object({
   proofOfTravel: requiredFileSchema.optional().or(z.literal('')),
   requiredStandardDocs: requiredFileSchema.optional().or(z.literal('')),
 
-  appointmentConfirmation: requiredFileSchema.optional().or(z.literal('')),
-});
-
-export const surrenderWithIndianPassportSchema = z.object({
-  serviceType: z.literal('surrender-with-indian-passport'),
-
-  photograph2x2: requiredFileSchema.optional().or(z.literal('')),
-  signature: requiredFileSchema.optional().or(z.literal('')),
-
-  declarationFromOffice: requiredFileSchema.optional().or(z.literal('')),
-
-  addressProof: requiredFileSchema.optional().or(z.literal('')),
-  indianPassportOriginal: requiredFileSchema.optional().or(z.literal('')),
-  indianPassportCopy: requiredFileSchema.optional().or(z.literal('')),
-
-  usPassportCopy: requiredFileSchema.optional().or(z.literal('')),
-  naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
-
-  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
-
-  spouseUsPassportCopy: requiredFileSchema.optional().or(z.literal('')),
-  spouseIndianPassportOrOciCopy: requiredFileSchema.optional().or(z.literal('')),
-  marriageCertificate: requiredFileSchema.optional().or(z.literal('')),
-
-  familyOciCardCopy: requiredFileSchema.optional().or(z.literal('')),
-  previousIndianVisaCopy: requiredFileSchema.optional().or(z.literal('')),
-});
-
-export const surrenderWithoutIndianPassportSchema = z.object({
-  serviceType: z.literal('surrender-without-indian-passport'),
-
-  photograph2x2: requiredFileSchema.optional().or(z.literal('')),
-  signature: requiredFileSchema.optional().or(z.literal('')),
-
-  declarationFromOffice: requiredFileSchema.optional().or(z.literal('')),
-
-  addressProof: requiredFileSchema.optional().or(z.literal('')),
-
-  usPassportCopy: requiredFileSchema.optional().or(z.literal('')),
-  naturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
-
-  proofOfIndianOrigin: requiredFileSchema.optional().or(z.literal('')),
-  policeReport: requiredFileSchema.optional().or(z.literal('')),
-
-  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
-});
-
-export const surrenderMinorPassportSchema = z.object({
-  serviceType: z.literal('surrender-minor-passport'),
-
-  indianPassportOriginal: requiredFileSchema.optional().or(z.literal('')),
-  indianPassportCopy: requiredFileSchema.optional().or(z.literal('')),
-
-  usPassportCopy: requiredFileSchema.optional().or(z.literal('')),
-
-  parentsNaturalizationCertificate: requiredFileSchema.optional().or(z.literal('')),
-  parentsPassportCopies: requiredFileSchema.optional().or(z.literal('')),
-
-  familyOciCardCopy: requiredFileSchema.optional().or(z.literal('')),
-
-  parentsAddressProof: requiredFileSchema.optional().or(z.literal('')),
-
-  previousIndianVisaCopy: requiredFileSchema.optional().or(z.literal('')),
-
-  photographs2x2: requiredFileSchema.optional().or(z.literal('')),
-
-  nameChangeDocument: requiredFileSchema.optional().or(z.literal('')),
-
-  parentalAuthorizationForm: requiredFileSchema.optional().or(z.literal('')),
-  swornAffidavitByParents: requiredFileSchema.optional().or(z.literal('')),
+  // appointmentConfirmation: requiredFileSchema.optional().or(z.literal('')),
 });

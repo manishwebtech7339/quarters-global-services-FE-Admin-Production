@@ -12,8 +12,8 @@ export const visaUSB1B2Schema = z.object({
   bankStatements: requiredFileSchema.optional().or(z.literal('')),
   invitationLetter: requiredFileSchema.optional().or(z.literal('')),
 
-  employmentProof: requiredFileSchema.optional().or(z.literal('')),
-  propertyOwnershipProof: requiredFileSchema.optional().or(z.literal('')),
+  // employmentProof: requiredFileSchema.optional().or(z.literal('')),
+  // propertyOwnershipProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSStudentSchema = z.object({
@@ -28,7 +28,7 @@ export const visaUSStudentSchema = z.object({
   academicRecords: requiredFileSchema.optional().or(z.literal('')),
   bankStatementsSponsorLetter: requiredFileSchema.optional().or(z.literal('')),
 
-  englishProficiencyProof: requiredFileSchema.optional().or(z.literal('')),
+  // englishProficiencyProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSExchangeVisitorSchema = z.object({
@@ -42,7 +42,7 @@ export const visaUSExchangeVisitorSchema = z.object({
   sponsorLetter: requiredFileSchema.optional().or(z.literal('')),
   proofOfFunds: requiredFileSchema.optional().or(z.literal('')),
 
-  trainingProgramDetails: requiredFileSchema.optional().or(z.literal('')),
+  // trainingProgramDetails: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSBusinessSchema = z.object({
@@ -56,7 +56,7 @@ export const visaUSBusinessSchema = z.object({
   degreesCertificates: requiredFileSchema.optional().or(z.literal('')),
   passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  resumeCV: requiredFileSchema.optional().or(z.literal('')),
+  // resumeCV: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSTemporaryWorkerSchema = z.object({
@@ -78,7 +78,7 @@ export const visaUSIntraCompanyTransferSchema = z.object({
   employmentLetters: requiredFileSchema.optional().or(z.literal('')),
   passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  companyRelationshipProof: requiredFileSchema.optional().or(z.literal('')),
+  // companyRelationshipProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSExtraordinaryAbilitySchema = z.object({
@@ -90,7 +90,7 @@ export const visaUSExtraordinaryAbilitySchema = z.object({
   evidenceOfExtraordinaryAbility: requiredFileSchema.optional().or(z.literal('')),
   passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  expertOpinionLetters: requiredFileSchema.optional().or(z.literal('')),
+  // expertOpinionLetters: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSAthleteArtistSchema = z.object({
@@ -102,7 +102,7 @@ export const visaUSAthleteArtistSchema = z.object({
   contractsItinerary: requiredFileSchema.optional().or(z.literal('')),
   passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  eventInvitations: requiredFileSchema.optional().or(z.literal('')),
+  // eventInvitations: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSReligiousWorkerSchema = z.object({
@@ -114,7 +114,7 @@ export const visaUSReligiousWorkerSchema = z.object({
   religiousOrganizationLetter: requiredFileSchema.optional().or(z.literal('')),
   passportPhoto: requiredFileSchema.optional().or(z.literal('')),
 
-  religiousQualificationProof: requiredFileSchema.optional().or(z.literal('')),
+  // religiousQualificationProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSNAFTASchema = z.object({
@@ -138,7 +138,7 @@ export const visaUSImmediateRelativeSchema = z.object({
   i864AffidavitOfSupport: requiredFileSchema.optional().or(z.literal('')),
   passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 
-  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
+  // birthCertificate: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSFamilyPreferenceSchema = z.object({
@@ -151,7 +151,7 @@ export const visaUSFamilyPreferenceSchema = z.object({
   i864AffidavitOfSupport: requiredFileSchema.optional().or(z.literal('')),
   passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 
-  birthCertificate: requiredFileSchema.optional().or(z.literal('')),
+  // birthCertificate: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSEmploymentBasedSchema = z.object({
@@ -164,7 +164,7 @@ export const visaUSEmploymentBasedSchema = z.object({
   policeCertificates: requiredFileSchema.optional().or(z.literal('')),
   passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 
-  jobOfferLetter: requiredFileSchema.optional().or(z.literal('')),
+  // jobOfferLetter: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSDiversityLotterySchema = z.object({
@@ -189,7 +189,7 @@ export const visaUSFianceSchema = z.object({
   policeCertificates: requiredFileSchema.optional().or(z.literal('')),
   passportPhotos: requiredFileSchema.optional().or(z.literal('')),
 
-  relationshipChatProof: requiredFileSchema.optional().or(z.literal('')),
+  // relationshipChatProof: requiredFileSchema.optional().or(z.literal('')),
 });
 
 export const visaUSSpouseSchema = z.object({
