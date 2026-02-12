@@ -1,6 +1,6 @@
 // Main schemas index file - exports all schemas and types
 import { z } from 'zod';
-import { emptySchema, defaultMasterChecklistSchema } from './common';
+import { emptySchema, defaultMasterChecklistSchema } from './commonSchema';
 // USA Visa
 import * as usaVisa from './usa/visa';
 // USA Passport
@@ -21,8 +21,6 @@ import * as indiaIcp from './india/icp';
 import * as indiaPanCard from './india/panCard';
 // OCI
 import * as indiaOci from './india/oci';
-// China E-Visa
-import * as chinaEVsa from './china/evisa';
 // Other countries
 import * as otherVisa from './other/visa';
 import * as otherPassport from './other/passport';
@@ -58,7 +56,6 @@ export const serviceDocumentsSchemas = z.discriminatedUnion('serviceType', [
   ...extractSchemas(indiaIcp),
   ...extractSchemas(indiaPanCard),
   ...extractSchemas(indiaOci),
-  ...extractSchemas(chinaEVsa),
   ...extractSchemas(otherVisa),
   ...extractSchemas(otherPassport),
   ...extractSchemas(eVisa),

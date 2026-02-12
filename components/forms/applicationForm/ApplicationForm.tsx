@@ -245,7 +245,7 @@ const ApplicationForm = ({
         amountToBePaid: applicationData?.serviceFields?.amountToBePaid || '',
       },
       documents: {
-        serviceType: applicationData?.serviceFields?.serviceType || 'emptySchema',
+        serviceType: applicationData?.serviceFields?.serviceType || 'empty',
       },
       applicationServiceDetails: applicationData?.serviceFields?.applicationServiceDetails,
     },
@@ -714,7 +714,7 @@ const ApplicationForm = ({
           discount: applicationData?.serviceFields?.discount || '',
         },
         documents: {
-          serviceType: applicationData?.serviceFields?.serviceType || 'emptySchema',
+          serviceType: applicationData?.serviceFields?.serviceType || 'empty',
           // Populate existing document fields dynamically
           ...Object.keys(applicationData?.serviceFields || {})
             .filter(
