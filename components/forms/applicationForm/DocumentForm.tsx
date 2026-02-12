@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 interface DocumentFormProps {
   isView?: boolean;
-  selectedService?: 'visa' | string;
+  selectedService?: string;
   selectedCategory?: string;
   setSelectedCategory?: (category: string) => void;
   existingDocuments?: any;
@@ -31,7 +31,6 @@ const DocumentForm = ({
 }: DocumentFormProps) => {
   const form = useFormContext<CreateApplicationType>();
 
-  console.log(selectedCategory, 'selectedCategory');
   const hasService = selectedCategory && schemaRegistry.has(selectedCategory);
   const schema = hasService ? schemaRegistry.get(selectedCategory)! : null;
 
@@ -39,14 +38,15 @@ const DocumentForm = ({
 
   // Automatically set category to "visa-global" if service is visa and no category is selected
   useEffect(() => {
-    console.log(selectedCategory, selectedService, 'selectedService');
-    if (selectedService === 'visa' && selectedCategory && !hasService) {
-      setSelectedCategory && setSelectedCategory('visa-global');
-      form.setValue('documents.serviceType', 'visa-global');
-    }
     if (selectedService === 'passport' && selectedCategory && !hasService) {
       setSelectedCategory && setSelectedCategory('passport-global');
       form.setValue('documents.serviceType', 'passport-global');
+      return;
+    }
+    if (selectedCategory && !hasService) {
+      setSelectedCategory && setSelectedCategory('default-checklist');
+      form.setValue('documents.serviceType', 'default-checklist');
+      return;
     }
   }, [selectedCategory]);
 

@@ -1,24 +1,26 @@
 // Main schemas index file - exports all schemas and types
 import { z } from 'zod';
-import { emptySchema } from './common';
+import { emptySchema, defaultMasterChecklistSchema } from './common';
 // USA Visa
 import * as usaVisa from './usa/visa';
 // USA Passport
 import * as usaPassport from './usa/passport';
+// USA Immigration Service
+import * as usaImmigrationService from './usa/immigrationService';
 // UK Passport
 import * as ukPassport from './uk/passport';
 // India Visa
 import * as indiaVisa from './india/visa';
 // India Passport
 import * as indiaPassport from './india/passport';
-// OCI
-import * as indiaOci from './india/oci';
 // Consular
 import * as indiaConsular from './india/consular';
 // ICP
 import * as indiaIcp from './india/icp';
 // Pan Card
 import * as indiaPanCard from './india/panCard';
+// OCI
+import * as indiaOci from './india/oci';
 // China E-Visa
 import * as chinaEVsa from './china/evisa';
 // Other countries
@@ -45,15 +47,17 @@ export function extractSchemas(module: Record<string, unknown>) {
 // ---- Union ----
 export const serviceDocumentsSchemas = z.discriminatedUnion('serviceType', [
   emptySchema,
+  defaultMasterChecklistSchema,
   ...extractSchemas(usaVisa),
   ...extractSchemas(usaPassport),
+  ...extractSchemas(usaImmigrationService),
   ...extractSchemas(ukPassport),
   ...extractSchemas(indiaVisa),
   ...extractSchemas(indiaPassport),
-  ...extractSchemas(indiaOci),
   ...extractSchemas(indiaConsular),
   ...extractSchemas(indiaIcp),
   ...extractSchemas(indiaPanCard),
+  ...extractSchemas(indiaOci),
   ...extractSchemas(chinaEVsa),
   ...extractSchemas(otherVisa),
   ...extractSchemas(otherPassport),
