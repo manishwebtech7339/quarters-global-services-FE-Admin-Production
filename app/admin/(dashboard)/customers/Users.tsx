@@ -38,13 +38,6 @@ const UsersPage = ({ customersData }: UsersProps) => {
       accessor: 'firstName',
       render: (row: CustomerDataType) => (
         <div className="text-center">
-          {/* <Avatar>
-            <AvatarImage src={row.profilePicture || 'https://github.com/shadcn.png'} />
-            <AvatarFallback>
-              {row.firstName?.charAt(0)}
-              {row.lastName?.charAt(0)}
-            </AvatarFallback>
-          </Avatar> */}
           {row.firstName} {row.lastName || ''}
         </div>
       ),
