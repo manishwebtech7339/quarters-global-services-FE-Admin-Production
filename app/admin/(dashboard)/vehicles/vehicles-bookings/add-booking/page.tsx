@@ -6,7 +6,7 @@ import { getVehicleList, getDriverList } from '@/services/vehicleservice';
 import React from 'react';
 
 const page = async () => {
-  const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.tickets });
+  const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.vehicles });
   if (!access) {
     return redirect('/?access=false');
   }

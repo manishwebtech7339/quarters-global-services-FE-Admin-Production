@@ -4,7 +4,6 @@ import CommonTable from '@/components/common/CommonTable';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
 import Icon from '@/components/common/Icon';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import TabButton from '../TabButton';
@@ -13,6 +12,8 @@ import { deleteDriver } from '@/services/vehicleservice';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Paginator from '@/components/shared/paginator';
+import { Badge } from '@/components/ui/badge';
+import CommonFilters from '@/components/common/CommonFilters';
 
 // ============================
 // Main Component
@@ -61,11 +62,17 @@ const DriverManagement = ({
     {
       header: 'Phone',
       accessor: 'phone',
-      render: (row: any) => `${row.countryCode} ${row.phone}`,
     },
     {
       header: 'License Number',
       accessor: 'licenseNumber',
+    },
+    {
+      header: 'Status',
+      accessor: 'status',
+      render: (row: any) => (
+        <Badge variant="outline">{row.status === 'active' ? 'Available' : 'Not Available'}</Badge>
+      ),
     },
     {
       header: 'Action',
@@ -100,14 +107,7 @@ const DriverManagement = ({
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <TabButton />
         <div className="flex items-center gap-2">
-          <Popover>
-            <PopoverTrigger>
-              <Button variant="outline">Filter</Button>
-            </PopoverTrigger>
-            <PopoverContent className="max-w-fit" align="end">
-              <div className="flex items-center gap-2">Filter Options...</div>
-            </PopoverContent>
-          </Popover>
+          <CommonFilters showDateFilters={false} />
 
           <Button asChild>
             <Link href="/agent/vehicles/driver-management/add-driver">

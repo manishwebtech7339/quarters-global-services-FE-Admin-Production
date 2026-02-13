@@ -4,7 +4,6 @@ import CommonTable from '@/components/common/CommonTable';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
 import Icon from '@/components/common/Icon';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import TabButton from '../TabButton';
@@ -13,6 +12,9 @@ import { deleteVehicle } from '@/services/vehicleservice';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Paginator from '@/components/shared/paginator';
+import CommonFilters from '@/components/common/CommonFilters';
+import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
 
 // ============================
 // Main Component
@@ -82,16 +84,18 @@ const VehiclesManagement = ({
     {
       header: 'Insurance Expiry',
       accessor: 'insuranceExpiryDate',
-      render: (row: any) =>
-        new Date(row.insuranceExpiryDate).toLocaleDateString('en-IN', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        }),
+      render: (row: any) => format(new Date(row.insuranceExpiryDate), 'dd MMM yyyy'),
     },
     {
       header: 'Status',
       accessor: 'status',
+      render: (row: any) => {
+        return (
+          <Badge variant="outline" className="capitalize">
+            {row.status === 'active' ? 'Available' : 'Not-available'}
+          </Badge>
+        );
+      },
     },
     {
       header: 'Action',
@@ -126,14 +130,7 @@ const VehiclesManagement = ({
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <TabButton />
         <div className="flex items-center gap-2">
-          <Popover>
-            <PopoverTrigger>
-              <Button variant="outline">Filter</Button>
-            </PopoverTrigger>
-            <PopoverContent className="max-w-fit" align="end">
-              <div className="flex items-center gap-2">Filter Options...</div>
-            </PopoverContent>
-          </Popover>
+          <CommonFilters showDateFilters={false} />
 
           <Button asChild>
             <Link href="/agent/vehicles/vehicles-management/add-vehicle">

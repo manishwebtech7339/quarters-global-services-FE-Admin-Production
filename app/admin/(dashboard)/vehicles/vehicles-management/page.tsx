@@ -9,7 +9,7 @@ const page = async ({ searchParams }: { searchParams: Promise<{ page?: string; q
   const page = (await searchParams).page || '1';
   const search = (await searchParams).q || '';
 
-  const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.tickets });
+  const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.vehicles });
   if (!access) {
     return redirect('/?access=false');
   }

@@ -3,7 +3,6 @@
 import CommonTable from '@/components/common/CommonTable';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
 import Icon from '@/components/common/Icon';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ExternalLink, Plus } from 'lucide-react';
@@ -14,6 +13,8 @@ import { deleteBooking } from '@/services/vehicleservice';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Paginator from '@/components/shared/paginator';
+import { Badge } from '@/components/ui/badge';
+import { formatCurrency } from '@/lib/formatCurrency';
 
 const VehiclesBookings = ({
   bookingData,
@@ -48,22 +49,16 @@ const VehiclesBookings = ({
       accessor: '_id',
     },
     {
-      header: 'Name',
-      accessor: 'fullName',
-      render: (row: any) => (
-        <div className="flex items-center gap-2 font-medium">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt={row.fullName} />
-            <AvatarFallback>{row.fullName?.substring(0, 2).toUpperCase()}</AvatarFallback>
-          </Avatar>
-          <p>{row.fullName}</p>
-        </div>
-      ),
+      header: 'First Name',
+      accessor: 'firstName',
+    },
+    {
+      header: 'Last Name',
+      accessor: 'lastName',
     },
     {
       header: 'Phone',
       accessor: 'phone',
-      render: (row: any) => `${row.countryCode} ${row.phone}`,
     },
     {
       header: 'Email',
@@ -102,14 +97,21 @@ const VehiclesBookings = ({
     {
       header: 'Amount',
       accessor: 'amount',
+      render: (row: any) => <span>{formatCurrency({ amount: row.amount ?? 0 })}</span>,
     },
     {
       header: 'Payment Status',
       accessor: 'paymentStatus',
+      render: (row: any) => {
+        return <Badge variant="outline">{row.paymentStatus}</Badge>;
+      },
     },
     {
       header: 'Booking Status',
       accessor: 'bookingStatus',
+      render: (row: any) => {
+        return <Badge variant="outline">{row.bookingStatus}</Badge>;
+      },
     },
     {
       header: 'Action',

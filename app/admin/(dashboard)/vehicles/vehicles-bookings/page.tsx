@@ -15,7 +15,7 @@ const page = async ({
   const from = (await searchParams).from || '';
   const to = (await searchParams).to || '';
 
-  const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.tickets });
+  const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.vehicles });
   if (!access) {
     return redirect('/?access=false');
   }

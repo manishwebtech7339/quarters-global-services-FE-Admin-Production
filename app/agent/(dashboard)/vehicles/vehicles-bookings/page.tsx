@@ -5,17 +5,27 @@ import { PERMISSIONS_LIST_ENUM } from '@/hooks/useAccessControl/permissions';
 import { redirect } from 'next/navigation';
 import { getVehicleBookings } from '@/services/vehicleservice';
 
-const page = async ({ searchParams }: { searchParams: Promise<{ page?: string }> }) => {
+const page = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; q?: string; from?: string; to?: string }>;
+}) => {
   const page = (await searchParams).page || '1';
+  const q = (await searchParams).q || '';
+  const from = (await searchParams).from || '';
+  const to = (await searchParams).to || '';
 
-  const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.tickets });
+  const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.vehicles });
   if (!access) {
     return redirect('/?access=false');
   }
   const bookings = await getVehicleBookings({
     page,
+    search: q || '',
+    from: from || '',
+    to: to || '',
   });
-  console.log(bookings, 'bookings');
+  console.log(bookings, 'bookings data in page');
   return <VehiclesBookings bookingData={bookings} />;
 };
 
