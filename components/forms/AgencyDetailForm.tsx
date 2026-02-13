@@ -232,28 +232,36 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
         governmentBusinessRegistrationCertificate: {
           file: uploadedGovernmentBusinessRegistrationCertificate.file,
           fileName: uploadedGovernmentBusinessRegistrationCertificate.fileName,
+          originalname: uploadedGovernmentBusinessRegistrationCertificate.fileName,
           mimeType: uploadedGovernmentBusinessRegistrationCertificate.mimeType,
+          mimetype: uploadedGovernmentBusinessRegistrationCertificate.mimeType,
           isUsed: uploadedGovernmentBusinessRegistrationCertificate.isUsed,
         },
 
         identityProofOfRepresentative: {
           file: uploadedIdentityProofOfRepresentative.file,
           fileName: uploadedIdentityProofOfRepresentative.fileName,
+          originalname: uploadedIdentityProofOfRepresentative.fileName,
           mimeType: uploadedIdentityProofOfRepresentative.mimeType,
+          mimetype: uploadedIdentityProofOfRepresentative.mimeType,
           isUsed: uploadedIdentityProofOfRepresentative.isUsed,
         },
 
         authorizationLetter: {
           file: uploadedAuthorizationLetter.file,
           fileName: uploadedAuthorizationLetter.fileName,
+          originalname: uploadedAuthorizationLetter.fileName,
           mimeType: uploadedAuthorizationLetter.mimeType,
+          mimetype: uploadedAuthorizationLetter.mimeType,
           isUsed: uploadedAuthorizationLetter.isUsed,
         },
 
         bankStatement: {
           file: uploadedBankStatement.file,
           fileName: uploadedBankStatement.fileName,
+          originalname: uploadedBankStatement.fileName,
           mimeType: uploadedBankStatement.mimeType,
+          mimetype: uploadedBankStatement.mimeType,
           isUsed: uploadedBankStatement.isUsed,
         },
       };
