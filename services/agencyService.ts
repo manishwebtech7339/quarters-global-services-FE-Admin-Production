@@ -198,15 +198,17 @@ export const getAgenciesUsedCreditsTransitions = async ({
   page,
   from,
   to,
+  search,
 }: {
   agencyId?: string;
   page: string;
   from?: string;
   to?: string;
+  search?: string;
 }): Promise<ApiPagination & { data: AgencyDataType[] }> => {
   try {
     const response = await fetcher(
-      `/agency/credits-used-transitions?agencyId=${agencyId}&page=${page}&from=${from}&to=${to}`,
+      `/agency/credits-used-transitions?agencyId=${agencyId}&page=${page}&from=${from}&to=${to}&search=${search}`,
       {
         cache: 'no-cache',
         revalidate: 60,

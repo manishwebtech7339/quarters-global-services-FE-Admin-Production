@@ -1,8 +1,9 @@
 'use client';
 import CommonTable from '@/components/common/CommonTable';
+import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 import Paginator from '@/components/shared/paginator';
-import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
+import CommonFilters from '@/components/common/CommonFilters';
 
 const columns = [
   {
@@ -57,21 +58,29 @@ const columns = [
 const CreditHistory = ({ data, totalPages }: { data: any[]; totalPages: number }) => {
   return (
     <div className="space-y-2">
-      <Button>Credit History</Button>
       {/* Filters */}
       <div className="flex items-center justify-end gap-2">
-        {/* <CommonFilters
-          selects={[
-            {
-              name: 'status',
-              label: 'Status',
-              options: [
-                { label: 'Active', value: 'ACTIVE' },
-                { label: 'In Active', value: 'INACTIVE' },
-              ],
-            },
-          ]}
-        /> */}
+        <ExcelExportButton
+          rows={
+            data.map((e) => ({
+              Name: e.newUsed.firstName + ' ' + e.newUsed.lastName,
+              Email: e.newUsed.email,
+
+              Amount: e.amount,
+
+              'Payment Mode': e.paymentMode,
+              'Payment Status': e.paymentStatus,
+              'Payment Type': e.paymentType,
+
+              Date: e.date,
+              Time: e.time,
+
+              Applications: e.transaction.relatedApplicationIds,
+            })) || []
+          }
+          filename="payments.xlsx"
+        />
+        <CommonFilters showDateFilters={false} />
       </div>
 
       {/* Data */}

@@ -9,14 +9,16 @@ const page = async ({
     page?: string;
     from?: string;
     to?: string;
+    q?: string;
   }>;
 }) => {
-  const { page = '1', to = '', from = '' } = await searchParams;
+  const { page = '1', to = '', from = '', q = '' } = await searchParams;
 
   const agencyUsedCreditsTransitions = await getAgenciesUsedCreditsTransitions({
     page,
     from,
     to,
+    search: q,
   });
 
   return (
