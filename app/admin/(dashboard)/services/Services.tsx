@@ -118,9 +118,13 @@ const ServicesPage = ({
             confirmLabel="Delete"
             onConfirm={() => handleDeleteApplication(row.id)}
           >
-            <span className="cursor-pointer hover:opacity-70 transition-opacity">
-              <Icon name="delete" />
-            </span>
+            <button
+              type="button"
+              className="cursor-pointer hover:opacity-70 transition-opacity"
+              disabled={isDeleting}
+            >
+              {isDeleting ? <Icon name="loading" /> : <Icon name="delete" />}
+            </button>
           </DeleteConfirm>
         </div>
       ),

@@ -2,19 +2,19 @@
 import CommonTable from '@/components/common/CommonTable';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
-import { ExternalLink, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import Icon from '@/components/common/Icon';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
-import { ApiPagination, ApplicationSource, applicationSources } from '@/lib/types';
+import { ApiPagination, ApplicationSource, applicationStatuses } from '@/lib/types';
 import Paginator from '@/components/shared/paginator';
 import { deleteApplication } from '@/services/applicatonService';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { vehicleBooking_platformServiceCategoryPackageId } from '@/lib/staticIds';
+import { format } from 'date-fns';
+import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
+import CommonFilters from '@/components/common/CommonFilters';
 
 // Component
 const ServicesPage = ({
@@ -49,6 +49,19 @@ const ServicesPage = ({
       header: 'Application ID',
       accessor: 'id',
     },
+    // {
+    //   header: 'Applicant Name',
+    //   accessor: 'name',
+    //   render: (row: any) => (
+    //     <div className="flex items-center gap-2 font-medium">
+    //       <Avatar>
+    //         <AvatarImage src={row.avatar || 'https://github.com/shadcn.png'} />
+    //         <AvatarFallback>CN</AvatarFallback>
+    //       </Avatar>
+    //       <span>{row.name}</span>
+    //     </div>
+    //   ),
+    // },
     {
       header: 'Applicant Name',
       accessor: 'name',
@@ -72,6 +85,9 @@ const ServicesPage = ({
     {
       header: 'Application Date',
       accessor: 'date',
+      render: (row: any) => {
+        return <span>{row.date ? format(new Date(row.date), 'dd/MM/yyyy hh:mm a') : '-'}</span>;
+      },
     },
     {
       header: 'Status',
@@ -87,7 +103,7 @@ const ServicesPage = ({
           <Link href={`/agent/services/edit?application=${row.id}`}>
             <Icon name="edit" />
           </Link>
-          <Link href={`/agent/services/view?application=${row.id}&isView=1`}>
+          <Link href={`/agent/services/edit?application=${row.id}&isView=1`}>
             <Icon name="view" />
           </Link>
           <DeleteConfirm
@@ -124,46 +140,23 @@ const ServicesPage = ({
   return (
     <div className="space-y-4">
       {/* Top Bar */}
-      <div className="flex items-center justify-between flex-wrap gap-2">
-        {/* Tabs */}
-        <Tabs defaultValue={selectedApplicationSources}>
-          <TabsList className="bg-primary-300 text-primary-100 p-0">
-            <TabsTrigger
-              asChild
-              value={applicationSources[1]}
-              className="data-[state=active]:bg-primary-100 data-[state=active]:text-white"
-            >
-              <Link href={`/agent/services?applicationSources=${applicationSources[1]}`}>
-                Agency
-              </Link>
-            </TabsTrigger>
-            <TabsTrigger
-              asChild
-              value={vehicleBooking_platformServiceCategoryPackageId}
-              className="data-[state=active]:bg-primary-100 data-[state=active]:text-white"
-            >
-              <Link
-                href={`/agent/services?platformServiceCategoryPackageId=${vehicleBooking_platformServiceCategoryPackageId}`}
-              >
-                Vehicle Booking
-              </Link>
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-
+      <div className="flex items-center justify-end flex-wrap gap-2">
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Button>
-            <ExternalLink />
-            Export
-          </Button>
+          <ExcelExportButton
+            rows={applicationsData?.data || []}
+            filename="services-applications.xlsx"
+          />
 
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline">Filter</Button>
-            </PopoverTrigger>
-            <PopoverContent className="max-w-sm">Filter options here</PopoverContent>
-          </Popover>
+          <CommonFilters
+            selects={[
+              {
+                name: 'status',
+                label: 'Status',
+                options: applicationStatuses.map((status) => ({ label: status, value: status })),
+              },
+            ]}
+          />
 
           <Button asChild>
             <Link href="/agent/services/add-service">

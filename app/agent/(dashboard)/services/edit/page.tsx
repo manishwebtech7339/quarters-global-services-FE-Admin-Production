@@ -32,7 +32,11 @@ const page = async ({
   return (
     <div>
       <p className="py-4 text-lg font-semibold">Edit Services</p>
-      <ServiceForm defaultData={applicationData} applicationSource="AgentPortal" />
+      <ServiceForm
+        defaultData={applicationData}
+        applicationSource="AgentPortal"
+        isView={isView === '1'}
+      />
     </div>
   );
 };

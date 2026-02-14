@@ -320,7 +320,7 @@ const ServiceForm = ({
 
   return (
     <div className="p-4 border rounded-lg grid gap-4">
-      Service Type
+      Service Type {serviceType}
       <Select onValueChange={setServiceType} value={serviceType} disabled={!!defaultData}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select service type" />

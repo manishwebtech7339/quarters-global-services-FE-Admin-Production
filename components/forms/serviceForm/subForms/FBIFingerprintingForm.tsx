@@ -47,7 +47,7 @@ const formSchema = z.object({
   country: commonFieldSchema(),
   city: commonFieldSchema(),
   state: commonFieldSchema(),
-  serviceType: commonFieldSchema(),
+  serviceTypeEdition: commonFieldSchema(),
   citizenship: commonFieldSchema(),
   purpose: commonFieldSchema(),
   appointmentType: commonFieldSchema(),
@@ -81,7 +81,7 @@ const FBIFingerprintingForm = ({
       country: defaultData?.serviceFields?.country || '',
       city: defaultData?.serviceFields?.city || '',
       state: defaultData?.serviceFields?.state || '',
-      serviceType: defaultData?.serviceFields?.serviceType || '',
+      serviceTypeEdition: defaultData?.serviceFields?.serviceTypeEdition || '',
       citizenship: defaultData?.serviceFields?.citizenship || '',
       purpose: defaultData?.serviceFields?.purpose || '',
       appointmentType: defaultData?.serviceFields?.appointmentType || '',
@@ -284,7 +284,7 @@ const FBIFingerprintingForm = ({
           {/* Service Type */}
           <FormField
             control={form.control}
-            name="serviceType"
+            name="serviceTypeEdition"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Service Type</FormLabel>

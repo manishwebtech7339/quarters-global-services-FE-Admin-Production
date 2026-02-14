@@ -47,7 +47,7 @@ const formSchema = z.object({
   country: commonFieldSchema(),
   city: commonFieldSchema(),
   state: commonFieldSchema(),
-  serviceType: commonFieldSchema(),
+  serviceTypeEdition: commonFieldSchema(),
   documentCategory: commonFieldSchema(),
   countryOfUse: commonFieldSchema(),
   numberOfDocuments: commonFieldSchema(),
@@ -81,7 +81,7 @@ const ConsularServicesForm = ({
       country: defaultData?.serviceFields?.country || '',
       city: defaultData?.serviceFields?.city || '',
       state: defaultData?.serviceFields?.state || '',
-      serviceType: defaultData?.serviceFields?.serviceType || '',
+      serviceTypeEdition: defaultData?.serviceFields?.serviceTypeEdition || '',
       documentCategory: defaultData?.serviceFields?.documentCategory || '',
       countryOfUse: defaultData?.serviceFields?.countryOfUse || '',
       numberOfDocuments: defaultData?.serviceFields?.numberOfDocuments || '',
@@ -284,7 +284,7 @@ const ConsularServicesForm = ({
           {/* Service Type */}
           <FormField
             control={form.control}
-            name="serviceType"
+            name="serviceTypeEdition"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Service Type</FormLabel>

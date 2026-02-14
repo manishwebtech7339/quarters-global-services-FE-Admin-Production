@@ -38,7 +38,7 @@ const formSchema = z.object({
   country: commonFieldSchema(),
   city: commonFieldSchema(),
   state: commonFieldSchema(),
-  serviceType: commonFieldSchema(),
+  serviceTypeEdition: commonFieldSchema(),
   countryOfDestination: commonFieldSchema(),
   nationality: commonFieldSchema(),
   currentVisaStatus: commonFieldSchema(),
@@ -73,7 +73,7 @@ const ImmigrationServiceForm = ({
       country: defaultData?.serviceFields?.country || '',
       city: defaultData?.serviceFields?.city || '',
       state: defaultData?.serviceFields?.state || '',
-      serviceType: defaultData?.serviceFields?.serviceType || '',
+      serviceTypeEdition: defaultData?.serviceFields?.serviceTypeEdition || '',
       countryOfDestination: defaultData?.serviceFields?.countryOfDestination || '',
       nationality: defaultData?.serviceFields?.nationality || '',
       currentVisaStatus: defaultData?.serviceFields?.currentVisaStatus || '',
@@ -290,7 +290,7 @@ const ImmigrationServiceForm = ({
           {/* Service Type */}
           <FormField
             control={form.control}
-            name="serviceType"
+            name="serviceTypeEdition"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Service Type</FormLabel>
