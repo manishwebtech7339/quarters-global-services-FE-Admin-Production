@@ -1,26 +1,26 @@
 import React from 'react';
 import Home from './Home';
-// import { hasSession } from '@/lib/session';
-// import { redirect } from 'next/navigation';
-// import hasAccess from '@/hooks/useAccessControl/hasAccess';
-// import { PERMISSIONS_LIST_ENUM } from '@/hooks/useAccessControl/permissions';
-import { getDashboardCounts } from '@/services/dashboardService';
+import {
+  getDashboardCounts,
+  getDashboardUsage,
+  getRecentActivities,
+} from '@/services/dashboardService';
 
 const page = async () => {
-  // const session = await hasSession();
-  // if (!session?.id) {
-  //   return redirect('/');
-  // }
+  // Fetch dashboard data and recent activities in parallel
+  const [dashboardData, recentActivities, dashboardUsage] = await Promise.all([
+    getDashboardCounts(),
+    getRecentActivities(),
+    getDashboardUsage(),
+  ]);
 
-  // const access = await hasAccess({ permission: PERMISSIONS_LIST_ENUM.dashboard });
-  // if (!access) {
-  //   return redirect('/?access=false');
-  // }
-
-  // Fetch dashboard counts
-  const dashboardData = await getDashboardCounts();
-
-  return <Home dashboardData={dashboardData?.data || null} />;
+  return (
+    <Home
+      dashboardData={dashboardData?.data || null}
+      recentActivities={recentActivities}
+      dashboardUsage={dashboardUsage}
+    />
+  );
 };
 
 export default page;
