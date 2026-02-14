@@ -2,7 +2,6 @@
 import {
   LayoutDashboard,
   FileCheck2,
-  Truck,
   Car,
   CreditCard,
   Users,
@@ -15,8 +14,6 @@ const navigationItems: NavItem[] = [
 
   { name: 'Applications', href: '/agent/applications', icon: FileCheck2 },
   { name: 'Customers', href: '/agent/customers', icon: Users },
-
-  { name: 'Couriers', href: '/agent/couriers', icon: Truck },
 
   { name: 'Vehicles', href: '/agent/vehicles', icon: Car },
   { name: 'Services', href: '/agent/services', icon: Table2 },
