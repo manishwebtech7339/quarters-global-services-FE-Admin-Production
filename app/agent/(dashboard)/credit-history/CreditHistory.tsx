@@ -63,19 +63,16 @@ const CreditHistory = ({ data, totalPages }: { data: any[]; totalPages: number }
         <ExcelExportButton
           rows={
             data.map((e) => ({
-              Name: e.newUsed.firstName + ' ' + e.newUsed.lastName,
-              Email: e.newUsed.email,
+              Name: e.usedFor?.firstName + ' ' + e?.usedFor?.lastName,
+              Email: e.usedFor?.email,
 
-              Amount: e.amount,
-
-              'Payment Mode': e.paymentMode,
-              'Payment Status': e.paymentStatus,
-              'Payment Type': e.paymentType,
-
-              Date: e.date,
-              Time: e.time,
-
-              Applications: e.transaction.relatedApplicationIds,
+              Service: e.relatedApplicationIds?.[0]?.platformServiceId?.name || '-',
+              'Service Type': e.relatedApplicationIds?.[0]?.platformServiceCategoryId?.name || '-',
+              'Previous Limit': e.previousLimit,
+              'Previous Available': e.previousAvailable,
+              'Credit Used': e.amount,
+              Available: e.newAvailable,
+              Date: format(new Date(e.createdAt), 'dd-MM-yyyy hh:mm aa'),
             })) || []
           }
           filename="payments.xlsx"
