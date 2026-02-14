@@ -25,13 +25,6 @@ import { format } from 'date-fns';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { ApplicationRecipePdf } from '@/components/common/ApplicationRecipePdf';
 
-// Status color mapping
-// const statusColorMap: Record<string, 'default' | 'secondary' | 'success' | 'warning'> = {
-//   Processing: 'warning',
-//   Enquiry: 'secondary',
-//   Completed: 'success',
-// };
-
 // Component
 const ApplicationsPage = ({
   applicationsData,
@@ -42,7 +35,6 @@ const ApplicationsPage = ({
   selectedApplicationSources: ApplicationSource;
   isShippingAvailable?: string;
 }) => {
-  console.log(applicationsData, 'applicationsData');
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
 
@@ -68,19 +60,6 @@ const ApplicationsPage = ({
       header: 'Application ID',
       accessor: 'id',
     },
-    // {
-    //   header: 'Applicant Name',
-    //   accessor: 'name',
-    //   render: (row: any) => (
-    //     <div className="flex items-center gap-2 font-medium">
-    //       <Avatar>
-    //         <AvatarImage src={row.avatar || 'https://github.com/shadcn.png'} />
-    //         <AvatarFallback>CN</AvatarFallback>
-    //       </Avatar>
-    //       <span>{row.name}</span>
-    //     </div>
-    //   ),
-    // },
     {
       header: 'Applicant Name',
       accessor: 'name',

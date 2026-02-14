@@ -3,7 +3,7 @@
 import CommonTable from '@/components/common/CommonTable';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Download, Loader, Plus } from 'lucide-react';
 import Link from 'next/link';
 import Icon from '@/components/common/Icon';
 import DeleteConfirm from '@/components/common/DeleteConfirm';
@@ -16,6 +16,8 @@ import { useRouter } from 'next/navigation';
 import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
 import CommonFilters from '@/components/common/CommonFilters';
 import { format } from 'date-fns';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { ApplicationRecipePdf } from '@/components/common/ApplicationRecipePdf';
 
 // Component
 const ApplicationsPage = ({
@@ -27,7 +29,6 @@ const ApplicationsPage = ({
   // selectedApplicationSources: ApplicationSource;
   // isShippingAvailable?: string;
 }) => {
-  console.log(applicationsData, 'applicationsData');
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
 
@@ -53,19 +54,6 @@ const ApplicationsPage = ({
       header: 'Application ID',
       accessor: 'id',
     },
-    // {
-    //   header: 'Applicant Name',
-    //   accessor: 'name',
-    //   render: (row: any) => (
-    //     <div className="flex items-center gap-2 font-medium">
-    //       <Avatar>
-    //         <AvatarImage src={row.avatar || 'https://github.com/shadcn.png'} />
-    //         <AvatarFallback>CN</AvatarFallback>
-    //       </Avatar>
-    //       <span>{row.name}</span>
-    //     </div>
-    //   ),
-    // },
     {
       header: 'Applicant Name',
       accessor: 'name',
@@ -114,6 +102,33 @@ const ApplicationsPage = ({
       render: (row: any) => <Badge variant={'default'}>{row.status}</Badge>,
     },
     {
+      header: 'Recipe',
+      accessor: 'recipe',
+      className: 'text-center',
+      render: (row: any) => (
+        <div className="flex items-center justify-center">
+          <PDFDownloadLink
+            document={<ApplicationRecipePdf data={row.recipe} />}
+            fileName="application.pdf"
+          >
+            {({ loading }) =>
+              loading ? (
+                <Button size="sm" variant="ghost" disabled>
+                  {' '}
+                  <Loader className="animate-spin" />{' '}
+                </Button>
+              ) : (
+                <Button size="sm" variant="ghost">
+                  {' '}
+                  <Download size={16} />{' '}
+                </Button>
+              )
+            }
+          </PDFDownloadLink>
+        </div>
+      ),
+    },
+    {
       header: 'Action',
       accessor: 'action',
       className: 'text-center',
@@ -153,6 +168,7 @@ const ApplicationsPage = ({
     email: data.email,
     totalAmount: data?.totalAmount,
     date: data.createdAt,
+    recipe: data,
     status: data.status,
   }));
 
