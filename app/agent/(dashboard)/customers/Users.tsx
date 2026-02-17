@@ -37,21 +37,14 @@ const UsersPage = ({ customersData, currentPage }: UsersProps) => {
       header: 'Name',
       accessor: 'firstName',
       render: (row: CustomerDataType) => (
-        <div className="flex items-center gap-2 font-medium">
-          <span>
-            {row.firstName} {row.lastName || ''}
-          </span>
-        </div>
+        <span>
+          {row.firstName} {row.lastName || ''}
+        </span>
       ),
     },
     {
       header: 'Phone Number',
       accessor: 'phone',
-      render: (row: CustomerDataType) => (
-        <span>
-          {row.countryCode} {row.phone}
-        </span>
-      ),
     },
     {
       header: 'Email',
