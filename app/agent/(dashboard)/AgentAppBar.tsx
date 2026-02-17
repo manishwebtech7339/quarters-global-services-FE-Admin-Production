@@ -29,7 +29,7 @@ const navigationItems: NavItem[] = [
 ];
 
 const AgentAppBar = () => {
-  return <AppBar navigationItems={navigationItems} />;
+  return <AppBar navigationItems={navigationItems} isAgent={true} />;
 };
 
 export default AgentAppBar;

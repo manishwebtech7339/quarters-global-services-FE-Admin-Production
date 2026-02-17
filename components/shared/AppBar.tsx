@@ -13,9 +13,11 @@ import Link from 'next/link';
 const AppBar = ({
   navigationItems = [],
   sidebarLoading = false,
+  isAgent = false,
 }: {
   navigationItems: NavItem[];
   sidebarLoading?: boolean;
+  isAgent?: boolean;
 }) => {
   const { isLoading, userData } = useHasAccess();
 
@@ -84,7 +86,7 @@ const AppBar = ({
             ''
           ) : (
             <Link
-              href="/admin/profile"
+              href={isAgent ? '/agent/profile' : '/admin/profile'}
               className="flex items-center gap-3 bg-muted py-2 px-4 rounded-lg"
             >
               <Avatar className="h-8 w-8">
