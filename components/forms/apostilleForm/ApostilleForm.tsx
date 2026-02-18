@@ -351,10 +351,12 @@ const ApostilleForm = ({
   defaultValues,
   isEdit,
   isView,
+  isAgent,
 }: {
   defaultValues?: ApostilleApplicationDataType;
   isEdit?: boolean;
   isView?: boolean;
+  isAgent?: boolean;
 }) => {
   const router = useRouter();
   console.log(defaultValues, 'defaultValues');
@@ -567,7 +569,11 @@ const ApostilleForm = ({
       await createApostilleApplicaton(payload as any);
       toast.success('Apostille application created successfully');
     }
-    router.push('/admin/apostille');
+    if (isAgent) {
+      router.push('/agent/apostille');
+    } else {
+      router.push('/admin/apostille');
+    }
   });
 
   // ---
@@ -1129,7 +1135,7 @@ const ApostilleForm = ({
                 asChild
                 disabled={form.formState.isSubmitting}
               >
-                <Link href="/admin/apostille">Cancel</Link>
+                <Link href={isAgent ? '/agent/apostille' : '/admin/apostille'}>Cancel</Link>
               </Button>
               <Button type="submit" disabled={form.formState.isSubmitting}>
                 Save
@@ -1137,7 +1143,7 @@ const ApostilleForm = ({
             </>
           ) : (
             <Button type="button" variant="outline" asChild>
-              <Link href="/admin/apostille">Back</Link>
+              <Link href={isAgent ? '/agent/apostille' : '/admin/apostille'}>Back</Link>
             </Button>
           )}
         </div>

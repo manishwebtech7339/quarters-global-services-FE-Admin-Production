@@ -1,0 +1,176 @@
+'use client';
+
+import CommonTable from '@/components/common/CommonTable';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
+import Icon from '@/components/common/Icon';
+import DeleteConfirm from '@/components/common/DeleteConfirm';
+import { ApiPagination, ApostilleApplicationDataType, applicationStatuses } from '@/lib/types';
+import Paginator from '@/components/shared/paginator';
+import { deleteApplication } from '@/services/applicatonService';
+import { toast } from 'sonner';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ExcelExportButton } from '@/components/shared/ExcelExportButton';
+import CommonFilters from '@/components/common/CommonFilters';
+import { format } from 'date-fns';
+import { formatCurrency } from '@/lib/formatCurrency';
+
+// Component
+const ApostillePage = ({
+  applicationsData,
+}: {
+  applicationsData: ApiPagination & { data: ApostilleApplicationDataType[] };
+}) => {
+  const [isDeleting, setIsDeleting] = useState(false);
+  const router = useRouter();
+
+  // Delete handler function
+  const handleDeleteApplication = async (id: string) => {
+    setIsDeleting(true);
+    try {
+      await deleteApplication(id);
+      toast.success('Application deleted successfully!');
+      // Refresh the page to show updated data
+      router.refresh();
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      toast.error('Failed to delete application');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  // Table columns
+  const columns = [
+    {
+      header: 'Application ID',
+      accessor: 'id',
+    },
+    {
+      header: 'Applicant Name',
+      accessor: 'name',
+    },
+    {
+      header: 'Destination',
+      accessor: 'destination',
+    },
+    {
+      header: 'Documents',
+      accessor: 'documents',
+    },
+    {
+      header: 'Amount',
+      accessor: 'amount',
+      render: (row: any) => <span>{formatCurrency({ amount: row.amount })}</span>,
+    },
+    {
+      header: 'Phone',
+      accessor: 'phone',
+    },
+    {
+      header: 'Email',
+      accessor: 'email',
+    },
+    {
+      header: 'Created At',
+      accessor: 'date',
+      render: (row: any) => (row.date ? format(new Date(row.date), 'dd/MM/yyyy hh:mm a') : '-'),
+    },
+    {
+      header: 'Status',
+      accessor: 'status',
+      render: (row: any) => <Badge variant="default">{row.status}</Badge>,
+    },
+    {
+      header: 'Action',
+      accessor: 'action',
+      className: 'text-center',
+      render: (row: any) => (
+        <div className="flex items-center justify-center gap-2">
+          <Link
+            href={`/agent/apostille/edit?application=${row.id}&init=${JSON.stringify(row.fullData)}`}
+          >
+            <Icon name="edit" />
+          </Link>
+
+          <Link
+            href={`/agent/apostille/view?application=${row.id}&init=${JSON.stringify(row.fullData)}`}
+          >
+            <Icon name="view" />
+          </Link>
+
+          <DeleteConfirm
+            title="Delete Application"
+            description="Are you sure you want to delete this application?"
+            confirmLabel="Delete"
+            onConfirm={() => handleDeleteApplication(row.id)}
+          >
+            <span className="cursor-pointer">
+              <Icon name="delete" />
+            </span>
+          </DeleteConfirm>
+        </div>
+      ),
+    },
+  ];
+
+  // Dummy data
+  const applications = (applicationsData.data || []).map((data: ApostilleApplicationDataType) => ({
+    id: data._id,
+
+    name: `${data.customer.firstName} ${data.customer.lastName}`,
+
+    destination: data.serviceSelection.destinationCountry || '-',
+
+    documents: data.serviceSelection.documentCount || 0,
+
+    amount: data.pricing?.grandTotal || 0,
+
+    phone: `${data.customer.phone}`,
+
+    email: data.customer.email,
+
+    date: data.createdAt,
+
+    status: data.status,
+
+    fullData: data,
+  }));
+  return (
+    <div className="space-y-4">
+      {/* Top Bar */}
+      <div className="flex items-center justify-end flex-wrap gap-2">
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          <ExcelExportButton rows={applications} filename="applications.xlsx" />
+
+          <CommonFilters
+            selects={[
+              {
+                name: 'status',
+                label: 'Status',
+                options: applicationStatuses.map((status) => ({ label: status, value: status })),
+              },
+            ]}
+          />
+
+          <Button asChild>
+            <Link href="/agent/apostille/create">
+              <Plus className="mr-2 h-4 w-4" />
+              New Apostille Application
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      {/* Table */}
+      <CommonTable columns={columns} data={applications} />
+      <Paginator totalItems={applicationsData?.totalPages ?? 0} />
+    </div>
+  );
+};
+
+export default ApostillePage;

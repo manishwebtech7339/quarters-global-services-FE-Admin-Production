@@ -7,6 +7,7 @@ import {
   Users,
   Table2,
   MessageCircle,
+  DockIcon,
 } from 'lucide-react';
 import { NavItem, Sidebar } from '@/components/ui/sidebar';
 const navigationItems: NavItem[] = [
@@ -26,6 +27,11 @@ const navigationItems: NavItem[] = [
     name: 'Tax Bureau',
     href: '/agent/tax-bureau',
     icon: CreditCard,
+  },
+  {
+    name: 'Apostille',
+    href: '/agent/apostille',
+    icon: DockIcon,
   },
 ];
 
