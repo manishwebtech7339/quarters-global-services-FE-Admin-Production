@@ -91,9 +91,11 @@ const TaxBureauForm = ({
   isView,
   isEdit,
   defaultData,
+  isAgent,
 }: {
   isView?: boolean;
   isEdit?: boolean;
+  isAgent?: boolean;
   defaultData?: TaxBureauDataType;
 }) => {
   const router = useRouter();
@@ -161,7 +163,11 @@ const TaxBureauForm = ({
       }
 
       // Redirect
-      router.push('/admin/tax-bureau');
+      if (isAgent) {
+        router.push('/agent/tax-bureau');
+      } else {
+        router.push('/admin/tax-bureau');
+      }
     } catch (error: any) {
       toast.error(error.message || 'An error occurred');
       console.error(`Error ${isEdit ? 'updating' : 'creating'} tax:`, error);
@@ -760,7 +766,7 @@ const TaxBureauForm = ({
         {/* Submit */}
         <div className="flex justify-end">
           <Button disabled={loading} type="button" variant="outline" asChild>
-            <Link href="/admin/tax-bureau" className="mr-4">
+            <Link href={isAgent ? '/agent/tax-bureau' : '/admin/tax-bureau'} className="mr-4">
               Cancel
             </Link>
           </Button>

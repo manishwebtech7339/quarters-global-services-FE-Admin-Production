@@ -22,6 +22,11 @@ const navigationItems: NavItem[] = [
   { name: 'Payments', href: '/agent/payments', icon: CreditCard },
   { name: 'Credit History', href: '/agent/credit-history', icon: CreditCard },
   { name: 'Chat', href: '/agent/chat', icon: MessageCircle },
+  {
+    name: 'Tax Bureau',
+    href: '/agent/tax-bureau',
+    icon: CreditCard,
+  },
 ];
 
 const AgentSidebar = () => {
