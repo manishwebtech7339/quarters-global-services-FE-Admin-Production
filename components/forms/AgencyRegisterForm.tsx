@@ -144,7 +144,7 @@ const AgencyRegisterForm = () => {
         <FormWrapper
           control={form.control}
           name="username"
-          type="text"
+          type="email"
           placeholder="Email"
           require={true}
           cssStyles="mb-4"
