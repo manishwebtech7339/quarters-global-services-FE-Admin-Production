@@ -37,6 +37,10 @@ const AppBar = ({
         if (pathname.startsWith('/admin')) {
           setTitle(pathname.split('/')[2].replaceAll('-', ' '));
         }
+        // Agent pages
+        if (pathname.startsWith('/agent')) {
+          setTitle(pathname.split('/')[2].replaceAll('-', ' '));
+        }
       }
     }
     run();
