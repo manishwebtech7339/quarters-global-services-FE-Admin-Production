@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -38,6 +38,7 @@ import Link from 'next/link';
 import { PhoneInput2 } from '@/components/ui/PhoneInput2';
 import { format } from 'date-fns';
 import { UserTypeENUM } from '@/lib/types';
+import { Autocomplete } from '@react-google-maps/api';
 
 export const customerFormSchema = z.object({
   firstName: commonFieldSchema(),
@@ -76,6 +77,8 @@ const CustomerForm = ({
   role?: UserTypeENUM;
 }) => {
   const router = useRouter();
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const [otpUserId, setOtpUserId] = useState<string | null>(null);
   const [otpLoading, setOtpLoading] = useState(false);
@@ -365,7 +368,79 @@ const CustomerForm = ({
                 <FormItem>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Input placeholder="" {...field} />
+                    {/* <Input placeholder="" {...field} /> */}
+                    <Autocomplete
+                      onLoad={(autocomplete: any) => {
+                        autocompleteRef.current = autocomplete;
+                      }}
+                      onPlaceChanged={() => {
+                        const place = autocompleteRef.current?.getPlace();
+                        if (!place?.address_components) return;
+
+                        let addressLine = '';
+                        let city = '';
+                        let state = '';
+                        let country = '';
+                        let pincode = '';
+
+                        let streetNumber = '';
+                        let route = '';
+                        let sublocality = '';
+                        let premise = '';
+
+                        place.address_components.forEach((component) => {
+                          const types = component.types;
+
+                          if (types.includes('street_number')) {
+                            streetNumber = component.long_name;
+                          }
+
+                          if (types.includes('route')) {
+                            route = component.long_name;
+                          }
+
+                          if (
+                            types.includes('sublocality') ||
+                            types.includes('sublocality_level_1')
+                          ) {
+                            sublocality = component.long_name;
+                          }
+
+                          if (types.includes('premise')) {
+                            premise = component.long_name;
+                          }
+
+                          if (types.includes('locality')) {
+                            city = component.long_name;
+                          }
+
+                          if (types.includes('administrative_area_level_1')) {
+                            state = component.long_name;
+                          }
+
+                          if (types.includes('country')) {
+                            country = component.long_name;
+                          }
+
+                          if (types.includes('postal_code')) {
+                            pincode = component.long_name;
+                          }
+                        });
+
+                        // Build clean address line (NO city/state/pincode)
+                        addressLine = [premise, streetNumber, route, sublocality]
+                          .filter(Boolean)
+                          .join(', ');
+
+                        form.setValue('address', addressLine);
+                        form.setValue('city', city);
+                        form.setValue('state', state);
+                        form.setValue('country', country);
+                        form.setValue('pincode', pincode);
+                      }}
+                    >
+                      <Input {...field} placeholder="" disabled={isView} />
+                    </Autocomplete>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
