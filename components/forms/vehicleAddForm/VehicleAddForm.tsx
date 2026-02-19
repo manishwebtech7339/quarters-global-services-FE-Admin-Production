@@ -28,6 +28,16 @@ import { uploadFile } from '@/lib/uploadUtils';
 import { UserTypeENUM } from '@/lib/types';
 import { commonFieldSchema, documentFileSchema } from '@/lib/formSchemaFunctions';
 
+export const vehicleList = [
+  'Sedan',
+  'Mid Size SUV',
+  'Mini Van',
+  '15 Seater',
+  'Shuttle Bus',
+  'Charter Bus',
+  'Large SUV',
+] as const;
+
 const formSchema = z.object({
   vehicleName: commonFieldSchema(),
   vehicleType: commonFieldSchema(),
@@ -59,7 +69,7 @@ const VehicleAddForm = ({ isView, isEdit, vehicleData, role }: VehicleFormProps)
     resolver: zodResolver(formSchema),
     defaultValues: {
       vehicleName: vehicleData?.vehicleName || '',
-      vehicleType: vehicleData?.vehicleType || 'Car',
+      vehicleType: vehicleData?.vehicleType || vehicleList[0],
       licensePlateNumber: vehicleData?.licensePlateNumber || '',
       seatingCapacity: vehicleData?.seatingCapacity || '',
       ACorNONAC: vehicleData?.ACorNONAC || 'AC',
@@ -203,13 +213,11 @@ const VehicleAddForm = ({ isView, isEdit, vehicleData, role }: VehicleFormProps)
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Sedan">Sedan</SelectItem>
-                    <SelectItem value="Mid Size SUV">Mid Size SUV</SelectItem>
-                    <SelectItem value="Large SUV">Large SUV</SelectItem>
-                    <SelectItem value="Mini Van">Mini Van</SelectItem>
-                    <SelectItem value="15 Seater">15 Seater</SelectItem>
-                    <SelectItem value="Shuttle Bus">Shuttle Bus</SelectItem>
-                    <SelectItem value="Charter Bus">Charter Bus</SelectItem>
+                    {vehicleList.map((vehicle) => (
+                      <SelectItem key={vehicle} value={vehicle}>
+                        {vehicle}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />

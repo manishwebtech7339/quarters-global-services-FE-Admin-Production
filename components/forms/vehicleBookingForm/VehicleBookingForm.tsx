@@ -29,18 +29,8 @@ import { PhoneInput2 } from '@/components/ui/PhoneInput2';
 import { Autocomplete } from '@react-google-maps/api';
 import { addDays, format } from 'date-fns';
 import { Textarea } from '@/components/ui/textarea';
-export const vehicleList = [
-  { id: 'sedan', name: 'Sedan' },
-  { id: 'mid-suv', name: 'Mid Size SUV' },
-  { id: 'mini-van', name: 'Mini Van' },
-  { id: '15-seater', name: '15 Seater' },
-  { id: 'shuttle-bus', name: 'Shuttle Bus' },
-  { id: 'charter-bus', name: 'Charter Bus' },
-  {
-    id: 'large-suv',
-    name: 'Large SUV',
-  },
-] as const;
+import { vehicleList } from '../vehicleAddForm/VehicleAddForm';
+
 const formSchema = z.object({
   // fullName: z.string().min(1, 'Full Name is required'),
   firstName: z.string().min(1, 'First Name is required'),
@@ -330,7 +320,10 @@ const VehicleBookingForm = ({
                     placeholder=""
                     disabled={isView}
                     {...field}
-                    min={format(bookingData?.pickupDate ?? new Date(), "yyyy-MM-dd'T'HH:mm")}
+                    min={
+                      format(bookingData?.pickupDate ?? new Date(), 'yyyy-MM-dd') ||
+                      format(new Date(), 'yyyy-MM-dd')
+                    }
                   />
                 </FormControl>
                 <FormMessage />
@@ -350,9 +343,9 @@ const VehicleBookingForm = ({
                     disabled={isView}
                     {...field}
                     min={
-                      form.watch('pickupDate')
-                        ? format(addDays(form.watch('pickupDate'), 1), "yyyy-MM-dd'T'HH:mm")
-                        : ''
+                      (form.watch('pickupDate')
+                        ? format(addDays(form.watch('pickupDate'), 1), 'yyyy-MM-dd')
+                        : '') || format(new Date(), 'yyyy-MM-dd')
                     }
                   />
                 </FormControl>
@@ -405,8 +398,8 @@ const VehicleBookingForm = ({
                   </FormControl>
                   <SelectContent>
                     {vehicleList.map((vehicle) => (
-                      <SelectItem key={vehicle.id} value={vehicle.name}>
-                        {vehicle.name}
+                      <SelectItem key={vehicle} value={vehicle}>
+                        {vehicle}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -446,7 +439,7 @@ const VehicleBookingForm = ({
             control={form.control}
             name="assignedVehicle"
             label="Assigned Vehicle"
-            apiUrl={`/vehicle/list?status=active`}
+            apiUrl={`/vehicle/list?status=active&vehicleType=${form.getValues('customerSelectedVehicleInfo')}`}
             initialOptions={vehicles}
             formatLabel={(item) => `${item.vehicleName ?? ''} (${item.licensePlateNumber ?? ''})`}
           />
