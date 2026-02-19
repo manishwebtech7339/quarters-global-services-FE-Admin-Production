@@ -18,10 +18,7 @@ import { passwordSchema } from '@/lib/formSchemaFunctions';
 
 const formSchema = z
   .object({
-    username: z
-      .string()
-      .email('Invalid email')
-      .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, 'Email must be lowercase and valid'),
+    username: z.string(),
     password: passwordSchema(),
     confirmPassword: passwordSchema(),
   })
@@ -193,7 +190,7 @@ const AgencyRegisterForm = () => {
               Remember me
             </Label>
           </div>
-          <p className="font-normal text-xs md:text-sm text-primary">Forget Password?</p>
+          {/* <p className="font-normal text-xs md:text-sm text-primary">Forget Password?</p> */}
         </div>
 
         {!showOtpBox ? (
