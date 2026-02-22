@@ -138,7 +138,7 @@ export const fileValidation = z.object({
 
 // Common file schema for all document fields
 export const documentFileSchema = ({
-  MAX_FILE_SIZE = 8 * 1024 * 1024,
+  MAX_FILE_SIZE = 5 * 1024 * 1024,
   ALLOWED_EXTENSIONS,
 }: {
   MAX_FILE_SIZE?: number;

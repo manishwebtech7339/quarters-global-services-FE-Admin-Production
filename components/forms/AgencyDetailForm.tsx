@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Form,
@@ -32,6 +32,7 @@ import { safeUpload } from '@/lib/uploadUtils';
 import { toast } from 'sonner';
 import { AgencyDataType } from '@/lib/types';
 import { PhoneInput2 } from '../ui/PhoneInput2';
+import { Autocomplete } from '@react-google-maps/api';
 
 const formSchema = z.object({
   // Step 1: Agency Details
@@ -89,6 +90,8 @@ const step2Fields = [
 ];
 
 const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetailFormProps) => {
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+
   const email = useSelector((state: RootState) => state.userRegister.email);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCountry, setSelectedCountry] = useState('');
@@ -494,7 +497,21 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                   <FormItem>
                     <FormLabel>Preferred Embassy Location</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter preferred embassy location" {...field} />
+                      <Autocomplete
+                        onLoad={(autocomplete: any) => {
+                          autocompleteRef.current = autocomplete;
+                        }}
+                        onPlaceChanged={() => {
+                          const place = autocompleteRef.current?.getPlace();
+                          if (!place?.address_components) return;
+                          const fullAddress = place.formatted_address || '';
+                          field.onChange(fullAddress);
+                        }}
+                      >
+                        <Input {...field} placeholder="Enter preferred embassy location" />
+                      </Autocomplete>
+
+                      {/* <Input {...field} /> */}
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -538,7 +555,7 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                             variant="outline"
                             role="combobox"
                             aria-expanded={openCountry}
-                            className="w-full justify-between"
+                            className="w-full justify-between h-11.5"
                           >
                             {field.value
                               ? allCountries.find((country) => country.name === field.value)?.name
@@ -605,7 +622,7 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                             variant="outline"
                             role="combobox"
                             aria-expanded={openState}
-                            className="w-full justify-between"
+                            className="w-full justify-between h-11.5"
                             disabled={!selectedCountry}
                           >
                             {field.value && selectedCountry
@@ -672,7 +689,7 @@ const AgencyDetailForm = ({ setCurrentStep: parentSetCurrentStep }: AgencyDetail
                             variant="outline"
                             role="combobox"
                             aria-expanded={openCity}
-                            className="w-full justify-between"
+                            className="w-full justify-between h-11.5"
                             disabled={!selectedState}
                           >
                             {field.value ? field.value : 'Select City...'}
