@@ -287,8 +287,6 @@ const DEMO_PACKAGES = [
   },
 ];
 
-const STATES = ['Delhi', 'Maharashtra', 'Karnataka', 'Tamil Nadu'];
-
 const SCANNED_COPY_PRICE = 20;
 
 const documentSchema = z.object({
@@ -735,7 +733,7 @@ const ApostilleForm = ({
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{f}</FormLabel>
+                    <FormLabel className="capitalize">{f}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -759,7 +757,7 @@ const ApostilleForm = ({
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{f}</FormLabel>
+                    <FormLabel className="capitalize">{f}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -978,7 +976,6 @@ const ApostilleForm = ({
                       onValueChange={(pkgId) => {
                         const pkg = DEMO_PACKAGES.find((p) => p.id === pkgId);
                         if (!pkg) return;
-
                         field.onChange(pkgId);
                         form.setValue(`documents.${index}.packageName`, pkg.name);
                         form.setValue(`documents.${index}.price`, String(pkg.price));
