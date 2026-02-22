@@ -42,20 +42,20 @@ const formSchema = z.object({
   email: emailSchema(),
   businessType: commonFieldSchema(),
   authorizedRepresentativeName: commonFieldSchema(),
-  website: commonFieldSchema().optional(),
-  contactEmail: emailSchema().optional(),
+  website: commonFieldSchema().optional().or(z.literal('')),
+  contactEmail: emailSchema().optional().or(z.literal('')),
   countryCode: commonFieldSchema(),
   phone: phoneNumberSchema(),
   taxIdOrLicense: commonFieldSchema(),
-  preferredEmbassyLocation: commonFieldSchema().optional(),
-  registrationStatus: z.enum(['PENDING', 'APPROVED', 'REJECTED']).optional(), // used only for type. this will pas during creating by default
+  preferredEmbassyLocation: commonFieldSchema().optional().or(z.literal('')),
+  registrationStatus: z.enum(['PENDING', 'APPROVED', 'REJECTED']).optional().or(z.literal('')), // used only for type. this will pas during creating by default
 
   // Address
   address: z.object({
-    addressLine1: commonFieldSchema(),
-    city: commonFieldSchema(),
-    state: commonFieldSchema(),
-    zipCode: postalCodeSchema(),
+    addressLine1: commonFieldSchema().or(z.literal('')),
+    city: commonFieldSchema().or(z.literal('')),
+    state: commonFieldSchema().or(z.literal('')),
+    zipCode: postalCodeSchema().or(z.literal('')),
     country: commonFieldSchema(),
   }),
 
