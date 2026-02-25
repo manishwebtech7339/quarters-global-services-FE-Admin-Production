@@ -1014,11 +1014,21 @@ const ApostilleForm = ({
               <FormItem>
                 <FormLabel>Payment Status</FormLabel>
                 <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value}
+                    onValueChange={(e) => {
+                      if (e === 'null') {
+                        field.onChange('');
+                        return;
+                      }
+                      field.onChange(e);
+                    }}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="null">Select Status</SelectItem>
                       <SelectItem value="expired">Expired</SelectItem>
                       <SelectItem value="paid">Paid</SelectItem>
                       <SelectItem value="pending">Pending</SelectItem>
@@ -1039,11 +1049,21 @@ const ApostilleForm = ({
               <FormItem>
                 <FormLabel>Payment Mode</FormLabel>
                 <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value}
+                    onValueChange={(e) => {
+                      if (e === 'null') {
+                        field.onChange('');
+                        return;
+                      }
+                      field.onChange(e);
+                    }}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select mode" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="null">Select mode</SelectItem>
                       <SelectItem value="online">Online</SelectItem>
                       <SelectItem value="offline">Offline</SelectItem>
                       <SelectItem value="stripe">Stripe</SelectItem>
@@ -1064,11 +1084,21 @@ const ApostilleForm = ({
               <FormItem>
                 <FormLabel>Payment Type</FormLabel>
                 <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value}
+                    onValueChange={(e) => {
+                      if (e === 'null') {
+                        field.onChange('');
+                        return;
+                      }
+                      field.onChange(e);
+                    }}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select type" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="null">Select type</SelectItem>
                       <SelectItem value="card">Card</SelectItem>
                       <SelectItem value="cash">Cash</SelectItem>
                       <SelectItem value="online">Online</SelectItem>
