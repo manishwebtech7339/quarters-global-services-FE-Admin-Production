@@ -1,23 +1,29 @@
 'use client';
+
 import {
   LayoutDashboard,
-  FileCheck2,
+  FileText,
   Building2,
   Car,
-  CreditCard,
+  Wallet,
   Users,
   Headphones,
-  Table2,
+  Briefcase,
   Ticket,
   MessageCircle,
-  DockIcon,
+  Landmark,
+  Stamp,
+  GraduationCap,
+  ShieldUser,
 } from 'lucide-react';
+
 import { NavItem, Sidebar } from '@/components/ui/sidebar';
 import useHasAccess from '@/hooks/useAccessControl/useHasAccess';
 import { PERMISSIONS_LIST_ENUM } from '@/hooks/useAccessControl/permissions';
 
 const AdminSidebar = () => {
   const { hasAccess, isLoading } = useHasAccess();
+
   const navigationItems: NavItem[] = [
     {
       name: 'Dashboard',
@@ -28,7 +34,7 @@ const AdminSidebar = () => {
     {
       name: 'Users And Roles',
       href: '/admin/users-and-roles',
-      icon: Users,
+      icon: ShieldUser, // Better than Users (role control feeling)
       isVisible:
         hasAccess({ permission: PERMISSIONS_LIST_ENUM.users }) ||
         hasAccess({ permission: PERMISSIONS_LIST_ENUM.roles }),
@@ -36,7 +42,7 @@ const AdminSidebar = () => {
     {
       name: 'Applications',
       href: '/admin/applications',
-      icon: FileCheck2,
+      icon: FileText,
       isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.applications }),
     },
     {
@@ -51,18 +57,6 @@ const AdminSidebar = () => {
       icon: Building2,
       isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.agencies }),
     },
-    // {
-    //   name: 'Couriers',
-    //   href: '/admin/couriers',
-    //   icon: Truck,
-    //   isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.couriers }),
-    // },
-    // {
-    //   name: 'Documents',
-    //   href: '/admin/documents',
-    //   icon: FileText,
-    //   isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.documents }),
-    // },
     {
       name: 'Vehicles',
       href: '/admin/vehicles',
@@ -72,25 +66,19 @@ const AdminSidebar = () => {
     {
       name: 'Services',
       href: '/admin/services',
-      icon: Table2,
+      icon: Briefcase,
       isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.services }),
     },
-    // {
-    //   name: 'Receipts',
-    //   href: '/admin/receipts',
-    //   icon: ReceiptIcon,
-    //   isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.receipts }),
-    // }, // no enum? keep always visible
     {
       name: 'Payments',
       href: '/admin/payments',
-      icon: CreditCard,
+      icon: Wallet,
       isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.payments }),
     },
     {
       name: 'Training',
       href: '/admin/training',
-      icon: CreditCard,
+      icon: GraduationCap, // More meaningful
       isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.training }),
     },
     {
@@ -114,16 +102,17 @@ const AdminSidebar = () => {
     {
       name: 'Tax Bureau',
       href: '/admin/tax-bureau',
-      icon: CreditCard,
-      isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.chat }),
+      icon: Landmark, // Government related
+      isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.tax_bureau }),
     },
     {
       name: 'Apostille',
       href: '/admin/apostille',
-      icon: DockIcon,
+      icon: Stamp, // Perfect semantic match
       isVisible: hasAccess({ permission: PERMISSIONS_LIST_ENUM.apostille }),
     },
   ];
+
   const visibleItems = navigationItems.filter((item) => item.isVisible);
 
   return <Sidebar navigationItems={visibleItems} isLoading={isLoading} />;

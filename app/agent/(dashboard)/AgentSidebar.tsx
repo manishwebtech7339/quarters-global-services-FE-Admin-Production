@@ -1,38 +1,42 @@
 'use client';
 import {
   LayoutDashboard,
-  FileCheck2,
-  Car,
-  CreditCard,
+  FileText,
   Users,
-  Table2,
+  Car,
+  Briefcase,
+  ShieldCheck,
+  CreditCard,
+  Wallet,
   MessageCircle,
-  DockIcon,
+  Landmark,
+  Stamp,
 } from 'lucide-react';
+
 import { NavItem, Sidebar } from '@/components/ui/sidebar';
+
 const navigationItems: NavItem[] = [
   { name: 'Dashboard', href: '/agent/home', icon: LayoutDashboard },
 
-  { name: 'Applications', href: '/agent/applications', icon: FileCheck2 },
+  { name: 'Applications', href: '/agent/applications', icon: FileText },
+
   { name: 'Customers', href: '/agent/customers', icon: Users },
 
   { name: 'Vehicles', href: '/agent/vehicles', icon: Car },
-  { name: 'Services', href: '/agent/services', icon: Table2 },
-  { name: 'Travel Insurance', href: '/agent/travel-insurance', icon: Table2 },
 
-  { name: 'Payments', href: '/agent/payments', icon: CreditCard },
+  { name: 'Services', href: '/agent/services', icon: Briefcase },
+
+  { name: 'Travel Insurance', href: '/agent/travel-insurance', icon: ShieldCheck },
+
+  { name: 'Payments', href: '/agent/payments', icon: Wallet },
+
   { name: 'Credit History', href: '/agent/credit-history', icon: CreditCard },
+
   { name: 'Chat', href: '/agent/chat', icon: MessageCircle },
-  {
-    name: 'Tax Bureau',
-    href: '/agent/tax-bureau',
-    icon: CreditCard,
-  },
-  {
-    name: 'Apostille',
-    href: '/agent/apostille',
-    icon: DockIcon,
-  },
+
+  { name: 'Tax Bureau', href: '/agent/tax-bureau', icon: Landmark },
+
+  { name: 'Apostille', href: '/agent/apostille', icon: Stamp },
 ];
 
 const AgentSidebar = () => {
