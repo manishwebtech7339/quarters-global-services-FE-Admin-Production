@@ -93,16 +93,15 @@ const AppBar = ({
               href={isAgent ? '/agent/profile' : '/admin/profile'}
               className="flex items-center gap-3 bg-muted py-2 px-4 rounded-lg"
             >
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src={userData.profilePicture || 'https://via.placeholder.com/80'}
-                  alt={userData.firstName}
-                />
-                <AvatarFallback className="uppercase">
-                  {userData?.firstName?.charAt(0)}
-                  {userData?.lastName?.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
+              {userData.profilePicture && (
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={userData.profilePicture} alt={userData.firstName} />
+                  <AvatarFallback className="uppercase">
+                    {userData?.firstName?.charAt(0)}
+                    {userData?.lastName?.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+              )}
 
               <p className="text-base hidden sm:block">
                 {userData.firstName} {userData.lastName}

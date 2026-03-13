@@ -10,7 +10,7 @@ const columns = [
     header: 'Customer',
     accessor: 'newUsed.firstName',
     render: (row: any) => {
-      return row?.usedFor?.firstName + ' ' + row?.usedFor?.lastName;
+      return `${row?.usedFor?.firstName ?? '-'} ${row?.usedFor?.lastName ?? ''}`;
     },
   },
   {
@@ -63,9 +63,8 @@ const CreditHistory = ({ data, totalPages }: { data: any[]; totalPages: number }
         <ExcelExportButton
           rows={
             data.map((e) => ({
-              Name: e.usedFor?.firstName + ' ' + e?.usedFor?.lastName,
-              Email: e.usedFor?.email,
-
+              Name: `${e?.usedFor?.firstName ?? ''} ${e?.usedFor?.lastName ?? ''}`,
+              Email: e.usedFor?.email || '-',
               Service: e.relatedApplicationIds?.[0]?.platformServiceId?.name || '-',
               'Service Type': e.relatedApplicationIds?.[0]?.platformServiceCategoryId?.name || '-',
               'Previous Limit': e.previousLimit,
