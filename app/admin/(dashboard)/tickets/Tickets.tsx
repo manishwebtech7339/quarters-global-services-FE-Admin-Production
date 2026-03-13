@@ -25,7 +25,7 @@ const columns = [
     header: 'Customer',
     accessor: 'name',
     render: (row: any) => (
-      <span className="capitalize">{row.customer.firstName + ' ' + row.customer.lastName}</span>
+      <span className="capitalize">{row?.customer?.firstName + ' ' + row?.customer?.lastName}</span>
     ),
   },
   {
@@ -109,7 +109,6 @@ const columns = [
 ];
 
 const Tickets = ({ ticketsData }: TicketsProps) => {
-  console.log(ticketsData, 'ticketsData');
   return (
     <div className="space-y-2">
       {/* Filters */}
