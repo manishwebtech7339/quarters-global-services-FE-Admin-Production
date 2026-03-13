@@ -83,7 +83,7 @@ const Payments = ({
 }: {
   transactionsData: ApiPagination & { data: TransactionDataType[] };
 }) => {
-  const payments = transactionsData.data.map((e) => ({
+  const payments = (transactionsData.data ?? []).map((e) => ({
     name: (e.user?.firstName || '-') + ' ' + (e.user?.lastName || ''),
     email: e.user?.email || '-',
 

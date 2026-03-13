@@ -43,13 +43,13 @@ function PaymentDetailsModal({ children, transaction }: Props) {
           <div className="flex justify-between">
             <span className="font-medium text-muted-foreground">Name</span>
             <div>
-              <span>{transaction.user.firstName}</span> <span>{transaction.user.lastName}</span>
+              <span>{transaction?.user?.firstName}</span> <span>{transaction?.user?.lastName}</span>
             </div>
           </div>
 
           <div className="flex justify-between">
             <span className="font-medium text-muted-foreground">Email</span>
-            <span>{transaction.user.email}</span>
+            <span>{transaction?.user?.email}</span>
           </div>
 
           <div className="flex justify-between">
@@ -97,11 +97,11 @@ function PaymentDetailsModal({ children, transaction }: Props) {
               <CardContent className="spz-2">
                 <div className="flex justify-between">
                   <span className="font-medium text-muted-foreground">Service</span>
-                  <span>{e.application.serviceFields.service}</span>
+                  <span>{e.application?.serviceFields?.service}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-muted-foreground">Service Category</span>
-                  <span>{e.application.serviceFields.serviceType}</span>
+                  <span>{e.application?.serviceFields?.serviceType}</span>
                 </div>
               </CardContent>
             </Card>
