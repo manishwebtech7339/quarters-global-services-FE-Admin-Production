@@ -6,7 +6,7 @@ import { commonEmptyResponse } from './helper';
 import { revalidatePath } from 'next/cache';
 
 export const getUsers = async ({
-  role = UserTypeENUM.SUBADMIN,
+  role = UserTypeENUM.USER,
   page = '1',
   search = '',
   createdBy,

@@ -7,6 +7,7 @@ import { NewChatDialog } from './components/NewChatDialog';
 import { UserTypeENUM } from '@/lib/types';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
+import { getUserById } from '@/services/usersService';
 
 // Next.js Server Component
 const ChatLayout = async ({
@@ -17,8 +18,12 @@ const ChatLayout = async ({
   searchParams: Promise<{ tab?: UserTypeENUM }>;
 }) => {
   const session = await getSession();
-  4;
   if (!session) {
+    return redirect('/login');
+  }
+
+  const userData = await getUserById(session.id);
+  if (!userData) {
     return redirect('/login');
   }
 
@@ -43,7 +48,12 @@ const ChatLayout = async ({
           </TabsList>
         </Tabs>
 
-        <NewChatDialog currentUserId={session.id} role={activeTab} title="Chat with" />
+        <NewChatDialog
+          currentUserId={session.id}
+          role={activeTab}
+          currentUserRole={userData.role}
+          title="Chat with"
+        />
       </div>
       <div className="hidden lg:flex flex-col bg-background border rounded-lg overflow-hidden h-full">
         <ChatSidebar chats={chats} currentUserId={session.id} />

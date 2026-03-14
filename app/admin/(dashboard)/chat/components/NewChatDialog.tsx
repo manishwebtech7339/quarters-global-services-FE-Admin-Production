@@ -26,6 +26,7 @@ interface NewChatDialogProps {
   role: UserTypeENUM;
   title?: string;
   triggerLabel?: React.ReactNode;
+  currentUserRole: UserTypeENUM;
 }
 
 export const NewChatDialog = ({
@@ -33,6 +34,7 @@ export const NewChatDialog = ({
   role,
   title = 'New Message',
   triggerLabel,
+  currentUserRole,
 }: NewChatDialogProps) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -123,13 +125,15 @@ export const NewChatDialog = ({
       const payload = {
         userId: String(currentUserId),
         role: role,
+        currentUserRole: currentUserRole,
         from: String(currentUserId),
         to: String(selectedUser._id),
         message: 'Started a new conversation',
       };
 
+      console.log(payload, 'payload');
       const res = await sendMessage(payload);
-
+      console.log(res, 'res');
       // ROBUST ID CHECK:
       // Your backend returns the MESSAGE object. The message object has a 'chatId' field.
       // We check typical locations for the data.

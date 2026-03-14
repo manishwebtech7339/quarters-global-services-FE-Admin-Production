@@ -42,7 +42,8 @@ export interface IChatMessage {
 
 export interface ISendMessagePayload {
   userId: string; // My ID
-  role: string; // My Role
+  role: string; // Tab Role
+  currentUserRole: string; // Current User's Role
   from: string; // My ID
   to: string; // Other person's ID
   message: string;

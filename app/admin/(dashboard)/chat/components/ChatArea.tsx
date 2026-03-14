@@ -23,9 +23,16 @@ interface ChatAreaProps {
   chatDetails: IChatListItem;
   currentUserId: string; // Needed to check "isMine"
   role: string;
+  currentUserRole: string;
 }
 
-const ChatArea = ({ initialMessages, chatDetails, currentUserId, role }: ChatAreaProps) => {
+const ChatArea = ({
+  initialMessages,
+  chatDetails,
+  currentUserId,
+  role,
+  currentUserRole,
+}: ChatAreaProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [messages, setMessages] = useState<IChatMessage[]>(initialMessages);
@@ -64,6 +71,7 @@ const ChatArea = ({ initialMessages, chatDetails, currentUserId, role }: ChatAre
       const payload: ISendMessagePayload = {
         userId: currentUserId,
         role: role,
+        currentUserRole: currentUserRole,
         from: currentUserId,
         to: chatDetails.user._id,
         chatId: chatDetails._id,

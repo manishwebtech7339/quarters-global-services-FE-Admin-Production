@@ -5,6 +5,7 @@ import { getSession } from '@/lib/session';
 import { redirect } from 'next/navigation';
 import ChatLayout from '../ChatLayout';
 import { UserTypeENUM } from '@/lib/types';
+import { getUserById } from '@/services/usersService';
 
 interface PageProps {
   params: Promise<{
@@ -20,6 +21,10 @@ const ChatPage = async ({ params, searchParams }: PageProps) => {
   const session = await getSession();
 
   if (!session) {
+    return redirect('/login');
+  }
+  const userData = await getUserById(session.id);
+  if (!userData) {
     return redirect('/login');
   }
 
@@ -42,6 +47,7 @@ const ChatPage = async ({ params, searchParams }: PageProps) => {
         chatDetails={chatDetails}
         currentUserId={currentUserId}
         role={role === UserTypeENUM.USER ? UserTypeENUM.USER : UserTypeENUM.AGENT}
+        currentUserRole={userData.role}
       />
     </ChatLayout>
   );

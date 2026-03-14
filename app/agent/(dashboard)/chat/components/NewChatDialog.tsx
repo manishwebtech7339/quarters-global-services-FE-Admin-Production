@@ -26,6 +26,7 @@ interface NewChatDialogProps {
   role: UserTypeENUM;
   title?: string;
   triggerLabel?: React.ReactNode;
+  currentUserRole: UserTypeENUM;
 }
 
 export const NewChatDialog = ({
@@ -33,6 +34,7 @@ export const NewChatDialog = ({
   role,
   title = 'New Message',
   triggerLabel,
+  currentUserRole,
 }: NewChatDialogProps) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -64,8 +66,10 @@ export const NewChatDialog = ({
       const currentPage = reset ? 1 : page;
 
       try {
+        console.log(role, currentPage, currentUserId, 'role');
         const response = await getUsers({
-          role: role === UserTypeENUM.ADMIN ? ('admin,sub-admin' as UserTypeENUM.ADMIN) : role,
+          // role: role === UserTypeENUM.ADMIN ? ('admin,sub-admin' as UserTypeENUM.ADMIN) : role,
+          role: role,
           page: String(currentPage),
           search: debouncedSearch,
           createdBy: role === UserTypeENUM.USER ? currentUserId : undefined,
@@ -124,6 +128,7 @@ export const NewChatDialog = ({
       const payload = {
         userId: String(currentUserId),
         role: role === UserTypeENUM.USER ? UserTypeENUM.USER : UserTypeENUM.AGENT,
+        currentUserRole: currentUserRole,
         from: String(currentUserId),
         to: String(selectedUser._id),
         message: 'Started a new conversation',
