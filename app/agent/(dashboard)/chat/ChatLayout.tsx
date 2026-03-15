@@ -31,13 +31,13 @@ const ChatLayout = async ({
 
   // Fetch data on the server
   const { data: chats } = await getChatsList(
-    activeTab === UserTypeENUM.USER ? UserTypeENUM.USER : UserTypeENUM.ADMIN,
+    activeTab === UserTypeENUM.USER ? UserTypeENUM.USER : UserTypeENUM.AGENT,
   );
 
   return (
     <div className="h-[calc(100vh-2rem)] grid grid-cols-1 lg:grid-cols-[360px_1fr] grid-rows-[auto_1fr] gap-4">
       <div className="col-span-2 h-fit flex items-center justify-between gap-2">
-        <Tabs defaultValue={activeTab}>
+        <Tabs value={activeTab}>
           <TabsList>
             <Link href={`/agent/chat?tab=${UserTypeENUM.ADMIN}`}>
               <TabsTrigger value={UserTypeENUM.ADMIN}>Admin</TabsTrigger>
