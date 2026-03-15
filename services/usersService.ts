@@ -22,7 +22,9 @@ export const getUsers = async ({
 }): Promise<ApiPagination & { data: UserDataType[] }> => {
   try {
     const data = await fetcher(
-      `/user/get-all-user?roles=${role}&page=${page}&search=${search}&createdBy=${createdBy}&from=${from}&to=${to}`,
+      role === UserTypeENUM.ADMIN
+        ? `/user/get-admin-user`
+        : `/user/get-all-user?roles=${role}&page=${page}&search=${search}&createdBy=${createdBy}&from=${from}&to=${to}`,
       {
         cache: 'no-cache',
         revalidate: 60,

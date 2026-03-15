@@ -27,11 +27,11 @@ const ChatLayout = async ({
     return redirect('/login');
   }
 
-  const activeTab = (await searchParams).tab || UserTypeENUM.AGENT;
+  const activeTab = (await searchParams).tab || UserTypeENUM.ADMIN;
 
   // Fetch data on the server
   const { data: chats } = await getChatsList(
-    activeTab === UserTypeENUM.USER ? UserTypeENUM.USER : UserTypeENUM.AGENT,
+    activeTab === UserTypeENUM.USER ? UserTypeENUM.USER : UserTypeENUM.ADMIN,
   );
 
   return (
